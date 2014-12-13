@@ -1,0 +1,5 @@
+(define koreny (lambda (a b c) 
+                 (let*((D (-(expt b 2) (* 4 a c)))
+                        (k1 (/ (+ (- b) (sqrt D)) (* 2 a )))
+                        (k2 (/ (- (- b) (sqrt D)) (* 2 a ))))
+                     (if (> D 0) (cons k1 k2) #f))))
