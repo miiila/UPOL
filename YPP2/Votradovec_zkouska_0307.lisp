@@ -181,6 +181,7 @@
 ;;;;
 ;;Pomocne funkce pro vytvareni a
 ;;spravne napozicovanych grafickych objektu
+;;Vyuzivaji funkci random-color ze souboru omg-examples.lisp
 ;;;;
 
 (defun create-rotating-timer (wheel period center)
@@ -189,13 +190,6 @@
     (set-timer-function timer #'rotate wheel (/ Pi 4) center)
     timer))
 
-;;!!!!!!!!!!!!       
-;;DELETE !!!!!
-;;!!!!!!!!!!!!
-(defun random-color () 
-  (let ((colors (color:get-all-color-names))) 
-    (nth (random (length colors)) colors)))
-
 (defun make-circle ()
   (let ((circ (make-instance 'circle)))
     (set-radius circ 50)
@@ -203,7 +197,7 @@
     circ))
 
 (defun make-wedge-line (center length)
-  (let* ((start (make-instance 'point))
+  (let ((start (make-instance 'point))
          (end (make-instance 'point))
          (line (make-instance 'polygon)))
     (set-x start (x center))
@@ -234,17 +228,3 @@
                        '((50 50) (65 35) (35 35))))
     (set-filledp triangle t)
     triangle))
-
-(setf w (make-instance 'timer-window))
-(setf wheel (make-instance 'wheel-of-fortune))
-(setf pict (make-instance 'picture))
-(set-items pict (list wheel))
-(set-shape w pict)
-
-;(start-spin wheel)
-;(stop-spin wheel)
-
-
-
-
-  
