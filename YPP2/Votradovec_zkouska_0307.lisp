@@ -61,7 +61,7 @@
 ; Stejne tak zastaveni timeru umoznuje primo lispworks pomoci mp:unschedule-timer
 (defmethod stop-timer ((ti timer))
   (when (mp:unschedule-timer (slot-value ti 'timer))
-    (print "Timer stopped" *standard-output*)
+    (send-event ti 'ev-timer-stopped)
     (setf (slot-value ti 'timer) nil)))
 
 ;;;;;;;;;;;;;;;;;
@@ -78,11 +78,14 @@
 
 (defmethod set-timer ((tp timer-picture) timer)
   (set-delegate timer tp)
-  (add-event timer 'ev-timer-started)
+  (set-events timer '(ev-timer-started ev-timer-stopped))
   (setf (slot-value tp 'timer) timer))
 
 (defmethod ev-timer-started ((tp timer-picture) object)
   (send-event tp 'ev-change tp "Timer started"))
+
+(defmethod ev-timer-stopped ((tp timer-picture) object)
+  (send-event tp 'ev-change tp "Timer stopped"))
 
 (defmethod timer ((tp timer-picture))
   (slot-value tp 'timer))
@@ -159,7 +162,10 @@
   (call-next-method))
 
 (defmethod ev-change ((tw timer-window) sender message &rest message-args)
-  (print "Timer started from window" *standard-output*))
+  ; Jako verifikace spravneho predani zprav vypisu zpravy od instance Wheel of fortune
+  (if (typep (car message-args) 'wheel-of-fortune)
+      (print (caaddr message-args) *standard-output*))
+  (call-next-method))
 
 ;;;;
 ;;Nove metody pro tridy ze souboru 09.lisp
@@ -168,7 +174,7 @@
 ; Prazdna metoda urcena pro implemetaci potomky
 (defmethod window-destroyed ((shape shape)))
 
-; Prekryti metody pro tridy picture a preposlani zpravy vsem potomkum
+; Prekryti metody pro tridu picture a preposlani zpravy vsem potomkum
 (defmethod window-destroyed ((picture picture)) 
   (send-to-items picture #'window-destroyed))
 
