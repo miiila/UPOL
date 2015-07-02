@@ -25,6 +25,10 @@
    (timer :initform nil)
    (function-args :initform '())))
 
+(defmethod initialize-instance ((ti timer) &rest args)
+  (call-next-method)
+  (set-events ti '(ev-timer-started ev-timer-stopped)))
+
 (defmethod set-timer-function ((ti timer) function &rest args)
   (unless (functionp function)
     (error "Function must be provided."))
@@ -78,14 +82,13 @@
 
 (defmethod set-timer ((tp timer-picture) timer)
   (set-delegate timer tp)
-  (set-events timer '(ev-timer-started ev-timer-stopped))
   (setf (slot-value tp 'timer) timer))
 
 (defmethod ev-timer-started ((tp timer-picture) object)
-  (send-event tp 'ev-change tp "Timer started"))
+  (send-event tp 'ev-change tp))
 
 (defmethod ev-timer-stopped ((tp timer-picture) object)
-  (send-event tp 'ev-change tp "Timer stopped"))
+  (send-event tp 'ev-change tp))
 
 (defmethod timer ((tp timer-picture))
   (slot-value tp 'timer))
@@ -116,11 +119,18 @@
   (call-next-method)
   (let* ((circ (make-circle))
          (wedges (make-wedges 8 (center circ) (radius circ)))
-         (ratchet (make-ratchet)))
-    (set-items wf (append (list circ ratchet) wedges))
+         (ratchet (create-ratchet)))
+    (set-items wf (append (list ratchet circ) wedges))
     (rotate wf (/ Pi 8) (center circ)) ;natoceni na vysec
     (set-timer wf (create-rotating-timer wf 1 (center circ)))))
 
+; Prekryti metody rotate zajisti otaceni pouze kolem a nikoli "rucickou"
+(defmethod rotate ((wf wheel-of-fortune) angle center)
+  (mapcar
+   (lambda (item) (rotate item angle center))
+   (cdr (items wf))))
+
+; Metoda contains-point-p vrati T i pri kliknuti na obvod kola, ale nepovazuji to za problem (takto je dle meho nazoru kod prehlednejsi)
 (defmethod mouse-down ((wf wheel-of-fortune) button position)
   (when (contains-point-p wf position)
     (cond ((eql button :left) (start-spin wf))
@@ -132,21 +142,6 @@
 
 (defmethod stop-spin ((wf wheel-of-fortune))
   (stop-timer wf))
-
-;;;;;;;;;;;
-;;Ratchet;;
-;;;;;;;;;;;
-
-; Trida "rucicky" pro Kolo stesti
-; definovana separatne kvuli prekryti metody rotate, aby dochazelo pouze k rotaci kola
-(defclass ratchet (picture) ())
-
-(defmethod initialize-instance ((r ratchet) &rest args)
-  (call-next-method)
-  (set-items r (list (create-triangle))))
-
-; Prekryti funkcnosti metody rotate
-(defmethod rotate ((r ratchet) angle center))
 
 ;;;;;;;;;;;;;;;;
 ;;Timer window;;
@@ -162,9 +157,9 @@
   (call-next-method))
 
 (defmethod ev-change ((tw timer-window) sender message &rest message-args)
-  ; Jako verifikace spravneho predani zprav vypisu zpravy od instance Wheel of fortune
-  (if (typep (car message-args) 'wheel-of-fortune)
-      (print (caaddr message-args) *standard-output*))
+  ; Verifikace predani zpravy
+  (print sender *standard-output*)
+  (print "was changed")
   (call-next-method))
 
 ;;;;
@@ -217,14 +212,12 @@
                result))))
     result))
 
-(defun make-ratchet ()
-  (move (make-instance 'ratchet) 50 0))
-
-(defun create-triangle ()
+(defun create-ratchet ()
   (let ((triangle (make-instance 'polygon)))
     (set-items triangle
                (mapcar (lambda (coords)
                          (apply #'move (make-instance 'point) coords))
                        '((50 50) (65 35) (35 35))))
     (set-filledp triangle t)
+    (move triangle 50 0)
     triangle))
