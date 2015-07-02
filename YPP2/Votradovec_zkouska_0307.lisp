@@ -2,22 +2,23 @@
 ;;Timer class;;
 ;;;;;;;;;;;;;;;
 
+#|
+ Trida zapouzdrujici funkcnost timeru v prostredi LispWorks
+ Pouziti:
+  + (setf new-timer (make-instance 'timer))
+  + (set-timer-function new-timer (lambda (x) (print x) 10))
+  + (start-timer new-timer)
 
-; Trida zapouzdrujici funkcnost timeru v prostredi LispWorks
-; Pouziti:
-;  + (setf new-timer (make-instance 'timer))
-;  + (set-timer-function new-timer (lambda (x) (print x) 10))
-;  + (start-timer new-timer)
-;
-; Vychozi perioda casovace je 10 vterin
-; Je ji mozne zmenit zpravou (set-period)
-;
-; Sloty function a function-args jsou rozdeleny pro pripadne dalsi rozsireni
-;
-; Trida je potomkem mg-object kvuli moznosti napojeni na system udalosti
-;
-; Slot timer nema metody na nastaveni/ziskani, protoze jej nechci zpristupnovat,
-; ale jeho pouziti omezit pouze na zverejnene metody
+ Vychozi perioda casovace je 10 vterin
+ Je ji mozne zmenit zpravou (set-period)
+
+ Sloty function a function-args jsou rozdeleny pro pripadne dalsi rozsireni
+
+ Trida je potomkem mg-object kvuli moznosti napojeni na system udalosti
+
+ Slot timer nema metody na nastaveni/ziskani, protoze jej nechci zpristupnovat,
+ ale jeho pouziti omezit pouze na zverejnene metody
+|#
 
 (defclass timer (mg-object)
   ((timer-function :initform nil)
@@ -99,19 +100,20 @@
 (defmethod stop-timer ((tp timer-picture))
   (stop-timer (timer tp)))
 
-(defmethod window-destroyed ((tp timer-picture))
+(defmethod invoke-cleanup ((tp timer-picture))
   (stop-timer tp)
   (call-next-method))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;;Wheel of fortune;;
 ;;;;;;;;;;;;;;;;;;;;
-;
-; Ukazkova trida pro animaci s obrazkem
-; Wheel of fortune = kolo stesti (cesky)
-; Otacejici se kolo s barevnymi vysecemi pouzivane pro losovani
-; V tomto pripade ma kolo pouze barevne "loukote" (nemoznost "kreslit" oblouky vs nehezky "kruh" z trojuhelniku)
-; Roztaci se kliknutim leveho tlacitka mysi na ukazatel, zastavuje se kliknutim pravym tlacitkem
+#|
+ Ukazkova trida pro animaci s obrazkem
+ Wheel of fortune = kolo stesti (cesky)
+ Otacejici se kolo s barevnymi vysecemi pouzivane pro losovani
+ V tomto pripade ma kolo pouze barevne "loukote" (nemoznost "kreslit" oblouky vs nehezky "kruh" z trojuhelniku)
+ Roztaci se kliknutim leveho tlacitka mysi na ukazatel, zastavuje se kliknutim pravym tlacitkem
+|#
 
 (defclass wheel-of-fortune (timer-picture) ())
 
@@ -149,11 +151,14 @@
 
 (defclass timer-window (window) ())
 
+(defmethod window-destroyed ((tw timer-window))
+  (invoke-cleanup (shape tw)))
+
 (defmethod install-callbacks ((tw timer-window))
   (mg:set-callback (slot-value tw 'mg-window)
                    :destroy (lambda (mgw)
                               (declare (ignore mgw))
-                              (window-destroyed (shape tw))))
+                              (window-destroyed tw)))
   (call-next-method))
 
 (defmethod ev-change ((tw timer-window) sender message &rest message-args)
@@ -167,16 +172,16 @@
 ;;;;
 
 ; Prazdna metoda urcena pro implemetaci potomky
-(defmethod window-destroyed ((shape shape)))
+(defmethod invoke-cleanup ((shape shape)))
 
 ; Prekryti metody pro tridu picture a preposlani zpravy vsem potomkum
-(defmethod window-destroyed ((picture picture)) 
-  (send-to-items picture #'window-destroyed))
+(defmethod  invoke-cleanup ((picture picture)) 
+  (send-to-items picture #'invoke-cleanup))
 
 ;;;;
-;;Pomocne funkce pro vytvareni a
-;;spravne napozicovanych grafickych objektu
-;;Vyuzivaji funkci random-color ze souboru omg-examples.lisp
+;; Pomocne funkce pro vytvareni a
+;; spravne napozicovanych grafickych objektu
+;; Vyuzivaji funkci random-color ze souboru omg-examples.lisp
 ;;;;
 
 (defun create-rotating-timer (wheel period center)
@@ -221,3 +226,18 @@
     (set-filledp triangle t)
     (move triangle 50 0)
     triangle))
+
+;;;;;
+;; Testovaci kod
+;;;;;
+
+#|
+(setf w (make-instance 'timer-window))
+(setf wheel (make-instance 'wheel-of-fortune))
+(setf pict (make-instance 'picture))
+; Overeni funkcnosti uklidu u tridy Picture
+(set-items pict (list wheel))
+(set-shape w pict)
+; Overeni uklidu pri vlozeni instance wheel primo
+(set-shape w wheel)
+|#
