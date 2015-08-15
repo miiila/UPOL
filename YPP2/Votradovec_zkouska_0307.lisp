@@ -82,6 +82,8 @@
   (call-next-method))
 
 (defmethod set-timer ((tp timer-picture) timer)
+  (unless (typep timer 'timer)
+    (error "YOu have to provide object of class timer."))
   (set-delegate timer tp)
   (setf (slot-value tp 'timer) timer))
 
@@ -230,8 +232,10 @@
 ;;;;;
 ;; Testovaci kod
 ;;;;;
+(defun random-color () 
+  (let ((colors (color:get-all-color-names))) 
+    (nth (random (length colors)) colors)))
 
-#|
 (setf w (make-instance 'timer-window))
 (setf wheel (make-instance 'wheel-of-fortune))
 (setf pict (make-instance 'picture))
@@ -239,5 +243,5 @@
 (set-items pict (list wheel))
 (set-shape w pict)
 ; Overeni uklidu pri vlozeni instance wheel primo
-(set-shape w wheel)
-|#
+;(set-shape w wheel)
+
