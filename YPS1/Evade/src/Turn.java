@@ -3,23 +3,23 @@
  */
 public class Turn {
 
-    private int[] from;
-    private int[] to;
+    private Position from;
+    private Position to;
 
-    public int[] getTo() {
+    public Position getTo() {
         return to;
     }
 
-    public void setTo(int[] to) {
+    public void setTo(Position to) {
         this.to = to;
     }
 
-    public int[] getFrom() {
+    public Position getFrom() {
 
         return from;
     }
 
-    public void setFrom(int[] from) {
+    public void setFrom(Position from) {
         this.from = from;
     }
 }

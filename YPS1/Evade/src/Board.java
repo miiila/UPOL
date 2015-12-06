@@ -23,11 +23,21 @@ public class Board {
     }
 
     public void makeTurn(Turn turn) {
-        int [] from = turn.getFrom();
-        int i = this.board[from[0]][from[1]];
-        this.board[from[0]][from[1]] = 0;
-        int [] to = turn.getTo();
-        this.board[to[0]][to[1]] = i;
+        Position from = turn.getFrom();
+        int i = this.getPositionValue(from);
+        this.setPositionValue(from, 0);
+        Position to = turn.getTo();
+        this.setPositionValue(to,i);
+    }
+
+    public int getPositionValue(Position position) {
+        //Classical problem - humans are indexing by [x,y], arrays are [y,x]
+        return this.board[position.getRow()][position.getColumn()];
+    }
+
+    public void setPositionValue(Position position, int value) {
+        //Classical problem - humans are indexing by [x,y], arrays are [y,x]
+        this.board[position.getRow()][position.getColumn()] = value;
     }
 
     public int[][] undoTurn() {

@@ -4,6 +4,7 @@
 public abstract class Player {
 
     private int level;
+    private int sign;
 
     public abstract Turn getTurn();
 
@@ -15,5 +16,11 @@ public abstract class Player {
         this.level = level;
     }
 
+    public void setSign(int sign) {
+        this.sign = sign;
+    }
 
+    public int getSign() {
+        return sign;
+    }
 }

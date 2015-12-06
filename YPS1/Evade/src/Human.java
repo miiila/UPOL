@@ -36,10 +36,14 @@ public class Human extends Player {
                 && turnString.charAt(1) >= '1' && turnString.charAt(1) <= '6'
                 && turnString.charAt(3) >= '1' && turnString.charAt(3) <= '6') {
             Turn turn = new Turn();
-            int[] from = {turnString.charAt(0) - 'a', turnString.charAt(1) - '1'};
-            int[] to = {turnString.charAt(2) - 'a', turnString.charAt(3) - '1'};
-            turn.setFrom(from);
-            turn.setTo(to);
+            Position positionFrom = new Position();
+            positionFrom.setColumn(turnString.charAt(0) - 'a');
+            positionFrom.setRow(turnString.charAt(1) - '1');
+            Position positionTo = new Position();
+            positionTo.setColumn(turnString.charAt(2) - 'a');
+            positionTo.setRow(turnString.charAt(3) - '1');
+            turn.setFrom(positionFrom);
+            turn.setTo(positionTo);
             return turn;
         }
         else {
