@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by miiila on 15/11/15.
  */
@@ -6,7 +8,7 @@ public abstract class Player {
     private int level;
     private int sign;
 
-    public abstract Turn getTurn();
+    public abstract Turn getTurn(ArrayList<Turn> possibleTurns);
 
     public int getLevel() {
         return level;

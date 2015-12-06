@@ -6,8 +6,13 @@ public class Position {
     private int column;
     private int row;
 
+    public Position(int column, int row) {
+        this.row = row;
+        this.column = column;
+    }
+
     public int getRow() {
-        return row;
+        return this.row;
     }
 
     public void setRow(int row) {
@@ -15,7 +20,7 @@ public class Position {
     }
 
     public int getColumn() {
-        return column;
+        return this.column;
     }
 
     public void setColumn(int column) {

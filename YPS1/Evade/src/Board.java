@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Created by miiila on 15/11/15.
  */
@@ -5,6 +8,15 @@ public class Board {
 
     private int[][] board;
     private int[] history;
+
+    public static final int WHITE = 3;
+    public static final int WHITE_KING = 30;
+    public static final int BLACK = 7;
+    public static final int BLACK_KING = 70;
+    public static final int EMPTY = 0;
+
+    private int iterableRows = 0;
+    private int iterableCols = 0;
 
     public int[][] getBoard() {
         return this.board;
@@ -20,6 +32,26 @@ public class Board {
 
     public void setHistory(int[] history) {
         this.history = history;
+    }
+
+    public void setupNewBoard() {
+        this.board = new int [6][6];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                int val = this.EMPTY;
+                if (i == 0) {
+                    val = this.WHITE;
+                }
+                else if (i == 5) {
+                    val = this.BLACK;
+                }
+                if (j == 2 || j == 3) {
+                    val *= 10;
+                }
+
+                this.board[i][j] = val;
+            }
+        }
     }
 
     public void makeTurn(Turn turn) {

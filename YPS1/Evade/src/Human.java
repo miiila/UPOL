@@ -5,11 +5,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Human extends Player {
 
     @Override
-    public Turn getTurn() {
+    public Turn getTurn(ArrayList<Turn> possibleTurns) {
         String input = "";
 
         try {
@@ -36,12 +37,8 @@ public class Human extends Player {
                 && turnString.charAt(1) >= '1' && turnString.charAt(1) <= '6'
                 && turnString.charAt(3) >= '1' && turnString.charAt(3) <= '6') {
             Turn turn = new Turn();
-            Position positionFrom = new Position();
-            positionFrom.setColumn(turnString.charAt(0) - 'a');
-            positionFrom.setRow(turnString.charAt(1) - '1');
-            Position positionTo = new Position();
-            positionTo.setColumn(turnString.charAt(2) - 'a');
-            positionTo.setRow(turnString.charAt(3) - '1');
+            Position positionFrom = new Position(turnString.charAt(0) - 'a',turnString.charAt(1) - '1');
+            Position positionTo = new Position( turnString.charAt(2) - 'a', turnString.charAt(3) - '1');
             turn.setFrom(positionFrom);
             turn.setTo(positionTo);
             return turn;

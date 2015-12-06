@@ -18,31 +18,15 @@ public class Evade implements Observer {
         gameManager.addObserver(evade);
         Player player1 = new Human();
         player1.setSign(3);
-        Player player2 = new Human();
+        Player player2 = new Computer();
         player2.setSign(7);
 
         Player[] players = {player1, player2};
         gameManager.setPlayers(players);
-        int[][] boardArray = new int [6][6];
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                int val = 0;
-                if (i == 0) {
-                    val = 3;
-                }
-                else if (i == 5) {
-                    val = 7;
-                }
-                if (j == 2 || j == 3) {
-                    val *= 10;
-                }
 
-                boardArray[i][j] = val;
-            }
-        }
 
         Board board = new Board();
-        board.setBoard(boardArray);
+        board.setupNewBoard();
 
         gameManager.startGame(board);
     }
@@ -61,16 +45,16 @@ public class Evade implements Observer {
             for (int j = 0; j < 6; j++) {
                 int val = boardArray[i][j];
                 switch (val) {
-                    case 3:
+                    case Board.WHITE:
                         val = 'x';
                         break;
-                    case 7:
+                    case Board.BLACK:
                         val = 'y';
                         break;
-                    case 30:
+                    case Board.WHITE_KING:
                         val = 'X';
                         break;
-                    case 70:
+                    case Board.BLACK_KING:
                         val = 'Y';
                         break;
                     default:
