@@ -16,9 +16,9 @@ public class Evade implements Observer {
 
         GameManager gameManager = new GameManager();
         gameManager.addObserver(evade);
-        Player player1 = new Human();
+        Player player1 = new Human(gameManager);
         player1.setSign(3);
-        Player player2 = new Computer();
+        Player player2 = new Computer(gameManager);
         player2.setSign(7);
 
         Player[] players = {player1, player2};

@@ -7,8 +7,14 @@ public abstract class Player {
 
     private int level;
     private int sign;
+    //For properly obtaining of valid turns, gameManager reference is needed
+    protected GameManager gameManager;
 
-    public abstract Turn getTurn(ArrayList<Turn> possibleTurns);
+    public Player (GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
+    public abstract Turn getTurn(Board board);
 
     public int getLevel() {
         return level;
@@ -24,5 +30,9 @@ public abstract class Player {
 
     public int getSign() {
         return sign;
+    }
+
+    public ArrayList<Turn> getNextTurns() {
+        return this.gameManager.getValidTurnsForCurrentPlayer();
     }
 }

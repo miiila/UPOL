@@ -9,8 +9,12 @@ import java.util.ArrayList;
 
 public class Human extends Player {
 
+    public Human (GameManager gameManager) {
+        super(gameManager);
+    }
+
     @Override
-    public Turn getTurn(ArrayList<Turn> possibleTurns) {
+    public Turn getTurn(Board board) {
         String input = "";
 
         try {

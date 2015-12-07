@@ -5,9 +5,12 @@ import java.util.ArrayList;
  */
 public class Computer extends Player {
 
+    public Computer (GameManager gameManager) {
+        super(gameManager);
+    }
+
     @Override
-    public Turn getTurn(ArrayList <Turn> validTurns) {
-        System.out.println(validTurns.size());
-        return validTurns.get((int) (Math.random() * validTurns.size()));
+    public Turn getTurn(Board board) {
+        return AI.getBestTurn(board, this);
     }
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -29,7 +30,8 @@ public class GameManager extends Observable implements Runnable{
     public void run() {
         while (true) {
             this.refreshBoard();
-            Turn turn = players[this.playerOnTurn].getTurn(this.referee.getValidTurnsForPlayer(players[this.playerOnTurn]));
+            Turn turn = players[this.playerOnTurn].
+                    getTurn(this.board);
             if(referee.validateTurn(turn, players[this.playerOnTurn])) {
                 this.board.makeTurn(turn);
                 // Bitwise XOR for setting on turn player: 0^1 = 1, 1^1 = 0
@@ -41,8 +43,13 @@ public class GameManager extends Observable implements Runnable{
         }
     }
 
+    public ArrayList<Turn> getValidTurnsForCurrentPlayer() {
+        return this.referee.getValidTurnsForPlayer(players[this.playerOnTurn]);
+    }
+
     private void refreshBoard() {
         this.setChanged();
         this.notifyObservers(this.board);
     }
+
 }
