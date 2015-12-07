@@ -36,6 +36,7 @@ public class GameManager extends Observable implements Runnable{
                 this.board.makeTurn(turn);
                 // Bitwise XOR for setting on turn player: 0^1 = 1, 1^1 = 0
                 this.playerOnTurn = this.playerOnTurn ^ 1;
+                System.out.println("------------------");
             }
             else {
                 System.out.println("Invalid turn!");

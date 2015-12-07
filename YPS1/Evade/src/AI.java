@@ -18,7 +18,7 @@ public class AI {
             Board newBoard = new Board();
             newBoard.setBoard(board.getBoardCopy());
             newBoard.makeTurn(possibleTurn);
-            int result = Math.max(bestResult, -minimax(newBoard, 4));
+            int result = Math.max(bestResult, -minimax(newBoard, 3));
 
             if (result > bestResult){
                 bestResult = result;
@@ -35,7 +35,7 @@ public class AI {
 
         if (depth == 0) {
             //Heuristic evaluating function
-            return (int) Math.random()*100;
+            return (int) (Math.random()*100);
         }
         else {
             ArrayList<Turn> possibleTurns = player.getNextTurns();
@@ -43,12 +43,12 @@ public class AI {
 
             for(Turn possibleTurn : possibleTurns) {
                 Board newBoard = new Board();
-                newBoard.setBoard(board.getBoard());
+                newBoard.setBoard(board.getBoardCopy());
                 newBoard.makeTurn(possibleTurn);
                 result = Math.max(result, -minimax(newBoard, depth-1));
             }
-        }
 
-        return result;
+            return result;
+        }
     }
 }
