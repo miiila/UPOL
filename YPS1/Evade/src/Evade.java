@@ -17,9 +17,9 @@ public class Evade implements Observer {
         GameManager gameManager = new GameManager();
         gameManager.addObserver(evade);
         Player player1 = new Human(gameManager);
-        player1.setSign(3);
+        player1.setSign(Board.WHITE);
         Player player2 = new Computer(gameManager);
-        player2.setSign(7);
+        player2.setSign(Board.BLACK);
 
         Player[] players = {player1, player2};
         gameManager.setPlayers(players);
@@ -56,6 +56,12 @@ public class Evade implements Observer {
                         break;
                     case Board.BLACK_KING:
                         val = 'Y';
+                        break;
+                    case Board.FROZEN_KING:
+                        val = 'Z';
+                        break;
+                    case Board.FROZEN:
+                        val = 'z';
                         break;
                     default:
                         val = '0';

@@ -35,6 +35,7 @@ public class Human extends Player {
 
     private Turn parseTurn (String turnString) {
 
+        //@TODO: Just parse it here, don't verify it
         if (turnString.length() == 4
                 && turnString.charAt(0) >= 'a' && turnString.charAt(0) <= 'f'
                 && turnString.charAt(2) >= 'a' && turnString.charAt(2) <= 'f'

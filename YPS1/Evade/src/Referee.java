@@ -7,6 +7,9 @@ public class Referee {
 
     private Board board;
 
+    private static int BLACK_WIN_LINE = 0;
+    private static int WHITE_WIN_LINE = 5;
+
     public Referee(Board board) {
         this.board = board;
     }
@@ -15,6 +18,7 @@ public class Referee {
         Position from = turn.getFrom();
         Position to = turn.getTo();
 
+        // Make turns on board only
         if (!isOnBoard(from) || !isOnBoard(to)) {
             return false;
         }
@@ -23,6 +27,7 @@ public class Referee {
             return false;
         }
 
+        // Don't go to the original position
         int columnDiff = from.getColumn() - to.getColumn();
         if (Math.abs(columnDiff) > 1 ) {
             return false;
@@ -37,18 +42,25 @@ public class Referee {
             return false;
         }
 
-        //TEMP!!!!
-        if(board.getPositionValue(from) == 0) {
+        //Do not move frozen pieces
+        if((board.getPositionValue(from) & Board.FROZEN) == Board.FROZEN) {
             return false;
         }
 
-        if(board.getPositionValue(from) % player.getSign() != 0) {
+        //Move only own pieces
+        if((board.getPositionValue(from) & player.getSign()) == 0) {
             return false;
         }
-//
-//        if(board.getPositionValue(to) % player.getSign() == 0) {
-//            return false;
-//        }
+
+        //Don't freeze your own piece
+        if((board.getPositionValue(to) & player.getSign()) > 0) {
+            return false;
+        }
+
+        //Don't let king freeze anybody
+        if (((board.getPositionValue(from) & Board.KING) > 0) && (board.getPositionValue(to) != Board.EMPTY)) {
+            return false;
+        }
 
         return true;
     }
@@ -73,6 +85,28 @@ public class Referee {
         }
 
         return validTurns;
+    }
+
+    public boolean checkLoose(Player player) {
+        //If player cannot move, he lose
+        if (getValidTurnsForPlayer(player).size() == 0) {
+            return true;
+        }
+
+        //If opponents king is on the winning side, current player loses
+        int [][] board = this.board.getBoard();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                int piece = board[i][j];
+                if(((piece & Board.KING) > 0)) {
+                    if (((piece & Board.WHITE) > 0 && i == WHITE_WIN_LINE) || ((piece & Board.BLACK) > 0 && i == BLACK_WIN_LINE)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     private boolean isOnBoard(Position position) {

@@ -9,10 +9,13 @@ public class Board {
     private int[][] board;
     private int[] history;
 
-    public static final int WHITE = 3;
-    public static final int WHITE_KING = 30;
-    public static final int BLACK = 7;
-    public static final int BLACK_KING = 70;
+    public static final int WHITE = 1;
+    public static final int BLACK = 2;
+    public static final int FROZEN = 3;
+    public static final int KING = 4;
+    public static final int WHITE_KING = 5;
+    public static final int BLACK_KING = 6;
+    public static final int FROZEN_KING= 7;
     public static final int EMPTY = 0;
 
     private int iterableRows = 0;
@@ -38,17 +41,22 @@ public class Board {
         this.board = new int [6][6];
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                int val = this.EMPTY;
+                int val;
                 if (i == 0) {
                     val = this.WHITE;
+                    if (j == 2 || j == 3) {
+                        val = this.KING | this.WHITE ;
+                    }
                 }
                 else if (i == 5) {
                     val = this.BLACK;
+                    if (j == 2 || j == 3) {
+                        val = this.KING | this.BLACK;
+                    }
                 }
-                if (j == 2 || j == 3) {
-                    val *= 10;
+                else {
+                    val = this.EMPTY;
                 }
-
                 this.board[i][j] = val;
             }
         }
@@ -57,9 +65,10 @@ public class Board {
     public void makeTurn(Turn turn) {
         Position from = turn.getFrom();
         int i = this.getPositionValue(from);
-        this.setPositionValue(from, 0);
+        this.setPositionValue(from, this.EMPTY);
         Position to = turn.getTo();
-        this.setPositionValue(to,i);
+        int positionToValue = this.getPositionValue(to);
+        this.setPositionValue(to, positionToValue | i);
     }
 
     public int getPositionValue(Position position) {
