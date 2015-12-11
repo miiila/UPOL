@@ -30,12 +30,20 @@ public class GameManager extends Observable implements Runnable{
     public void run() {
         while (true) {
             this.refreshBoard();
+            Turn turn = new Turn();
+            boolean badTurn = false;
             if (this.referee.checkLoose(players[this.playerOnTurn])) {
-                System.out.printf("Player %d won the game!", this.playerOnTurn ^ 1);
+                System.out.printf("Player %d won the game!\n", this.playerOnTurn ^ 1);
                 break;
             }
-            Turn turn = players[this.playerOnTurn].getTurn(this.board);
-            if(this.referee.validateTurn(turn, players[this.playerOnTurn])) {
+            try {
+                 turn = players[this.playerOnTurn].getTurn(this.board);
+            }
+            catch (Exception e) {
+                badTurn = true;
+                System.out.println("Bad turn format!");
+            }
+            if(!badTurn && this.referee.validateTurn(turn, players[this.playerOnTurn])) {
                 this.board.makeTurn(turn);
                 // Bitwise XOR for setting on turn player: 0^1 = 1, 1^1 = 0
                 this.playerOnTurn = this.playerOnTurn ^ 1;

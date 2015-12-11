@@ -14,7 +14,7 @@ public class Human extends Player {
     }
 
     @Override
-    public Turn getTurn(Board board) {
+    public Turn getTurn(Board board) throws Exception {
         String input = "";
 
         try {
@@ -27,13 +27,12 @@ public class Human extends Player {
             System.out.println("Error reading from user");
         }
 
-//@TODO: Exception!!!!
         return this.parseTurn(input);
 
     }
 
 
-    private Turn parseTurn (String turnString) {
+    private Turn parseTurn (String turnString) throws Exception{
 
         //@TODO: Just parse it here, don't verify it
         if (turnString.length() == 4
@@ -49,8 +48,7 @@ public class Human extends Player {
             return turn;
         }
         else {
-            System.out.println("Bad turn format!");
-            return new Turn();
+            throw new Exception();
         }
 
     }

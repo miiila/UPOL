@@ -10,7 +10,7 @@ public class Computer extends Player {
     }
 
     @Override
-    public Turn getTurn(Board board) {
+    public Turn getTurn(Board board) throws Exception {
         return AI.getBestTurn(board, this);
     }
 }

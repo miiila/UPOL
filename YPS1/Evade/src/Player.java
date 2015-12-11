@@ -14,7 +14,7 @@ public abstract class Player {
         this.gameManager = gameManager;
     }
 
-    public abstract Turn getTurn(Board board);
+    public abstract Turn getTurn(Board board) throws Exception;
 
     public int getLevel() {
         return level;
