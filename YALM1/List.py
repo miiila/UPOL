@@ -30,6 +30,21 @@ def ListSearch(list, needle):
 
     return node
 
+def ListDelete(list, value):
+    if list.head == None:
+        return False
+    if list.head.value == value:
+        list.head = list.head.next
+    x = list.head
+    while True:
+        y = x.next
+        if y == None:
+            return False
+        if y.value == value:
+            x.next = y.next
+            return True
+        x = x.next
+
 ################################
 list = List()
 
@@ -43,3 +58,7 @@ ListPrint(list)
 print(ListSearch(list, 23))
 
 print(ListSearch(list, 7))
+
+print(ListDelete(list, 9))
+
+ListPrint(list)
