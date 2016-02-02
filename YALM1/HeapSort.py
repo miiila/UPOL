@@ -15,13 +15,12 @@ def BuildMaxHeap(array, k):
         MaxHeapify(array, i, k)
 
 def MaxHeapify(array, i, k):
-    largest = i
     left = 2*i+1
     right = 2*i+2
     if left <= k and array[left] > array[i]:
         largest = left
     else:
-        larget = i # Redundant as it's done on row 18, but necessary for correct Python implementation
+        largest = i
     if right <= k and array[right] > array[largest]:
         largest = right
     if largest != i:
