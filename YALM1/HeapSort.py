@@ -11,7 +11,7 @@ def Heapsort(array, len):
         MaxHeapify(array, 0, k)
 
 def BuildMaxHeap(array, k):
-    for i in range(int(k/2), 0, -1):
+    for i in range(int(k/2), -1, -1):
         MaxHeapify(array, i, k)
 
 def MaxHeapify(array, i, k):
@@ -27,6 +27,6 @@ def MaxHeapify(array, i, k):
         array[i], array[largest] = array[largest], array[i]
         MaxHeapify(array, largest, k)
 
-Heapsort(array, 8)
+Heapsort(array, 9)
 
 print(array)
