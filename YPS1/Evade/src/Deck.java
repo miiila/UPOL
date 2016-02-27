@@ -1,9 +1,15 @@
+import java.util.Collection;
+import java.util.LinkedList;
+
 /**
  * Created by miiila on 27/02/16.
  */
 public class Deck implements Cloneable{
 
     private int[][] deck;
+    // Because of cloning, singletons sounds better
+    private static Collection<Turn> possibleTurns = new LinkedList<Turn>();
+    private static Collection<Position> possiblePositions = new LinkedList<Position>();
 
     public static final int WHITE = 1;
     public static final int BLACK = 2;
@@ -32,6 +38,18 @@ public class Deck implements Cloneable{
         this.setPositionValue(position, this.EMPTY);
     }
 
+    //TODO: Hopefully refactor in order to don't expose deck at all
+    public int[][] getDeck() {
+        return this.deck;
+    }
+
+    public Collection<Turn> getPossibleTurns() {
+        if (Deck.possibleTurns.isEmpty()) {
+            this.createCollectionOfTurns();
+        }
+        return Deck.possibleTurns;
+    }
+
     public Deck clone() {
         Deck deckClone = new Deck();
 
@@ -42,9 +60,31 @@ public class Deck implements Cloneable{
         return deckClone;
     }
 
-    //TODO: Hopefully refactor in order to don't expose deck at all
-    public int[][] getDeck() {
-        return this.deck;
+    public Collection<Position> getPossiblePositions() {
+        if (Deck.possiblePositions.isEmpty()) {
+            for (int i = 0; i < deck.length; i++) {
+                for (int j = 0; j < deck[i].length; j++) {
+                    Deck.possiblePositions.add(new Position(j, i));
+                }
+            }
+        }
+
+        return Deck.possiblePositions;
+    }
+
+    private void createCollectionOfTurns() {
+        for (int i = 0; i < deck.length; i++) {
+            for (int j = 0; j < deck[i].length; j++) {
+                for(int k = i-1; k < i+2; k++) {
+                    for (int l = j-1;l < j+2; l++ ) {
+                        Turn turn = new Turn();
+                        turn.setFrom(new Position(j,i));
+                        turn.setTo(new Position(l,k));
+                        Deck.possibleTurns.add(turn);
+                    }
+                }
+            }
+        }
     }
 
     private void createNewDeck(){

@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 /**
  * Created by miiila on 15/11/15.
  */
@@ -39,6 +41,10 @@ public class Board implements Cloneable {
 //
 //        return this.deck;
 //    }
+
+    public Collection<Turn> getPossibleTurns() {
+        return this.deck.getPossibleTurns();
+    }
 
     public Board clone() {
         Board newBoard = new Board();

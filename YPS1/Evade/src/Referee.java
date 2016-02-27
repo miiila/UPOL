@@ -31,20 +31,10 @@ public class Referee {
 
     public List<Turn> getValidTurnsForPlayer(Player player) {
         List<Turn> validTurns = new ArrayList();
-        int [][] board = this.board.getDeck().getDeck();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                for(int k = i-1; k < i+2; k++) {
-                    for (int l = j-1;l < j+2; l++ ) {
-                        Turn turn = new Turn();
-                        turn.setFrom(new Position(j,i));
-                        turn.setTo(new Position(l,k));
-                        if (this.validateTurn(turn, player)) {
-                            validTurns.add(turn);
-                        }
-                    }
-                }
 
+        for(Turn turn : this.board.getPossibleTurns()) {
+            if (this.validateTurn(turn, player)) {
+                validTurns.add(turn);
             }
         }
 
@@ -52,21 +42,19 @@ public class Referee {
     }
 
     public boolean checkLoose(Player player) {
-        //If player cannot move, he lose
-        if (getValidTurnsForPlayer(player).isEmpty()) {
+        //If player cannot move, he loses
+        if (this.getValidTurnsForPlayer(player).isEmpty()) {
             return true;
         }
 
         //If opponents king is on the winning side, current player loses
         //FIXME: Frozen king is handled as a winning position
-        int [][] board = this.board.getDeck().getDeck();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                int piece = board[i][j];
-                if(((piece & Deck.KING) > 0)) {
-                    if (((piece & Deck.WHITE) > 0 && i == WHITE_WIN_LINE) || ((piece & Deck.BLACK) > 0 && i == BLACK_WIN_LINE)) {
-                        return true;
-                    }
+        Deck deck = this.board.getDeck();
+        for (Position position : deck.getPossiblePositions()){
+            int piece = deck.getPositionValue(position);
+            if(((piece & Deck.KING) > 0)) {
+                if (((piece & Deck.WHITE) > 0 && position.getRow() == WHITE_WIN_LINE) || ((piece & Deck.BLACK) > 0 && position.getRow() == BLACK_WIN_LINE)) {
+                    return true;
                 }
             }
         }
