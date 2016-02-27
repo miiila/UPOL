@@ -43,22 +43,23 @@ public class Referee {
         }
 
         //Do not move frozen pieces
-        if((board.getPositionValue(from) & Board.FROZEN) == Board.FROZEN) {
+        Deck deck = board.getDeck();
+        if((deck.getPositionValue(from) & Deck.FROZEN) == Deck.FROZEN) {
             return false;
         }
 
         //Move only own pieces
-        if((board.getPositionValue(from) & player.getSign()) == 0) {
+        if((deck.getPositionValue(from) & player.getSign()) == 0) {
             return false;
         }
 
         //Don't freeze your own piece
-        if((board.getPositionValue(to) & player.getSign()) > 0) {
+        if((deck.getPositionValue(to) & player.getSign()) > 0) {
             return false;
         }
 
         //Don't let king freeze anybody
-        if (((board.getPositionValue(from) & Board.KING) > 0) && (board.getPositionValue(to) != Board.EMPTY)) {
+        if (((deck.getPositionValue(from) & Deck.KING) > 0) && (deck.getPositionValue(to) != Deck.EMPTY)) {
             return false;
         }
 
@@ -67,7 +68,7 @@ public class Referee {
 
     public ArrayList <Turn> getValidTurnsForPlayer(Player player) {
         ArrayList <Turn> validTurns = new ArrayList();
-        int [][] board = this.board.getBoard();
+        int [][] board = this.board.getDeck().getDeck();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 for(int k = i-1; k < i+2; k++) {
@@ -94,12 +95,12 @@ public class Referee {
         }
 
         //If opponents king is on the winning side, current player loses
-        int [][] board = this.board.getBoard();
+        int [][] board = this.board.getDeck().getDeck();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 int piece = board[i][j];
-                if(((piece & Board.KING) > 0)) {
-                    if (((piece & Board.WHITE) > 0 && i == WHITE_WIN_LINE) || ((piece & Board.BLACK) > 0 && i == BLACK_WIN_LINE)) {
+                if(((piece & Deck.KING) > 0)) {
+                    if (((piece & Deck.WHITE) > 0 && i == WHITE_WIN_LINE) || ((piece & Deck.BLACK) > 0 && i == BLACK_WIN_LINE)) {
                         return true;
                     }
                 }

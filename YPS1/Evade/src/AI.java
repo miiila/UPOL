@@ -15,10 +15,9 @@ public class AI {
         Turn bestTurn = null;
 
         for(Turn possibleTurn : possibleTurns) {
-            Board newBoard = new Board();
-            newBoard.setBoard(board.getBoardCopy());
-            newBoard.makeTurn(possibleTurn);
-            int result = Math.max(bestResult, -minimax(newBoard, 3));
+            Board boardClone = board.clone();
+            boardClone.makeTurn(possibleTurn);
+            int result = Math.max(bestResult, -minimax(boardClone, 3));
 
             if (result > bestResult){
                 bestResult = result;
@@ -42,10 +41,9 @@ public class AI {
             result = -MAX;
 
             for(Turn possibleTurn : possibleTurns) {
-                Board newBoard = new Board();
-                newBoard.setBoard(board.getBoardCopy());
-                newBoard.makeTurn(possibleTurn);
-                result = Math.max(result, -minimax(newBoard, depth-1));
+                Board boardClone = board.clone();
+                boardClone.makeTurn(possibleTurn);
+                result = Math.max(result, -minimax(boardClone, depth-1));
             }
 
             return result;
