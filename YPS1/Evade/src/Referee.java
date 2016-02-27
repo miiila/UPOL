@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,8 @@ public class Referee {
     public boolean validateTurn(Turn turn, Player player) {
         Position from = turn.getFrom();
         Position to = turn.getTo();
-        
+
+        // Make turns on board only
         return from != null &&
                 this.isOnBoard(from) &&
                 this.isOnBoard(to) &&
@@ -27,8 +29,8 @@ public class Referee {
                 this.canFreeze(from, to, player);
     }
 
-    public ArrayList <Turn> getValidTurnsForPlayer(Player player) {
-        ArrayList <Turn> validTurns = new ArrayList();
+    public List<Turn> getValidTurnsForPlayer(Player player) {
+        List<Turn> validTurns = new ArrayList();
         int [][] board = this.board.getDeck().getDeck();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -51,7 +53,7 @@ public class Referee {
 
     public boolean checkLoose(Player player) {
         //If player cannot move, he lose
-        if (getValidTurnsForPlayer(player).size() == 0) {
+        if (getValidTurnsForPlayer(player).isEmpty()) {
             return true;
         }
 

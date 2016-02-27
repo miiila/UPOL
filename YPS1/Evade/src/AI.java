@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by miiila on 06/12/15.
@@ -10,7 +10,7 @@ public class AI {
 
     public static Turn getBestTurn(Board board, Player currentPlayer) {
         player = currentPlayer;
-        ArrayList<Turn> possibleTurns = currentPlayer.getNextTurns();
+        List<Turn> possibleTurns = currentPlayer.getNextTurns();
         int bestResult = -MAX;
         Turn bestTurn = null;
 
@@ -37,7 +37,7 @@ public class AI {
             return (int) (Math.random()*100);
         }
         else {
-            ArrayList<Turn> possibleTurns = player.getNextTurns();
+            List<Turn> possibleTurns = player.getNextTurns();
             result = -MAX;
 
             for(Turn possibleTurn : possibleTurns) {

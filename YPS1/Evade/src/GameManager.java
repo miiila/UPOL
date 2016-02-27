@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -58,7 +58,7 @@ public class GameManager extends Observable implements Runnable{
         }
     }
 
-    public ArrayList<Turn> getValidTurnsForCurrentPlayer() {
+    public List<Turn> getValidTurnsForCurrentPlayer() {
         return this.referee.getValidTurnsForPlayer(players[this.playerOnTurn]);
     }
 

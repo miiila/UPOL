@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by miiila on 15/11/15.
@@ -32,7 +32,7 @@ public abstract class Player {
         return sign;
     }
 
-    public ArrayList<Turn> getNextTurns() {
+    public List<Turn> getNextTurns() {
         return this.gameManager.getValidTurnsForCurrentPlayer();
     }
 }
