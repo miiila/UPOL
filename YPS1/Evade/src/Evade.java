@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,14 +19,8 @@ public class Evade implements Observer {
 
         GameManager gameManager = new GameManager();
         gameManager.addObserver(evade);
-        Player player1 = new Computer(gameManager);
-        player1.setSign(Deck.WHITE);
-        Player player2 = new Computer(gameManager);
-        player2.setSign(Deck.BLACK);
 
-        Player[] players = {player1, player2};
-        gameManager.setPlayers(players);
-
+        gameManager.setPlayers(Evade.setupPlayers(2, gameManager));
 
         Board board = new Board();
         board.setupNewBoard();
@@ -35,7 +32,6 @@ public class Evade implements Observer {
     public void update(Observable observable, Object o) {
         Board board = (Board) o;
         this.printBoard(board);
-
     }
 
     public void printBoard(Board board) {
@@ -71,6 +67,97 @@ public class Evade implements Observer {
                 System.out.printf("%c",val);
             }
             System.out.printf("\n");
+        }
+    }
+
+    private static Player[] setupPlayers(int count, GameManager gameManager) {
+        Player[] players = new Player[count];
+
+        for(int i=1;i<=count;i++) {
+            System.out.printf("Select player no. %d ([C]omputer/[H]uman):\n", i);
+            Player player = setupPlayer(gameManager);
+            //TODO: Handle player signs better
+            player.setSign(i);
+            players[i-1] = player;
+        }
+
+        return players;
+    }
+
+    private static Player setupPlayer(GameManager gameManager) {
+        String input = "";
+        Player player = null;
+
+        while(player == null) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            try {
+                input = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (input.charAt(0) == 'C') {
+                player = new Computer(gameManager);
+                Evade.askForLevel(player);
+            }
+            else if (input.charAt(0) == 'H') {
+                player = new Human(gameManager);
+                Evade.askForName(player);
+            }
+            else {
+                System.out.println("Bad input, please write only 'C' or 'H'.");
+            }
+        }
+
+        return player;
+    }
+
+    private static void askForName(Player player) {
+        String input = "";
+        System.out.println(String.format("What's your name?:"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            input = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        player.setName(input);
+    }
+
+
+    private static void askForLevel(Player player) {
+        String input = "";
+        System.out.println(String.format("Select difficulty: (E)asy - (M)edium - (H)ard"));
+        boolean correct = false;
+        while(!correct) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            try {
+                input = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            switch(input.charAt(0)){
+                case 'E':
+                    player.setLevel(Computer.levels.EASY);
+                    player.setName("Holly");
+                    correct = true;
+                    break;
+                case 'M':
+                    player.setLevel(Computer.levels.MEDIUM);
+                    player.setName("Hex");
+                    correct = true;
+                    break;
+                case 'H':
+                    player.setLevel(Computer.levels.HARD);
+                    player.setName("Hal 3000");
+                    correct = true;
+                    break;
+                default:
+                    System.out.println("Bad input, please write only 'E', 'M' or 'H'.");
+                    break;
+            }
         }
     }
 }

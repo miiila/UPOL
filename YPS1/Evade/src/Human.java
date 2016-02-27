@@ -17,10 +17,8 @@ public class Human extends Player {
         String input = "";
 
         try {
-            System.out.println("Enter your turn:");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             input = bufferedReader.readLine();
-
         }
         catch (IOException e) {
             System.out.println("Error reading from user");

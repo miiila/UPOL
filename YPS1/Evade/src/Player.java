@@ -5,8 +5,9 @@ import java.util.List;
  */
 public abstract class Player {
 
-    private int level;
+    private Computer.levels level;
     private int sign;
+    private String name;
     //For properly obtaining of valid turns, gameManager reference is needed
     protected GameManager gameManager;
 
@@ -16,11 +17,11 @@ public abstract class Player {
 
     public abstract Turn getTurn(Board board) throws Exception;
 
-    public int getLevel() {
+    public Computer.levels getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Computer.levels level) {
         this.level = level;
     }
 
@@ -34,5 +35,13 @@ public abstract class Player {
 
     public List<Turn> getNextTurns() {
         return this.gameManager.getValidTurnsForCurrentPlayer();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

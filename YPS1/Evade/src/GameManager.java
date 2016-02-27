@@ -33,9 +33,11 @@ public class GameManager extends Observable implements Runnable{
             Turn turn = new Turn();
             boolean badTurn = false;
             if (this.referee.checkLoose(players[this.playerOnTurn])) {
-                System.out.printf("Player %d won the game!\n", this.playerOnTurn ^ 1);
+                Player winner = this.players[this.playerOnTurn ^ 1];
+                System.out.printf("Player %s won the game!\n", winner.getName());
                 break;
             }
+            System.out.printf("%s's turn: ", this.players[this.playerOnTurn].getName());
             try {
                  turn = players[this.playerOnTurn].getTurn(this.board);
             }
@@ -45,12 +47,10 @@ public class GameManager extends Observable implements Runnable{
             }
             if(!badTurn && this.referee.validateTurn(turn, players[this.playerOnTurn])) {
                 this.board.makeTurn(turn);
+                System.out.printf("%d%d -> %d%d", turn.getFrom().getColumn(),turn.getFrom().getRow(),turn.getTo().getColumn(),turn.getTo().getRow());
+                System.out.println("\n------------------");
                 // Bitwise XOR for setting on turn player: 0^1 = 1, 1^1 = 0
                 this.playerOnTurn = this.playerOnTurn ^ 1;
-                if (this.players[this.playerOnTurn] instanceof Human ) {
-                    System.out.printf("Doing turn: %d%d -> %d%d", turn.getFrom().getColumn(),turn.getFrom().getRow(),turn.getTo().getColumn(),turn.getTo().getRow());
-                }
-                System.out.println("\n------------------");
             }
             else {
                 System.out.println("Invalid turn!");

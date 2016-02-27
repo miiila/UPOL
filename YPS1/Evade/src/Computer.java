@@ -7,6 +7,10 @@ public class Computer extends Player {
         super(gameManager);
     }
 
+    public enum levels {
+        EASY, MEDIUM, HARD
+    }
+
     @Override
     public Turn getTurn(Board board) throws Exception {
         return AI.getBestTurn(board, this);
