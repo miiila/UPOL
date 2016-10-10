@@ -1,15 +1,13 @@
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-/**
- * Created by miiila on 27/02/16.
- */
 public class Deck implements Cloneable{
 
     private int[][] deck;
     // Because of cloning, singletons sounds better
-    private static Collection<Turn> possibleTurns = new LinkedList<Turn>();
-    private static Collection<Position> possiblePositions = new LinkedList<Position>();
+    private static Collection<Turn> possibleTurns = new LinkedList<>();
+    private static Collection<Position> possiblePositions = new LinkedList<>();
 
     public static final int WHITE = 1;
     public static final int BLACK = 2;
@@ -35,7 +33,7 @@ public class Deck implements Cloneable{
     }
 
     public void emptyPosition(Position position) {
-        this.setPositionValue(position, this.EMPTY);
+        this.setPositionValue(position, Deck.EMPTY);
     }
 
     //TODO: Hopefully refactor in order to don't expose deck at all
@@ -50,6 +48,7 @@ public class Deck implements Cloneable{
         return Deck.possibleTurns;
     }
 
+    @Override
     public Deck clone() {
         Deck deckClone = new Deck();
 

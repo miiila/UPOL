@@ -1,26 +1,19 @@
-import java.util.Collection;
+import java.util.*;
 
-/**
- * Created by miiila on 15/11/15.
- */
 public class Board implements Cloneable {
 
     private Deck deck;
-    private int[] history;
+    private LinkedList<Turn> history = new LinkedList<>();
 
     public Deck getDeck() {
         return this.deck;
     }
 
-//    public void setBoard(int[][] deck) {
-//        this.deck = deck;
-//    }
-
-    public int[] getHistory() {
-        return history;
+    public LinkedList getHistory() {
+        return this.history;
     }
 
-    public void setHistory(int[] history) {
+    public void setHistory(LinkedList <Turn> history) {
         this.history = history;
     }
 
@@ -29,6 +22,7 @@ public class Board implements Cloneable {
     }
 
     public void makeTurn(Turn turn) {
+        this.history.push(turn);
         Position from = turn.getFrom();
         int i = this.deck.getPositionValue(from);
         this.deck.emptyPosition(from);
@@ -37,15 +31,22 @@ public class Board implements Cloneable {
         this.deck.setPositionValue(to, positionToValue | i);
     }
 
-//    public int[][] undoTurn() {
-//
-//        return this.deck;
-//    }
+    public void undoTurn() {
+        Turn undo = this.history.pop();
+        Position to = undo.getFrom();
+        int i = this.deck.getPositionValue(to);
+        this.deck.emptyPosition(to);
+        Position from = undo.getTo();
+        int positionToValue = this.deck.getPositionValue(from);
+        this.deck.setPositionValue(from, positionToValue | i);
+
+    }
 
     public Collection<Turn> getPossibleTurns() {
         return this.deck.getPossibleTurns();
     }
 
+    @Override
     public Board clone() {
         Board newBoard = new Board();
         newBoard.deck = this.deck.clone();
