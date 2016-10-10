@@ -9,7 +9,7 @@ public class Board implements Cloneable {
         return this.deck;
     }
 
-    public LinkedList getHistory() {
+    public LinkedList<Turn> getHistory() {
         return this.history;
     }
 

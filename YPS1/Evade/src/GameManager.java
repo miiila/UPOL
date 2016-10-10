@@ -1,9 +1,6 @@
 import java.util.List;
 import java.util.Observable;
 
-/**
- * Created by miiila on 15/11/15.
- */
 public class GameManager extends Observable implements Runnable{
 
     private Board board;
@@ -47,7 +44,7 @@ public class GameManager extends Observable implements Runnable{
             }
             if(!badTurn && this.referee.validateTurn(turn, players[this.playerOnTurn])) {
                 this.board.makeTurn(turn);
-                System.out.printf("%d%d -> %d%d", turn.getFrom().getColumn(),turn.getFrom().getRow(),turn.getTo().getColumn(),turn.getTo().getRow());
+                System.out.printf("%d%d -> %d%d", turn.getFrom().getColumn(), turn.getFrom().getRow(), turn.getTo().getColumn(), turn.getTo().getRow());
                 System.out.println("\n------------------");
                 // Bitwise XOR for setting on turn player: 0^1 = 1, 1^1 = 0
                 this.playerOnTurn = this.playerOnTurn ^ 1;
