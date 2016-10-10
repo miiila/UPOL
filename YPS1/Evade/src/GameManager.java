@@ -52,11 +52,24 @@ public class GameManager extends Observable implements Runnable{
             else {
                 System.out.println("Invalid turn!");
             }
+
+            //@TODO: handle saveGame properly from GUI and from other thread
+            //this.saveGame();
         }
     }
 
     public List<Turn> getValidTurnsForCurrentPlayer() {
         return this.referee.getValidTurnsForPlayer(players[this.playerOnTurn]);
+    }
+
+    public void saveGame() {
+        XmlSaveEngine xmlSaveEngine = new XmlSaveEngine();
+        try {
+            xmlSaveEngine.saveGame("Evade.xml", this.board, players, this.playerOnTurn);
+        }
+        catch (Exception e) {
+            System.out.printf("Exception raised during saving the game.");
+        }
     }
 
     private void refreshBoard() {

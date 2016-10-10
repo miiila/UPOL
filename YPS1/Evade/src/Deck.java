@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -36,9 +35,17 @@ public class Deck implements Cloneable{
         this.setPositionValue(position, Deck.EMPTY);
     }
 
-    //TODO: Hopefully refactor in order to don't expose deck at all
-    public int[][] getDeck() {
-        return this.deck;
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < deck.length; i++) {
+            for (int j = 0; j < deck[i].length; j++) {
+                output += Integer.toString(deck[i][j]);
+            }
+            output += '#';
+        }
+        return output;
     }
 
     public Collection<Turn> getPossibleTurns() {

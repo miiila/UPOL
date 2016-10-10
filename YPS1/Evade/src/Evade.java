@@ -4,9 +4,6 @@ import java.io.InputStreamReader;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Created by miiila on 15/11/15.
- */
 public class Evade implements Observer {
 
     public static void main(String[] args)
@@ -36,11 +33,11 @@ public class Evade implements Observer {
 
     public void printBoard(Board board) {
         Deck deck = board.getDeck();
-        int[][] deckArray = deck.getDeck();
+        String [] deckArray = deck.toString().split("#");
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < deckArray.length; i++) {
             for (int j = 0; j < 6; j++) {
-                int val = deckArray[i][j];
+                int val = Character.getNumericValue(deckArray[i].charAt(j));
                 switch (val) {
                     case Deck.WHITE:
                         val = 'x';
