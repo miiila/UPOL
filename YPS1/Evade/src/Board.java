@@ -3,18 +3,14 @@ import java.util.*;
 public class Board implements Cloneable {
 
     private Deck deck;
-    private LinkedList<Turn> history = new LinkedList<>();
+    private Stack<Turn> history = new Stack<>();
 
     public Deck getDeck() {
         return this.deck;
     }
 
-    public LinkedList<Turn> getHistory() {
+    public Stack<Turn> getHistory() {
         return this.history;
-    }
-
-    public void setHistory(LinkedList <Turn> history) {
-        this.history = history;
     }
 
     public void setupNewBoard() {

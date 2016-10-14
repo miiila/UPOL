@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -67,15 +68,15 @@ public class Evade implements Observer {
         }
     }
 
-    private static Player[] setupPlayers(int count, GameManager gameManager) {
-        Player[] players = new Player[count];
+    private static ArrayList<Player> setupPlayers(int count, GameManager gameManager) {
+        ArrayList<Player> players = new ArrayList<>();
 
         for(int i=1;i<=count;i++) {
             System.out.printf("Select player no. %d ([C]omputer/[H]uman):\n", i);
             Player player = setupPlayer(gameManager);
             //TODO: Handle player signs better
             player.setSign(i);
-            players[i-1] = player;
+            players.add(player);
         }
 
         return players;

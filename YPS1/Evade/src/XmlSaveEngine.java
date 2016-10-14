@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -7,7 +8,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 public class XmlSaveEngine {
 
-    public void saveGame(String fileName, Board board, Player[] players, int playerOnTurn) throws XMLStreamException {
+    public void saveGame(String fileName, Board board, ArrayList<Player> players, int playerOnTurn) throws XMLStreamException {
         try {
             FileOutputStream outputStream = new FileOutputStream(fileName);
             XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
@@ -15,14 +16,6 @@ public class XmlSaveEngine {
             XMLStreamWriter xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(outputStream);
             xmlStreamWriter.writeStartDocument();
             xmlStreamWriter.writeStartElement("Evade");
-            xmlStreamWriter.writeStartElement("Deck");
-            String [] rows = board.getDeck().toString().split("#");
-            for (int i = 0; i < rows.length; i++) {
-                xmlStreamWriter.writeStartElement("Row");
-                xmlStreamWriter.writeCharacters(rows[i]);
-                xmlStreamWriter.writeEndElement();
-            }
-            xmlStreamWriter.writeEndElement();
             xmlStreamWriter.writeStartElement("History");
             for(Turn turn : board.getHistory()) {
                 xmlStreamWriter.writeStartElement("Turn");
@@ -48,15 +41,15 @@ public class XmlSaveEngine {
             }
             xmlStreamWriter.writeEndElement();
             xmlStreamWriter.writeStartElement("Players");
-            for (int i = 0; i < players.length; i++) {
-                Player player = players[i];
+            for (int i = 0; i < players.size(); i++) {
+                Player player = players.get(i);
                 xmlStreamWriter.writeStartElement("Player");
-                if (i == playerOnTurn) { xmlStreamWriter.writeAttribute("onTurn", Boolean.valueOf(true).toString()); }
+                xmlStreamWriter.writeAttribute("type", player.getClass().getName());
                     xmlStreamWriter.writeStartElement("Name");
                     xmlStreamWriter.writeCharacters(player.getName());
                     xmlStreamWriter.writeEndElement();
-                    xmlStreamWriter.writeStartElement("Type");
-                    xmlStreamWriter.writeCharacters(player.getClass().getName());
+                    xmlStreamWriter.writeStartElement("OnTurn");
+                    xmlStreamWriter.writeCharacters(Boolean.valueOf(i == playerOnTurn).toString());
                     xmlStreamWriter.writeEndElement();
                     xmlStreamWriter.writeStartElement("Level");
                     xmlStreamWriter.writeCharacters(player.getLevel().toString());

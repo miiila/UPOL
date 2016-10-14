@@ -6,6 +6,10 @@ import java.util.ArrayList;
  */
 public class Referee {
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
     private Board board;
 
     private static int BLACK_WIN_LINE = 0;

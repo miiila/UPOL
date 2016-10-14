@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Queue;
 
 public class GameManager extends Observable implements Runnable{
 
     private Board board;
     private Referee referee;
-    private Player[] players;
+    private ArrayList<Player> players;
     private int playerOnTurn;
 
     public void startGame(Board board) {
@@ -14,11 +16,11 @@ public class GameManager extends Observable implements Runnable{
         this.run();
     }
 
-    public Player[] getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Player[] players) {
+    public void setPlayers(ArrayList<Player> players) {
         this.players = players;
         this.playerOnTurn = 0;
     }
@@ -29,20 +31,20 @@ public class GameManager extends Observable implements Runnable{
             this.refreshBoard();
             Turn turn = new Turn();
             boolean badTurn = false;
-            if (this.referee.checkLoose(players[this.playerOnTurn])) {
-                Player winner = this.players[this.playerOnTurn ^ 1];
+            if (this.referee.checkLoose(players.get(this.playerOnTurn))) {
+                Player winner = this.players.get(this.playerOnTurn ^ 1);
                 System.out.printf("Player %s won the game!\n", winner.getName());
                 break;
             }
-            System.out.printf("%s's turn: ", this.players[this.playerOnTurn].getName());
+            System.out.printf("%s's turn: ", this.players.get(this.playerOnTurn).getName());
             try {
-                 turn = players[this.playerOnTurn].getTurn(this.board);
+                 turn = players.get(this.playerOnTurn).getTurn(this.board);
             }
             catch (Exception e) {
                 badTurn = true;
                 System.out.println("Bad turn format!");
             }
-            if(!badTurn && this.referee.validateTurn(turn, players[this.playerOnTurn])) {
+            if(!badTurn && this.referee.validateTurn(turn, players.get(this.playerOnTurn))) {
                 this.board.makeTurn(turn);
                 System.out.printf("%d%d -> %d%d", turn.getFrom().getColumn(), turn.getFrom().getRow(), turn.getTo().getColumn(), turn.getTo().getRow());
                 System.out.println("\n------------------");
@@ -54,12 +56,13 @@ public class GameManager extends Observable implements Runnable{
             }
 
             //@TODO: handle saveGame properly from GUI and from other thread
-            //this.saveGame();
+//            this.saveGame();
+//            this.loadGame();
         }
     }
 
     public List<Turn> getValidTurnsForCurrentPlayer() {
-        return this.referee.getValidTurnsForPlayer(players[this.playerOnTurn]);
+        return this.referee.getValidTurnsForPlayer(players.get(this.playerOnTurn));
     }
 
     public void saveGame() {
@@ -72,9 +75,43 @@ public class GameManager extends Observable implements Runnable{
         }
     }
 
+    public void loadGame() {
+        XmlLoadEngine xmlLoadEngine = new XmlLoadEngine();
+        Board oldBoard = this.board.clone();
+        try {
+            // Creates Player instances with `this`
+            xmlLoadEngine.loadGame("Evade.xml", this);
+            this.board = new Board();
+            this.board.setupNewBoard();
+            this.referee.setBoard(this.board);
+            Queue<Turn> loadedHistory = xmlLoadEngine.getParsedHistory();
+            this.setPlayers(xmlLoadEngine.getParsedPlayers());
+            this.playerOnTurn = xmlLoadEngine.getPlayerOnTurn();
+            loadHistory(loadedHistory);
+        }
+        catch (Exception e) {
+            System.out.printf("Exception raised during loading the game.");
+            this.board = oldBoard;
+            e.printStackTrace();
+        }
+    }
+
     private void refreshBoard() {
         this.setChanged();
         this.notifyObservers(this.board);
     }
 
+    private void loadHistory(Queue<Turn> history) throws Exception {
+        int player = 0;
+        for(Turn turn : history) {
+            if (this.referee.validateTurn(turn, this.players.get(player))) {
+                this.board.makeTurn(turn);
+                player = player ^ 1;
+            }
+            else {
+                //@TODO: Create Exception hierarchy
+                throw new Exception("Invalid Turn");
+            }
+        }
+    }
 }
