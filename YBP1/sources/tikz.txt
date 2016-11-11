@@ -1,0 +1,209 @@
+Literatura
+----------
+
+Till Tantau: The TikZ and PGF Packages.
+http://www.ctan.org/tex-archive/graphics/pgf/base/doc/generic/pgf/pgfmanual.pdf
+http://pgf.sourceforge.net/pgf_CVS.pdf
+
+Andrew Mertz, William Slough: Graphics with TikZ. The PracTeX Journal
+1(2007).
+http://www.tug.org/pracjourn/2007-1/mertz/mertz.pdf
+
+Jacques Crémer: A very minimal introduction to TikZ.
+http://cremeronline.com/LaTeX/minimaltikz.pdf
+
+Meik Hellmund: PGF/TikZ - Graphics for LaTeX.
+http://www.math.uni-leipzig.de/~hellmund/LaTeX/pgf-tut.pdf
+
+Wikibooks LaTeX/PGF/TikZ: http://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
+
+ukázky
+------
+
+TeXample.net
+http://www.texample.net/tikz/
+
+Michael Landry: Some examples using TikZ.
+http://math.yale.edu/~ml859/TikZ_examples.pdf
+
+J. S. Milne: The tikz package.
+http://www.jmilne.org/not/Mtikz.pdf
+
+Úvod
+----
+
+PGF (Portable Graphics Format)
+
+= balík nízkoúrovňových grafických primitiv pro TeX a LaTeX
+
+TikZ (TikZ ist kein Zeichenprogramm)
+
+= balík maker pro TeX a LaTeX pro popis (a kreslení) vektorových
+obrázků, autor Till Tantau (autor balíku Beamer)
+
+= uživatelský frontend k PGF
+
+- výstup PS, PDF (z (La)TeXu) a SVG
+
+- v distribucích TeXu verze 2, vývojová verze 3
+
+Jdeme na to
+-----------
+
+- pro LaTeX balík tikz a prostředí tikzpicture nebo makro \tikz pro
+popis obrázku:
+
+\usepackage{tikz}
+
+\begin{tikzpicture}
+makra TikZ
+\end{tikzpicture}
+
+\tikz{makra TikZ}
+\tikz makro TikZ
+
+- obrázek popsaný makry TikZ oříznut na nejmenší obdélník s kresbou,
+nesázen v samostatném odstavci => možno použít v hladké sazbě (v
+odstavci)
+
+- nepovinné parametry prostředí a makra (x,y)scale=faktor pro
+škálování obrázku (výchozí 1), neškáluje písmo, pojmenované nepovinné
+parametry maker (-> styly) jméno/.style={parametry}, použití jméno na
+místě parametrů
+
+- makra ukončená ;
+
+- překlad v rámci překladu LaTeX dokumentu
+
+- volitelně další PGF balíky (knihovny) pomocí \usetikzlibrary{jméno}
+v LaTeXu, např. arrows pro šipky, shadings a shadows pro stínování,
+shapes pro další tvary, matrix pro matice, automata pro diagramy
+(konečných) automatů, er pro ER diagramy, decorations.něco pro různé
+dekorace aj.
+
+- aktuální bod (abod) = první bod zadaný (absolutně) při kreslení nebo
+koncový bod kreslení předchozího grafického objektu (nový aktuální,
+nbod)
+
+Cesty
+-----
+
+- bod: (kartézské) souřadnice dvojice čísel (x,y), polární souřadnice
+dvojice (úhel:r), úhel od osy x ve stupních proti směru hodinových
+ručiček, poloměr r od středu (0,0) s jednotkou, relativní vzhledem k
+aktuálnímu bodu ++(dx,dy), ++(úhel,r), nastaví relativní bod jako nový
+aktuální (nbod), bez nastavení +(dx,dy), +(úhel,r)
+
+- čára: abod -- nbod, uzavření -- cycle, to místo -- s nepovinnými
+parametry out=úhel, in=úhel pro (kvadratickou?) křivku
+
+- Beziérova kubická křivka: abod .. controls bod and bod .. nbod,
+počáteční abod, koncový nbod, řídící body za controls, zadané
+polárními souřadnicemi +(úhel,r) jsou vzhledem ke středům abod a nbod
+
+- obdélník: abod rectangle nbod, body rohové na diagonále
+
+- mřížka: abod grid nbod, body rohové na diagonále
+
+- kružnice: abod circle (r), střed abod, poloměr r s jednotkou, místo
+(r) i nepovinný parametr radius=r, část (oblouk): abod arc
+(úhel1:úhel2:r), abod je počáteční bod oblouku, (úhel1,r) polární
+souřadnice abodu, tj. určena osa x a střed pro úhel1, (úhel2,r)
+polární souřadnice koncového bodu oblouku (nbod), úhel2 od určené osy
+x a středu, místo (úhel1:úhel2:r) nepovinné parametry radius=r, start
+angle=úhel1, end angle=úhel2
+
+- elipsa: abod ellipse (rx and ry), střed abod, poloosy rx,ry s
+jednotkou
+
+- a další
+
+Text
+----
+
+- (TeXem vysázený) text: cesta node {zdroják TeXu}, nepovinné parametry
+pro polohu vzhledem k abodu above/below, left/right, pro zarovnání
+víceřádkového textu (pomocí \\) align=zarovnání, zarovnání left,
+right, center
+
+Základní makra
+--------------
+
+- souřadnicový systém klasický, střed (0,0), výchozí jednotka cm,
+další jakákoliv z TeXu (in, pt apod.)
+
+- kreslení \draw cesta ..., nepovinné parametry color=barva (barva z
+balíku xcolor, parametr i jen barva), line width=šířka pro šířku čáry
+(výchozí jednotka pt), pojmenované šířky (parametr jen jméno)
+např. (utra/very) thin, thick, dashed pro čárkovanou čáru, dotted pro
+tečkovanou, u čar -> pro šipku na konci, <- na začátku (<-> na obou
+koncích), |- pro čárku na začátku, -| na konci, rounded corners pro
+zaoblené rohy lomené čáry, u mřížky step=délka, délka = vertikální i
+horizontální rozestup čar mřížky (výchozí 1cm)
+
+- transformace cesty: nepovinné parametry \draw shift={(bod)}, bod
+jako vektor posunutí, x/yshift=délka, rotate=úhel, (x/y)scale=faktor,
+(x/y)slant=faktor
+
+- vyplnění \fill(draw) cesta, nepovinný parametr \draw fill=barva,
+cesta uzavřená, nepovinné parametry \fill draw (výchozí), color=barva,
+\path s nepovinným parametrem draw místo \draw, pro vyplněnou cestu
+bez hraniční čáry
+
+- oříznutí následující kresby na uzavřenou cestu \clip cesta, při více
+\clip průnik regionů
+
+- kreslení (TeXem vysázeného) textu \node at bod {zdroják TeXu},
+nepovinné parametry jako u textu node
+
+Cykly
+-----
+
+- \foreach \proměnná in {seznam} { kód }, \proměnná nabývá hodnot ze
+seznamu, seznam hodnota,hodnota,...,hodnota, ... nahrazuje posloupnost
+hodnot s přírůstkem rovným rozdílu předchozích dvou zadaných hodnot
+nebo 1, \proměnnou možno použít i jako součást jiného jména, např.
+bodu, dvojice proměnných \první / \druhá, hodnoty seznamu
+první/druhá, kód nemusí být celé příkazy a cyklus může být v příkazu,
+např. \draw (0,0) \foreach \x in {1,...,3} { -- (\x,1) -- (\x,0) }
+
+Další
+-----
+
+- pojmenování bodu: \coordinate (jméno) at bod
+
+- pojmenování cesty: cesta coordinate (jméno), použití jméno,
+pojmenování vykresleného tvaru s TeXem vysázeným textem na
+souřadnicích bodu \path bod node (jméno) {zdroják TeXu}, nepovinné
+parametry node draw pro vykreslení tvaru, shape=tvar, např. circle,
+další kresba do/z bodu končí na hranici tvaru, nastavení nepovinných
+parametrů pro každý pojmenovaný tvar \tikzstyle{every
+node}=[parametry]
+
+- skupina: prostředí scope, nepovinné parametry pro \draw
+
+- graf (cesta): plot (\x, {funkce}), \x proměnná na ose x, hodnoty
+funkce proměnné \x na ose y, operace +,-,*,/, funkce sqrt(), exp, ln,
+log10, abs, sin ve stupních, cos(\x r) v radiánech, min(\x,y),
+pow(\x,y), rnd pro náhodné číslo z [0,1] aj., konstanty e, pi, plot
+file{soubor}, soubor dva sloupce hodnot na ose x a y (za # a % do
+konce řádku komentář), plot coordinates{bod bod ...}, vykreslena
+lomená čára mezi body, nepovinné parametry \draw smooth pro křivku
+mezi body, samples=počet pro počet vygenerovaných bodů u funkce,
+domain=hodnota:hodnota pro rozsah hodnot na ose x, ycomb pro sloupcový
+graf, šířka sloupce line width=šířka
+
+- integrace s balíkem Beamer, např. pro skrývání částí obrázku na
+slajdech \only<N>{kód TikZ}, \uncover<N>{kód TikZ}
+
+GUI aplikace
+------------
+
+TikZEdt (http://www.tikzedt.org/)
+KtikZ (http://www.hackenberger.at/blog/ktikz-editor-for-the-tikz-language/)
+- editory s toolbarem
+
+TikZiT (http://tikzit.sourceforge.net/) - jen body a čáry
+
+inkscape2tikz (http://code.google.com/p/inkscape2tikz/) - rozšíření
+Inkscape pro export do TikZ

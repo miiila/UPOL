@@ -1,0 +1,226 @@
+Literatura
+----------
+
+Till Tantau, Joseph Wright, Vedran Miletic: The BEAMER class, User
+Guide.
+http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf
+
+Andrew Mertz, William Slough: Beamer by Example. The PracTeX Journal
+4(2005).
+www.tug.org/pracjourn/2005-4/mertz/mertz.pdf‎
+
+Rouben Rostamian: A Beamer Quickstart.
+http://www.math.umbc.edu/~rouben/beamer/
+
+Charles T. Batts: A Beamer Tutorial in Beamer.
+www.uncg.edu/cmp/reu/presentations/Charles%20Batts%20-%20Beamer%20Tutorial.pdf
+
+Gonzalo Rivero: Presentations in LATEX, Introduction to the beamer class.
+www.nyu.edu/projects/politicsdatalab/latex/beamer_nyu.pdf‎
+
+online
+
+Článek Beamer: LaTeX na prezentace na Abclinuxu.cz:
+http://www.abclinuxu.cz/clanky/navody/beamer-latex-na-prezentace
+
+Wikibooks Presentations: http://en.wikibooks.org/wiki/LaTeX/Presentations
+
+Úvod
+----
+
+= třída dokumentu (documentclass) beamer a balík maker pro LaTeX pro
+tvorbu prezentací (slajdů), autor Till Tantau (autor balíku PGF/TikZ)
+a spol.
+
+- více (starších) tříd dokumentu a balíků, např. slides, foiltex
+(foils), HA-prosper (prosper), pdfscreen aj. - méně možností
+
+- výstupy z LaTeXu, ideálně PDF pomocí pdflatex - využití vlastností
+PDF nad rámec balíku hyperref, např. skrývání prvků, (animované)
+přechody mezi slajdy
+
+- v distribucích TeXu verze 3 (aktuální)
+
+Jdeme na to
+-----------
+
+- LaTeX/Beamer dokument = série slajdů (frames) v prostředí frame:
+
+\documentclass{beamer}
+
+\title{Titulek}
+\author{Autor}
+\date{datum}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+ \frametitle{Nadpis slajdu}
+
+obsah slajdu
+
+\end{frame}
+
+\end{document}
+
+- nutné dva překlady dokumentu pro správná čísla stránek
+
+- \maketitle vytvoří titulní slajd, také \titlepage ve frame, další
+info např. \subtitle, \institute
+
+- (nepovinný) nadpis slajdu \frametitle, novější \begin{frame}{Nadpis
+slajdu}
+
+- velikost slajdů: 128 mm (5.04 in) horizontálně, 96 mm (3.78 in)
+vertikálně (4:3), parametr \documentclass aspectratio=1610/169/32/...
+(160x100, 160x90, 135x90 mm)
+
+- struktura slajdu: záhlaví (obvykle nadpis aktuální sekce/podsekce) a
+zápatí (obvykle autor, titulek slajdů, datum, příp. z nepovinného
+parametru -- typicky kratší, číslo slajdu a počet slajdů), levá a
+pravá postranní lišta (obvykle struktura sekcí), navigační lišta
+(ikony pro přesun mezi slajdy, výchozí umístění v obsahu slajdu vpravo
+dole), logo, nadpis, pozadí a obsah, vše nepovinné (výchozí ne),
+vypnutí všeho kromě obsahu nepovinným parametrem frame plain
+
+- automaticky načtené balíky graphicx, xcolor, hyperref, amsmath --
+nepovinné parametry balíku (v \usepackage) jako nepovinné parametry
+\documentclass balík=parametry,..., např. xcolor={pdftex,dvipsnames}
+
+Obsah slajdu
+------------
+
+= LaTeX makra a prostředí jako v jakémkoliv jiném LaTeX dokumentu, v
+prostředí frame
+
+- výchozí velikost písma 11pt, změna na 8-20 nepovinným parametrem
+\documentclass
+
+- vertikální zarovnání: nepovinný parametr frame t nahoru, c
+doprostřed (výchozí), b dolů, nepovinný parametr t, b \documentclass
+pro všechny slajdy
+
+- prostředí verbatim -> nepovinný parametr frame fragile, prostředí
+semiverbatim se zachováním spec. významu \, { a }
+
+- \(sub(sub))section, \appendix mimo prostředí frame, nesázené v
+obsahu slajdu, pokud nevložené např. \tableofcontents -- položky jako
+klikatelné odkazy, příp. v části struktury slajdu (záhlaví, postranní
+lišta)
+
+- připravená prostředí theorem, definition, corollary, example, proof
+(z balíku amsmath) -- obsah sázený do bloku
+
+- blok: prostředí block, povinný parametr nadpis, vysázený jako
+samostatný odstavec, příp. zvýrazněný (také alertblock)
+
+- více sloupců: prostředí columns, nepovinný parametr vertikální
+zarovnání obsahu sloupců t (T při obsahu začínajícím obrázkem), c
+(výchozí), b, obsah sloupce v prostředí column s povinným parametrem
+šířka nebo před obsahem sloupce \column{šířka}, \textwidth ve sloupci
+předefinované na šířku sloupce
+
+- klikatelný odkaz na slajd: nepovinný parametr frame label=jméno a
+\hyperlink{jméno}{text} -- používá balík hyperref, místo textu
+např. tlačítko \beamer[goto,skip,return]button{text}
+
+- další: barevný box prostředí beamercolorbox
+
+Overlays
+--------
+
+= slajdy (části slajdu) naskládané přes sebe -> efekt postupného
+(příp. animovaného) skládání/odkrývání obsahu slajdu v zobrazení PDF
+při přechodu na další slajd nebo i automaticky
+
+- výchozí jeden = zobrazení obsahu slajdu najednou
+
+- v rámci slajdu (prostředí frame), číslované od 1, zobrazovány podle
+čísel vzestupně
+
+- posloupnost více: \pause pro overlays s obsahem od začátku slajdu až
+po výskyty makra, \only<overlays>{obsah} (prostředí onlyenv) pro obsah
+vysázený jen na overlay(s), overlays <číslo,číslo>, <od->, <-do>,
+<od-do>, u mnoha LaTeX maker může být <>, např. \textXX, \color,
+\item, prostředí theorem, navíc \uncover<>{}, \visible<>{} a
+\onslide<>{} (varianty s +,* za onslide) + prostředí *env pro obsah
+vysázený i na ostatních overlays, ale neviditelný (tj. zabírající
+místo), použití např. s \item nebo v TikZ obrázku, a další (\alt,
+\temporal, prostředí overlayarea), vlastní \(re)newcommand<>,
+\(re)newenvironment<>, \multiinclude{obrázek} z balíku xmpmulti pro
+obrázek.N nebo obrázek-N.přípona [format=přípona] ve vlastní overlay
+čísla N+1, nepovinné parametry jako u \includegraphics
+
+- způsob zobrazení doposud nezobrazných: \setbeamercovered{typ}, před
+makry pro více overlays, typy invisible pro neviditelné (výchozí u
+\only, transparent=průhlednost (výchozí 85% u \pause), dynamic pro
+dynamickou průhlednost
+
+- (animované) přechody mezi slajdy: při zobrazení slajdu nebo overlay,
+v prostředí frame např. \transblindshorizontal/vertical<>,
+\transboxin/out, \transdissolve[], \transglitter[],
+\transsplithorizontal/verticalin/out, \transwipe[] aj., nepovinné
+parametry doba trvání animace (duration=s), směr efektu
+(direction=úhel), zobrazení slajdu po zadanou dobu
+\transduration<>{sekund}, různá podpora prohlížeči,
+
+- zobrazení overlays maximální rychlostí za sebou \animate<>, se
+změnou čítače/délky \animatevalue<od-do>{čítač/délka}{start}{end}
+
+Dekorace slajdů - témata
+------------------------
+
+- minor témata pro strukturu, obsah a dekorace částí (outer),
+\useoutertheme, např. infolines (obvyklé zápatí), miniframes, tree
+(obsah v záhlaví), sidebars (obsah na boku), shadow (stínované prvky
+záhlaví)
+
+- pro dekorace prvků obsahu (např. bloků, odrážek a čísel seznamu
+apod., inner), \useinnertheme, např. rectangles (čtveraté odrážky a
+čísla seznamu), circles (kulatá čísla seznamu), rounded (zakulacené
+rohy orámovaných boxů, lesknoucí se kulaté odrážky a čísla seznamu,
+např. [shadow] pro stínované bloky)
+
+- pro písma prvků obsahu (výchozí bezpatkové, font), \usefonttheme,
+např. professionalfonts, serif, frametitle (např. {shape=\itshape})
+
+- pro barvy prvků částí i obsahu slajdů (color), \usecolortheme, outer
+(např. záhlaví, zápatí) např. dolphin, inner (např. podbarvené bloky)
+např. orchid, structure (barva textu obsahu stejná jako barva
+ostatních částí struktury, např. [name=barva, rgb={0,0.5,1},
+RGB={0,100,255}]), aj. -- možno více minor témat
+
+- všechno (major) témata prezentace -- jediné, plus příp. minor, v
+preambuli \usetheme[parametry]{téma}, připravená např. default
+(výchozí), boxes, Boadilla, Berkeley, Dresden/bars, Madrid,
+Copenhagen, Pittsburg/plain, Warsaw/shadow aj.
+
+Další
+-----
+
+- multimedia: balík multimedia a makra pro video \movie{poster
+text}{soubor} (volby např. autostart, duration=s, externalviewer,
+label=label, poster, showcontrols=true/false),
+\hyperlinkmovie{label}{text} (volby např. pause, resume, play, stop),
+soubor není v PDF, pro zvuky \sound{poster text}{soubor} (volby např.
+autostart, automute, inlinesound, label=label),
+\hyperlinksound{label}{text}, \hyperlinkmute{text}, různá podpora
+prohlížeči
+
+- vytištěné slajdy (handouts): sloučení overlays slajdů nepovinný
+parametr \documentclass handout, více slajdů na stránku balík pdfpages
+nebo pgfpages
+
+- úprava dekorace prvků částí a obsahu slajdů (přizpůsobení témat): v
+preambuli \setbeamertemplate{prvek}[hodnota][],
+\setbeamertemplate{prvek}[hodnota]{obsah}, prvky např. headline,
+footline (vypnutí {}), titlepage, navigation symbols (ikony navigační
+lišty, vypnutí {}), frametitle (hodnoty např. center), blocks (hodnoty
+např. rounded, shadow=true/false), background canvas, items (odrážky a
+čísla seznamu, hodnoty např. ball, circle, rectangle, default),
+\setbeamerfont{prvek}{vlastnosti}, vlastnosti např. size=\large, prvek
+např. title, author, \setbeamercolor{část}{vlastnosti}, vlastnosti
+bg=barva,fg=barva, prvek např. structure, normal text (v obsahu, bg je
+bg slajdů), title, block title, item, \setbeamersize{vlastnosti},
+vlastnosti např. text margin left/right=šířka

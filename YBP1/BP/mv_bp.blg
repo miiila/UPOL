@@ -1,0 +1,16 @@
+[0] Config.pm:343> INFO - This is Biber 2.5
+[0] Config.pm:346> INFO - Logfile is 'mv_bp.blg'
+[57] biber-darwin:290> INFO - === Sun Oct 23, 2016, 17:31:59
+[79] Biber.pm:351> INFO - Reading 'mv_bp.bcf'
+[176] Biber.pm:773> INFO - Using all citekeys in bib section 0
+[188] Biber.pm:3493> INFO - Processing section 0
+[201] Biber.pm:3657> INFO - Looking for bibtex format file 'bibliografie.bib' for section 0
+[204] bibtex.pm:1187> INFO - Decoding LaTeX character macros into UTF-8
+[206] bibtex.pm:1048> INFO - Found BibTeX data source 'bibliografie.bib'
+[214] Utils.pm:149> WARN - Datamodel: Entry 'CiADraftStandard301' (bibliografie.bib): Invalid format 'http://www.can-cia.org/index.php?eID=tx_nawsecuredl&u=6210&g=11&t=1477318610&hash=a69ec27f3bec3ac6d5c30b95997cd3802f3282d4&file=fileadmin/resources/documents/groups/301v04020006_cor3.pdf' of date field 'urldate' - ignoring
+[225] UCollate.pm:66> INFO - Overriding locale 'cs_CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[226] UCollate.pm:66> INFO - Overriding locale 'cs_CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[226] Biber.pm:3306> INFO - Sorting list 'none/global/' of type 'entry' with scheme 'none' and locale 'cs_CZ'
+[228] bbl.pm:526> INFO - Writing 'mv_bp.bbl' with encoding 'UTF-8'
+[229] bbl.pm:619> INFO - Output to mv_bp.bbl
+[229] Biber.pm:108> INFO - WARNINGS: 1

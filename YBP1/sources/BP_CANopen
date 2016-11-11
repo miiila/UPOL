@@ -1,0 +1,30 @@
+Název práce:
+Aplikace na tvorbu a správu metadat pro CANopen zařízení
+
+Anotace:
+Navrhněte a realizujte aplikaci pro uživatelsky přívětivou tvorbu a
+editaci textové reprezentace metadat popisujících zařízení
+kompatibilní s rodinou protokolů CANopen. Metadata mohou např.
+zahrnovat tzv. elektronické datové listy (Electronic Data-Sheets) a
+konfigurační soubory zařízení (Device Configuration Files), dále pak
+vlastní rozšíření v podobě objektových souborů, které popisují strukturu
+paketů na transportní vrstvě. Důležitou součástí aplikace bude kontrola
+logických návazností a intuitivní asistence uživateli při editaci.
+Volitelnou součástí bude tvorba šablon pro implementaci rozhraní na
+různých platformách.
+
+
+Cílem bakalářské práce bude:
+* nastudovat a shrnout koncepty rodiny protokolů CANopen se zaměřením
+na části relevantní zbytku práce (např. struktury PDO a SDO provozu,
+slovník objektů SDO )
+* provést analýzu a návrh aplikace, která umožní vytvářet a
+modifikovat popisy komuniačních struktur (např. EDS/DCF) s důrazem na
+kontrolu syntaktické správnosti a uživatelskou efektivitu (tj. program
+umožní efektivnější editaci než textový editor)
+* aplikaci realizovat a otestovat
+
+
+Literatura:
+* http://www.canopensolutions.com/english/about_canopen/about_canopen.shtml
+* standard CiA 301

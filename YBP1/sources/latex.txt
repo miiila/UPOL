@@ -1,0 +1,771 @@
+Obsah
+-----
+
+- základy, ale i pokročilejší věci, ne referenční příručka, typografie
+občas
+
+Literatura
+----------
+
+TeX
+
+Donald E. Knuth: The TeXbook. Addison-Wesley Professional, 1986
+
+Petr Olšák: TeXbook naruby, 2. vydání. Konvoj, 2001
+
+LaTeX
+
+Leslie A. Lamport: LaTeX: A Document Preparation System, 2nd edition.
+Addison-Wesley Professional, 1994
+
+Frank Mittelbach, Michel Goossens: The LaTeX Companion, 2nd edition.
+Addison-Wesley Professional, 2004
+
+Jiří Rybička: LaTeX pro začátečníky, 3. vydání. Konvoj, 2002
+
+Pavel Satrapa: LaTeX pro pragmatiky
+http://www.nti.tul.cz/~satrapa/docs/latex/
+
+The Not So Short Introduction to LaTeX2e
+Ne úplně nejkratší úvod do formátu LATEX2e
+ftp://ctan.tug.org/tex-archive/info/lshort/
+
+Typografie
+
+Martin Pecina: Knihy a typografie. Host, 2011
+
+František Štorm: Eseje o typografii. Revolver Revue, 2008
+
+online
+
+LaTeX project site: http://www.latex-project.org/
+Online tutorials on LATEX: http://www.tug.org.in/tutorials.html
+LaTeX manual: http://www.cstug.cz/latex/lm
+
+Wikibooks LaTeX: http://en.wikibooks.org/wiki/LaTeX
+
+Úvod
+----
+
+TeX [tech]
+
+= typografický systém Donalda E. Knutha, konec 70. let, pořádná
+matematika
+
+= značkovací programovací jazyk pro sazbu
+
+- vstup: textový soubor (s příponou .tex) s textem dokumentu a
+textovými příkazy sazby - makry, začínají \, definované z asi 300
+primitivních příkazů, standardní formát (sada maker) PlainTeX - od
+1989 jen opravy chyb, verze konverguje k pi
+
+- původní výstup DVI (DeVice Independent, vysázený dokument bez
+konkrétních podob znaků), doplnění podob znaků dle písem výstupním
+ovladačem (dvips, dvipdf[mx] aj.) -> Postscript (PS), PDF aj.
+
+- dnes výstup nejčastěji PDF pomocí implementací pdfTeX, XeTeX aj.
+
+LaTeX [latech]
+
+= formát (sada maker) Leslieho A. Lamporta, začátek 80. let, neustálý
+vývoj, dřívější verze 2.09, dnes 2e, v nedohlednu verze 3
+
+- jednodušší makra pro běžnou sazbu: strukturování textu, obsah,
+grafika
+
+Distribuce
+
+- TeX Live - de facto standard od TUG (TeX Users Group),
+http://www.tug.org/texlive/
+
+- MacTeX, MiKTeX, ProTeXt, ConTeXt aj.
+
+Jdeme na to
+-----------
+
+- kostra (v souboru dokument.tex):
+
+\documentclass{article}
+\begin{document}
+text dokumentu
+\end{document}
+
+- mezi \documentclass (třída, styl, dokumentu) a \begin{document}
+preambule - načtení rozšiřujících stylů (balíků), (re)definice příkazů
+a maker, nastavení parametrů apod.
+
+- zdrojový text (zdroják): na mezerách a ukončení řádků nezáleží (TeX
+nahradí 1 mezerou), výjimka je prázdný řádek = oddělení odstavců,
+specializované editory (např. TeXmaker, TeXworks, Texstudio,
+TeXnicCenter, TeXShop, LyX) nebo rozšíření textových editorů (AUCTeX
+pro Emacs)
+
+- komentář: od % do konce řádku (včetně)
+
+- překlad: latex dokument, pro výstup dokument.dvi, pdflatex dokument
+(nebo xelatex dokument), pro výstup dokument.pdf, plus dokument.log
+(záznam překladu, také na konzoli) a dokument.aux (pomocný pro TeX),
+příp. další (.toc, .lof, .lot, .idx) - kvůli nim opětovný překlad
+(někdy i/pro jistotu 3x)
+
+- zobrazení DVI (PS) nebo PDF, úprava zdrojáku, znovu překlad atd.
+
+- chyba překladu - zastavení, ("surová") chybová hláška s (přibližným)
+číslem(-y) a kouskem(-y) textu řádku(-ů), možnosti nápověda (H),
+přejít a pokračovat (Enter), dokončit (q), ukončit (x) aj., méně vážné
+chyby (např. chybný odkaz) se přejdou, vše v .log
+
+Rozšiřující styly (balíky)
+--------------------------
+
+- na sazbu všeho možného, na co nejsou makra v základním LaTeXu
+
+- načtení v preambuli: \usepackage{jméno balíku}, nepovinné parametry
+mezi [], oddělené čárkou, před {jméno balíku} (povinný parametr) --
+ovlivňují chování balíku, v dokumentaci balíku
+
+- součástí distribuce a/nebo na http://www.ctan.org/ a instalace
+
+Čeština
+-------
+
+- standardně sázeny jen znaky anglické abecedy ve zdrojáku
+
+- diakritika ve zdrojáku = kódování (utf8, cp1250, latin2 aj.) -
+balík inputenc:
+
+\usepackage[utf8]{inputenc}
+
+- generované texty (Obsah, Rejstřík aj.) a typografické konvence -
+balík babel:
+
+\usepackage[czech]{babel}
+
+- dřívě Olšákův CSTeX/CSLaTeX nebo balík czech
+
+- slitky (ligatury) = vybrané dvojice znaků vysázeny slité, např. fi,
+fl, automaticky
+
+- spojovník - pro dělení slov, -li apod. vs. pomlčka -- nebo ---
+(americká) ve větách a intervalech
+
+- uvozovky: anglické ``text'', české \uv{text}, jinak \quotedblbase,
+\textquotedblleft nebo znaky U+201E a U+201C
+
+- automaticky odsazení začátku prvního řádku odstavce a žádný prázdný
+řádek mezi odstavci (u anglického textu je zvykem naopak), potlačení
+odsazení pomocí \noindent na začátku odstavce (\indent pro vynucení)
+
+Příkazy a makra
+---------------
+
+- začínají \, pak slovo (anglická písmena, např. \TeX, \LaTeX) nebo
+jeden znak (i jiný než písmeno), spousta
+
+- mezera za zrušena -> \makro{} {\makro} \makro\[mezera] (sic!)
+
+- sází něco (na odpovídajícím místě výskytu) nebo mění sazbu (do
+opětovné změny vlastnosti sazby nebo konce bloku, např. \bf)
+
+- blok = text mezi { a } (nebo \bgroup a \egroup), z TeXu, v něm platí
+nastavené vlastnosti sazby, (nově) definovaná makra aj., lze vnořovat
+
+- nepovinné, mezi [], oddělené čárkou, a povinné, zvlášť mezi {},
+parametry za makrem.  např.
+
+\documentclass[a4paper,12pt]{article}
+
+- diakritika, symboly: \'{a} nebo \'a, \`, \v, \", \H, \^, \=, \r, \~,
+\u, \o, \l, \ae, \copyright, \S, \ldots aj.,
+http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4.pdf,
+http://detexify.kirelabs.org/classify.html, \char9786, \char"263A,
+\char'23078 (jen XeTeX a LuaTeX)
+
+- znaky se speciálním významem: \textbackslash, \{, \}, \&, \%, \$,
+\#, \textasciitilde, \textasciicircum, \_
+
+- mezery: běžná = mezera nebo konec řádku, pružná, úzká \, (např.
+oddělení řádů a jednotek čísel), širší \quad (délka čtverčíku), \qquad
+(2 čtverčíky), libovolná \hspace{velikost} (může být i záporná!),
+\hspace*{1cm} (LaTeX ji nevypustí na začátku řádku), "nekonečná"
+dynamická \hfil, \hfill, \hfilll (na řádku platí ta s nejvíce l, LaTeX
+sám používá \hfil), tečkovaná \dotfill, čára \hrulefill, svislé (mezi
+řádky) \smallskip, \medskip, \bigskip (velikost závisí na aktuálním
+písmu), \vspace{velikost}, \vspace*{velikost}, \vfil
+
+- jednotky délek: mm, cm, in = 2.54 cm, pt = 1/72.27 in, sp = 1/65535
+pt, em (čtverčík, šířka M aktuálního písma), ex (výška x), interně vše
+sp
+
+Zalomení řádku a stránky
+------------------------
+
+- síla TeXu, propracované (ovšem ne dokonalé) algoritmy automatických
+zalomení, výsledkem jsou plné odstavce a stránky = zarovnané a přitom
+ne řídké (nebo husté)
+
+- zalomení řádku (řádkový zlom): implicitně sazba odstavců do bloku =
+zarovnání obou okrajů, zalomení automaticky na (zlomitelných)
+mezerách, nezlomitelná ~ (nemusí vždy fungovat, Olšákův program vlna,
+http://ftp.linux.cz/pub/tex/local/cstug/olsak/vlna/, pro doplnění za
+jednopísmenné předložky a spojky vyjma a a i), ruční zalomení na místě
+\newline nebo \\ - nezarovnává pravý okraj, nepovinný parametr \\
+svislá mezera navíc pod řádek, např. \\[1ex], pro zachování zarovnání
+do bloku (ne)doporučení zalomení na místě (\nolinebreak)\linebreak -
+dojde k roztažení mezer (řídký řádek, varovná hláška překladu
+"Underfull \hbox"), globální povolení zalomení přetečených řádků
+(typicky s dlouhými nedělitelnými slovy na konci, varovná hláška
+překladu "Overfull \hbox") a dodržení zarovnání vpravo za cenu řídkých
+řádků pomocí \sloppy (v preambuli), opakem je \fussy
+
+- dělení slov: nejdříve zalomení řádku bez dělení slov, pak
+automaticky podle vzorů z balíku babel (nebo czech), ruční doporučení
+(a zákaz jinde) přímo na místě \- (zkratka za \discretionary),
+např. roz\-dě\-lit, nebo pro celý dokument v preambuli makrem
+\hyphenation, např. \hyphenation{roz-dě-lit slo-vo}, potlačení na
+místě \mbox{slovo}
+
+- zalomení stránky (stránkový zlom): automaticky při dosažení
+nastavené výšky textu, ne snaha o "zarovnání všech stránek na výšku",
+ale snaha o naplnění stránky, ruční zalomení na místě \newpage -
+nenaplní stránku, s vysázením odložených tzv. plovoucích prostředí
+(pro obrázky a tabulky) \clearpage a \cleardoublepage (přechod na
+lichou stránku), pro zachování naplnění (ne)doporučení zalomení
+(\nopagebreak)\pagebreak - dojde k roztažení vertikálních mezer mezi
+odstavci (řídká stránka), zakázání řídkých nebo hustých stránek (ve
+snaze o naplnění stránky) \raggedbottom (v preambuli), změna výšky
+(textu) aktuální stránky \enlargethispage{velikost}
+
+- sirotek = první řádek odstavce na konci stránky, vdova = poslední
+řádek odstavce na začátku stránky - nežádoucí, automatické potlačení,
+ale za cenu případné řídké nebo husté stránky
+
+Písma (fonty)
+-------------
+
+- standardní písma Computer Modern od Knutha (z TeXu)
+
+- změna vlastností makry \xy (\xyvlastnost) až do opětovné změny nebo
+konce bloku, nebo makry \textXY{text} jen pro parametr
+
+- rodina (family, kategorie): patkové (aktikva, serif, roman) \rm
+(\rmfamily), bezpatkové (grotesk, sans serif) \sf, neproporcionální
+(typewriter) \tt
+
+- duktus (tloušťka, series): běžné (medium) \md (\mdseries), tučné
+(boldface) \bf
+
+- tvar (sklon, shape): vzpřímené \up (\upshape), kurzíva (italics) \it
+(skloněné a pozměněné), skloněné (slanted) \sl (zřídkakdy v písmech),
+kapitálky (small capitals) \sc (jiné než verzálky = velká písmena!),
+zvýrazněné \emph{text} - standardně kurzíva, vnořené střídavě
+vzpřímené
+
+- stupeň (velikost, size): relativně ke třídě dokumentu, \tiny,
+\scriptsize, \footnotesize, \small, \normalsize, \large, \Large,
+\LARGE, \huge, \Huge, absolutně
+\fontsize{velikost}{řádkování}\selectfont, pro větší než \Huge ale
+potřeba jiné písmo než Computer Modern
+
+- kódování = kódy znaků ve fontu (glyph): výchozí OT1 (písma Computer
+Modern), jen 128 znaků (anglické abecedy a další), akcentované znaky
+složené ze znaku a akcentu - zastavuje dělení slov s akcenty, nemožné
+je kopírovat a vyhledávat, některé akcentované znaky nelze složit ->
+kódování T1 písem Computer Modern Super (cm-super, použito automaticky
+s kódováním T1) a Latin Modern (lmodern, pro použití balík lmodern)
+pro latinku, OT2, T2A, T2B, T2C a X2 pro cyrilice, LGR pro písmena
+řecké abecedy aj., globální změna kódování pomocí
+\usepackage[kódování]{fontenc}, lokální pomocí
+\fontencoding{kódování}\selectfont
+
+\usepackage[T1]{fontenc}
+
+- další písma (rodiny) Adobe/Postscript (PSNFSS standardní kolekce),
+změna \fontfamily{kód}\selectfont, kód = pag (Avant Garde, sf), pbk
+(Bookman, rm), bch (Charter, rm), pcr (Courier, tt), phv (Helvetica,
+sf), ppl (Palatino, rm), pnc (New Century Schoolbook, rm), ptm (Times,
+rm), pzc (Zapf Chancery, rm), put (Utopia), psy (Symbol), pzd
+(ZapfDingbats), kódy pro Computer Modern = cmr (Roman), cmss (Sans
+Serif), cmtt (Typewriter), nebo balíky sad písem helvet (výchozí sf:
+\renewcommand{\familydefault}{\sfdefault}), avant, courier, chancery,
+bookman (Bookman, Avan Garde, Courier), newcent (New Contury
+Schoolbook, Avant Garde, Courier), charter, pifont (Symbol,
+ZapfDingbats), mathpazo (Palatino i v matematice), mathptmx (Times i v
+matematice), další např. http://www.tug.dk/FontCatalogue/ (ale
+instalace není snadná, pokud není balík!)
+
+- formáty Type 1 (vektorový) nebo Type 3 (vektorový i bitmapový), dnes
+(mimo TeX) běžně (vektorové) formáty TrueType nebo OpenType -> převod
+nebo přímo podporují jen implementace XeTeX a LuaTeX s balíkem
+fontspec nebo mathspec (pro matematiku)
+
+Prostředí
+---------
+
+= jako blok, ale i ovlivnění sazby textu uvnitř, spousta, vnoření musí
+být korektní
+
+- makra \begin a \end, parametr jméno prostředí:
+
+\begin{jmeno}
+text
+\end{jmeno}
+
+- další parametry jen u \begin
+
+- zarovnání textu: flushleft (na prapor vlevo), center, flushright
+
+- citace textu odjinud (širší okraje): quote, quotation (odsazuje
+první řádek odstavce), poezie: verse (ukončení veršů \\, strofy jako
+odstavce)
+
+- sazba zdrojáku (strojopis bez interpretace příkazů, se zachováním
+mezer a konců řádků): verbatim, verbatim* (sazba mezery jako
+"vaničky"), pro zdrojáky prog. jazyků balík listings a prostředí
+lstlisting a makra \lstinline||, \lstinputlisting a \lstset, v textu
+makro \verb|text|, \verb*|text| - | je lib. znak
+
+- seznamy: s odrážkami itemize, číslovaný enumerate, s nadpisy
+description, položky \item, nadpis nebo jiná odrážka/číslo jako
+nepovinný parametr (více balík enumitem), nadpis automaticky
+zvýrazněný (tučný), automatická změna odrážek a číslování u vnořených
+
+Tabulky
+-------
+
+- prostředí tabbing: tabulační zarážky nastavené \=, odsazení k
+zarážce \>, aj., nový řádek \\ (\kill místo \\ pro nesázení řádku,
+pouze pro účel nastavení zarážek)
+
+- prostředí tabular{sloupce}: sloupce = znaky pro sloupce a speciální
+konstrukce, znaky l, r, c pro sloupec zarovnaný vlevo, vpravo, na
+střed, obsah buňky se nezalamuje, pro zalomený obsah znak p{šířka}
+(zarovnaný nahoru, pro zarovnání dolů znak b, doprostřed znak m, z
+balíku array), pro stejný obsah sloupce ve všech řádcích znak @{obsah}
+(nesází mezery vedle sloupce, ! z balíku array ano), např. @{~},
+speciální konstrukce pro opakování *{počet}{sloupce}, z balíku array
+dále >{před obsah následujícího sloupce} a <{za obsah předchozího},
+např. >{\bf} nebo vlastní znak po definici pomocí
+\newcolumntype{znak}{sloupec} (před prostředím), obsah tabulky v
+prostředí po řádcích ukončených \\, sloupce oddělené &, každá buňka se
+chová jako blok, svislá linka znak | pro sloupec, vodorovná \hline v
+obsahu tabulky, jen přes některé sloupce \cline{od-do}, zdvojení pro
+dvojitou linku, vícesloupcová buňka
+\multicolumn{sloupců}{sloupec}{obsah} (ruší specifikaci sloupců, proto
+např. včetně |), víceřádková buňka \multirow{řádků}{šířka}{obsah} z
+balíku multirow, šířka obvykle * pro automatickou podle obsahu,
+
+- prostředí tabularx{šířka}{sloupce} z balíku tabularx: znak X jako p
+pro sloupec dynamické šířky pro dosažení šířky tabulky, při více X si
+sloupce prostor rozdělí rovnoměrně
+
+- nerozdělí se na více stránek -> prostředí longtable, supertabular z
+balíku supertabular, longtabu z baliku tabu
+
+- typicky v samostatném odstavci (v prostředí center), často v
+plovoucím prostředí table
+
+- plovoucí prostředí - sazba v samostatném odstavci, automatické
+vhodné nejbližší umístění v dokumentu, ne nutně na místě ve zdrojáku
+(ale na stránce místa nebo za ní, dané prostředí vysázené v pořadí ve
+zdrojáku), nepovinné parametry pro povolení umístění, h pro místo ve
+zdrojáku, t/b pro začátek/konec stránky a p pro samostatnou stránku s
+plovoucími prostředími, výchozí tbp, table pro tabulky, figure pro
+obrázky, popisek s číslem \caption{text}, typicky nad tabulkou a pod
+obrázkem, číslování zvlášť pro dané prostředí, další možností popisků
+balík caption (písmo generovaného textu a textu popisku, formát aj.)
+
+Matematika
+----------
+
+- síla TeXu (důvod vzniku)
+
+- matematické režimy: v textu (pokud možno nezměněná výška řádku) mezi
+$ a $ (nebo \( a \) nebo prostředí math) a samostatně jako centrovaný
+odstavec mezi $$ a $$ (nebo \[ a \] nebo prostředí displaymath)
+
+- ignorování mezer ve zdrojáku, automatická sazba vlastních, vlastní
+písma (kurzíva), pro zkratky obvyklé sázené vzpřímené, např. max, log,
+sin, stejnojmenná makra, pro text \mbox{text}
+
+- makra pro písmena řecké abecedy, např. \alpha, \Omega, a mnoha
+dalších matematických symbolů, např. \backslash, \pm, \sim, \approx,
+\times, \in, \cup, \emptyset, \wedge, \infty, \rightarrow, \mapsto,
+\sum, \lim, \prod, \int, akcenty \acute{}, \bar, \dot, \hat, \tilde,
+\vec, \sqrt[kolikátá], \overline, \underline, \overbrace, \underbrace
+aj., další (a modifikace) v balících stmaryrd, amssymb aj.
+
+- symboly s proměnlivou velikostí, podle obsahu mezi nimi:
+\leftsymbol, \rightsymbol (musí být, při nesázeném \right.), symbol =
+znak, např. ( a ), [ a ] aj., nebo makro pro symbol, např. \{ a \},
+\langle a \rangle aj.
+
+- horní index ^, dolní _, více znaků indexů do bloku {}, zlomek
+\frac{čitatel}{jmenovatel}, 
+
+- různá písma: \mathrm{text}, \mathit, \mathnormal, \mathcal, \mathbb
+  (balík amsfonts), \mathfrak (balík eufrak) aj.
+
+- číslovaná rovnice prostředí equation, více rovnic prostředí eqnarray
+(eqnarray* bez číslování) - zápis jako u třísloupcové tabulky: levá
+strana & (ne)rovnítko & pravá strana \\, pro nečíslování rovnice
+\nonumber (před \\)
+
+- prostředí array místo tabular, použití pro matice (mezi \left( a
+\right)), \cdots, \vdots, \ddots
+
+- další konstrukce (a symboly): balík amsmath
+
+- věty: \newtheorem{jméno}{text} v preambuli vytvoří prostředí jméno,
+jehož obsah se sází zvýrazněný (kurzíva) a uvozený (nadpis) tučným
+text a automatickým číslem, nepovinný parametr prostředí vysázen za
+uvozením v závorkách normálním písmem (jméno věty),
+např. \newtheorem{lemma}{Lemma}, \begin{lemma}[O něčem]
+... \end{lemma}, přepnutí stylu pomocí \theoremstyle{styl} z balíku
+amsthm, styly plain, definition (normální písmo obsahu), remark
+(zvýrazněný nadpis, normální písmo obsahu), v balíku i prostředí proof
+(styl jako remark, nadpis Proof, bez číslování) se sazbou "čtverečku"
+(end of proof) na konci obsahu (ručně pomocí \qedhere)
+
+Struktura dokumentu
+-------------------
+
+- části \section[nadpis do obsahu a záhlaví stránky]{nadpis} -
+automatické číslování před nadpisem (větším tučným písmem), s číslem
+stránky položka v obsahu, popř. nadpis v záhlaví stránky (pokud je
+takový styl stránky), další v hierarchii \subsection, \subsubsection,
+\paragraph, \subparagraph, nadpisy stejné úrovně sázeny stejně
+
+- * za jménem makra - jen nadpis, bez čísla, položky v obsahu a ne v
+záhlaví stránky, např. \section*{Předmluva}, před přílohami \appendix
+- číslování písmeny
+
+- prostředí abstract, pro titulek nastavení pomocí \title{název},
+\author{jméno \and jméno\thanks{poznámka k autorovi}}, \date{datum} v
+preambuli a vysázení pomocí \maketitle, vlastní do prostředí titlepage
+pro nečíslovanou stranu
+
+- odkazy: na části textu (section apod.), tabulky (prostředí table s
+popiskem), obrázky (figure), rovnice (equation, eqnarray) a věty v
+matematice aj., vytvoření návěští odkazu pomocí \label{jméno} (za
+\caption!), sazba automatického čísla objektu s návěštím pomocí
+\ref{jméno}, \pageref{jméno} pro číslo stránky, nutné dva překlady
+dokumentu (při prvním záznam odkazů do pomocného souboru .aux a sazba ??),
+varování pro neznámé (undefined) odkazy (obsahuje jméno a číslo strany
+výskytu odkazu) a při změně čísel v odkazech (=> potřeba další
+překlad)
+
+- obsah, seznamy tabulek a obrázků: generované \tableofcontents,
+\listoftables, \listoffigures (text z \caption), nutné dva překlady
+(pomocné soubory .toc, .lot, .lof), položka ručně
+\addcontentsline{přípona pomocného souboru}{styl}{text}, styl část
+(např. section, pro \section*) pro obsah, jinak table nebo figure,
+cokoliv ručně \addtocontents{přípona}{text}, např. \newpage
+
+- vkládání zdrojáků: kdekoliv \input{zdrojak} pro vložení obsahu
+souboru na místo výskytu, s \clearpage před a po \include{zdrojak},
+vložení jen některých z \include pomocí \includeonly{zdrojak,zdrojak}
+- pro zbytek dokumentu (čísla odkazů, stránek, obsah atd.) jakoby
+dokument byl kompletní (pomocný soubor dokument.aux, aktualizovaný ale
+až při překladu vloženého souboru)
+
+Obrázky
+-------
+
+- původně TeX nepodporoval - různé možnosti systémů pro zobrazení
+dokumentu
+
+- prostředí picture(šířka, výška) (lze i 0 a kreslení mimo!): makra
+pro kreslení objektů vektorové grafiky, \put(x,y){objekt}
+(\multiput(x,y)(dx,dy){počet}{objekt}) pro umístění objektu (-ů) na
+souřadnice, objekty kromě LaTeXu \line(x,y){délka} (\vector) pro čáru
+(se šipkou) ve směru x,y, \circle{poloměr}/\oval{šířka, výška} pro
+kružnici/ovál, \qbezier pro (kvadratickou Beziérovu) křivku aj.,
+\linethickness{šířka} pro tloušťku čáry, další balík picture, nástroj
+TeXCad pro interaktivní nakreslení, výstup z gnuplot
+
+- programovací jazyk Metapost pro popis (a kreslení) vektorových
+obrázků přeložených do formátů Encapsulated Postscript (EPS) nebo PDF
+- viz dále
+
+- balíky pgf a tikz s prostředím tikzpicture a makry pro kreslení
+objektů vektorové grafiky - viz dále
+
+- vkládání obrázků odjinud - dříve vlastní řešení implementací LaTeXu,
+dnes jednotně balíky graphics a (jeho rozšíření) graphicx: podporované
+formáty dané implementací LaTeXu - rastrové JPEG, PNG, vektorové PDF
+(pdfTeX, XeTeX nebo výstupní ovladač dvipdf[mx] s nepovinným
+parametrem pdftex nebo konfiguračním souborem graphics.cfg), EPS (TeX,
+pdfTeX s balíkem epstopdf, XeTeX nebo výstupní ovladač dvips), vložení
+obrázku \includegraphics{obrazek} - nepovinné parametry
+vlastnost=hodnota, vlastnosti scale, width (hodnota \textwidth pro
+šířku textu), height (uvedení jednoho zachovává poměr stran obrázku),
+angle aj.
+
+- typicky v samostatném odstavci (v prostředí center nebo s \noindent
+při \textwidth), často v plovoucím prostředí figure
+
+Třídy dokumentu
+---------------
+
+- \documentclass{název} - první makro, stanoví charakteristiky určení
+dokumentu (název): article pro články, report pro zprávy, book pro
+knihy, slides -> beamer pro prezentace - viz dále, aj.
+
+- nepovinné parametry: (společné) 10pt, 11pt, 12pt pro základní
+velikost písma (\normalsize, výchozí 10pt),
+a4paper/b5paper/letterpaper... pro velikost papíru (výchozí
+letterpaper), landscape pro papír naležato, twoside pro oboustranný
+tisk (liché/pravé a sudé/levé stránky, výchozí oneside), draft pro
+zvýraznění problémů při sazbě čtverečkem v pravém okraji a jen rámečky
+místo obrázků (výchozí final), fleqn pro zarovnání matematických
+vzorců doleva, leqno pro číslování vzorců vlevo a další
+
+\documentclass[12pt, a4paper]{article}
+
+- report, book: kapitoly \chapter - jako \section, začínají na nové
+stránce (pravé u book a výchozím nepovinném parametru openright,
+libovolné při openany), titulní strana (u article nepovinný parametr
+titlepage)
+
+Literatura
+----------
+
+- seznam použité literatury: prostředí thebibliography, položky
+číslované nebo zkratka (autora a roku, např. Knu94) v [], povinný
+parametr prostředí nejširší číslo/zkratka (např. 99/Mmm99) - podle něj
+zarovnání čísel/zkratek doprava, položka uvozená \bibitem{klíč},
+výchozí číslovaná, zkratka jako nepovinný parametr
+
+- citace v textu: sazba čísla/zkratky odkazované položky v []
+\cite{klíč}, nutné dva překlady dokumentu (jako odkazy, při prvním
+sazba ?), nepovinný parametr přidán za číslo/zkratku s čárkou
+
+- BibTeX: seznam automaticky na základě citací a seznamu (databáze)
+literatury - v souboru *.bib, formát @typ{klíč,
+keyword={hodnota},...}, typ = article, book, online, aj., keyword =
+title, author, year, journal, volume, number, publisher, isbn, issn,
+pages, pagetotal, date, url aj., vysázení číselně/abecedně podle
+čísla/zkratky položky seřazeného seznamu do pomocného souboru .bbl
+pomocí bibtex dokument, automatický styl položek (příp. definovaný v
+souboru .bst) zadaný pomocí \bibliographystyle{styl}, styly plain
+(číslo, celé jméno autora), abbrv, acm (číslo, iniciály), alpha
+(zkratka, celé jméno) aj., vložení seznamu \bibliography{soubor}, při
+dalším (třetím) překladu dokumentu, vysázení i necitované položky
+\nocite{klíč} (všechy klíč = *)
+
+Rejstřík
+--------
+
+- balík makeidx, v preambuli \makeindex
+
+- heslo \index{heslo} za slovem, žádná sazba, jen záznam hesla heslo
+do souboru .idx, abecední setřídění, sloučení stejných hesel a
+vysázení rejstříku do souboru .ind pomocí makeindex dokument - třídění
+dle kódů znaků => písmena s akcenty až za z -> argument -L pro třídění
+podle lokalizace OS nebo csindex (pro české znaky, argument -z pro
+kódování zdrojáku, např. utf8) nebo novější texindy (argumenty -I
+formát, -L jazyk, -C kódování, formát např. latex, jazyk např. czech)
+
+- vložení rejstříku \printindex, při dalším (třetím, popř. čtvrtém)
+překladu dokumentu, automatický styl hesel (příp. definovaný v souboru
+.ist)
+
+- jiný text místo heslo \index{heslo@text} (např. LaTeX@\LaTeX, ale
+třídění podle heslo), podheslo !podheslo, až 3 úrovně, zvýraznění
+čísla stránky s heslem |makro bez \, např. |textbf, odkaz na jiné
+heslo |see{heslo}, interval stránek u hesla |( a |)
+
+Další
+-----
+
+- poznámky: pod čarou \footnote{text} - automatická značka (pořadové
+číslo jako horní index) na místě makra a před textem poznámky pod
+čarou písmem velikosti footnotesize, kde nejde (např. tabulky), tak
+\footnotemark pro pouze značku a kde to už jde pak
+\footnotetext{text}, na okraj stránky vedle řádku výskytu
+\marginpar{text} (normální velikostí písma), u jednostranného tisku na
+pravý okraj, u oboustranného na vnější okraj, přepnutí pomocí
+\reversemarginpar
+
+- sazba do sloupců: pro 2 nepovinný parametr twocolumn makra
+\documentclass, nejdřív naplní levý, pak až pravý sloupec, lepší balík
+multicol a prostředí multicols s povinným parametrem počet sloupců, do
+kterých je vysázen obsah prostředí, algoritmus sloupcového zlomu
+vyrovnává výšky sloupců, ruční zlom \columnbreak (uzký řádek je
+náročnější na zalomení!)
+
+- obtékání obrázků a tabulek textem: balík wrapfig a neplovoucí
+prostředí wrapfigure a wraptable místo plovoucích figure a table,
+parametry [obtékajících řádků]{umístění}[přesah okraje
+stránky]{šířka}, počet obtékající řádků při neuvedení automaticky,
+umístění = vlevo od textu l, vpravo r, vnitřní okraj stránky i, vnější
+o, nelze použít v jiném prostředí, nezalomí se při zlomu stránky
+
+- barvy: podobně jako obrázky TeX původně nepodporoval, vlastní řešení
+implementací, odstínění rozdílů balíkem xcolor, nepovinné parametry
+barevný model (rgb - výchozí, cmyk, gray, hsb, HTML aj.), table pro
+barvy v tabulkách (načte balík colortbl), hyperref pro obarvení odkazů
+(načte balík hyperref, viz PDF dále), změna barvy textu \color[barevný
+model]{specifikace barvy} (přepnutí barvy) a
+\textcolor[model]{specifikace}{text}, specifikace barvy jako čárkami
+oddělený seznam (3) hodnot od 0 do 1 pro složky modelu (potřeba zadat
+model), pro model HTML šestice hexadecimálních číslic, pojmenované
+barvy \color{jméno}, základní jména např. black, white, red, green,
+blue aj. (nepovinnými parametry dvipsnames, svgnames aj. další,
+netřeba zadávat model), pojmenování vlastní barvy
+\definecolor{jméno}{model}{specifikace barvy}, nasycení pojmenované
+barvy jméno!procento, míchání barev
+jméno!procento!jméno!procento!..., pozadí boxu \colorbox{barva}{text},
+{barva} jako [model]{specifikace barvy} nebo {jméno}, s orámováním
+\fcolorbox{barva orámování}{barva pozadí}{text}, přepnutí barvy pozadí
+stránky \pagecolor{barva}, v prostředí tabular přepínače \cellcolor a
+\rowcolor v obsahu, \columncolor ve specifikaci sloupců v konstrukci
+>{}, \arrayrulecolor pro čáry (i mimo tabular), \rowcolors{číslo
+prvního řádku}{barva lichých}{barva sudých} pro střídání barev řádků
+(před tabular)
+
+- více jazyků v dokumentu (generované texty, typografické konvence
+apod.): balík babel, jazyky jako nepovinné parametry, poslední
+aktuální, přepnutí jazyka \selectlanguage{jazyk},
+\foreignlanguage{jazyk}{text} nebo prostředí otherlanguage, pozor na
+kódování zdrojáku (inputenc) a písma (fontenc)!
+
+- PDF: balík hyperref, automaticky všechny odkazy a položky obsahu
+aktivní ("klikatelné"), s barevným orámováním, nepovinné parametry
+nebo \hypersetup{parametry} pro barvu orámování
+link|cite|urlbordercolor=barva (aj.), vypnutí orámování
+pdfborder={0,0,0}, barvu textu odkazu colorlinks=true (vypne
+orámování) a link|cite|urlcolor=barva (aj.), vypnutí orámování i barvy
+textu hidelinks, zapnutí/vypnutí záložek bookmarks=true/false, i
+jiných znaků než z ASCII v záložkách unicode=true/false, aktivních
+odkazů na poznámky pod čarou hyperfootnotes=true/false, na hesla
+rejstříku hyperindex=true/false aj., metainformace o názvu dokumentu
+pdftitle={text} (výchozí jméno souboru dokumentu), autorovi
+pdfauthor={text} atd., URL odkaz s vysázenou URL \url{URL}, v URL
+znaky #, & a ~ bez speciálního významu, neaktivní \nolinkurl{URL}, s
+vysázeným jiným textem \href{URL}{text}, prvky formuláře \TextField,
+\CheckBox aj.
+
+- boxy: TeX sází vše (znaky, slova, řádky, odstavce, vzorce, tabulky
+obrázky, ..., stránky!) do vodorovně nebo svisle skládaných vnořených
+boxů, které se nelámou (a mezery v nich nejsou pružné), ručně
+vodorovně skládaný (jako slovo) \mbox{text} (šířka automaticky podle
+textu) a \makebox[šířka][zarovnání obsahu]{text}, zarovnání výchozí
+centrované, vlevo l, vpravo r, roztažení do celé šířky s, orámovaný
+\fbox a \framebox, \mbox svisle posunutý nad účaří řádku
+\raisebox{posun}[výška]{text}, výška při neuvedení automaticky, svisle
+skládaný (jako odstavec, který je ale součást řádku) \parbox[zarovnání
+vůči řádku][výška][svislé zarovnání obsahu]{šířka}{text} nebo
+prostředí minipage[zarovnání][výška][zarovnání obsahu]{šířka},
+zarovnání vůči řádku výchozí centrované, dolním okrajem b, horním t,
+zarovnání obsahu c (výchozí), b, t, s, výška při neuvedení
+automaticky, text může být (téměř) jakýkoliv kód!!, další balík
+fancybox (např. oválný nebo stínovaný box)
+
+- změna velikosti a otáčení (boxů): balík graphicx,
+\scalebox{vodorovně}[svisle]{text}, výchozí 1, při neuvedení svisle
+zachování poměru stran, záporné = zrcadlení,
+\resizebox{výška}{šířka}{text}, pro zachování poměru stran jeden
+rozměr !, \rotatebox[střed]{úhel}{text}, úhel pro směru hodinových
+ručiček ve stupních, výchozí střed na účaří uprostřed, zadání
+origin=pozice, pozice = až dva znaky z l vlevo, r vpravo, c uprostřed,
+t nahoře, b dole, B na účaří, nebo x=offset, y=offset, offset posunutí
+od výchozího středu
+
+- uložení textu (do boxu): \newsavebox{\jméno} a
+\savebox{\jméno}{text}, (opakované) použití \usebox{\jméno}
+
+(Re)definice maker a prostředí
+------------------------------
+
+- definice makra \newcommand{\makro}[počet povinných parametrů]{text},
+od definice dále při použití \makro{hodnota parametru 1}{hodnota
+parametru 2}... při překladu nejdříve nahrazeno textem s dosazenými
+hodnotami za parametry #1, #2, ..., text může být jakýmkoli kód
+(interpretovaný při použití makra, ne při definici)!, definice typicky
+v preambuli, makro téhož jména nesmí existovat,
+např. \newcommand{\uv}[1]{\quotedblbase #1\textquotedblleft}, pro
+předefinování existujícího \renewcommand
+
+- definice prostředí \newenvironment{jméno}{text zahájení}{text
+ukončení}, texty opět kód interpretovaný na začátku a konci prostředí,
+např. \newenvironment{centerpar}{\begin{center}}{\end{center}},
+předefinování existujícího \renewenvironment
+
+Proměnný obsah
+--------------
+
+- podmíněný obsah: \ifthenelse{podmínka}{text při splněno}{text při
+nesplněno} z balíku ifthen, podmínka číslo <>= číslo,
+\equal{text}{řetězec}, \isundefined{\makro}, \and, \or, \not, \(, \)
+aj.
+
+- cyklus: \whiledo{podmínka}{text} z balíku ifthen, podmínka jako u
+\ifthenelse, \foreach \i in {hodnota, ...}{text} z balíku tikz (viz
+dále)
+
+Nastavení
+---------
+
+- záhlaví a zápatí stránky: změna \pagestyle{styl}, pouze pro aktuální
+stránku \thispagestyle{styl}, styl = empty prázdné, plain (výchozí) s
+číslem stránky v zápatí uprostřed, headings s číslem stránky a
+nadpisem části (sekce) v záhlaví, myheadings jako headings, ale
+\markboth{text na levé/sudé stránce}{text na pravé/liché} (jen ve
+třídě book) a \markright{text na pravé}, fancy (ne plain style
+stránky, např. titulní) a fancyplain z balíku fancyhdr -- záhlaví i
+zápatí části levá L, prostřední C a pravá R pro liché/pravé O a
+sudé/levé E stránky, nastavené \fancyhead[části]{text},
+\fancyfoot[části]{text} a \fancyhf[části, navíc H,F]{text} (typicky v
+preambuli, alternativně \Xhead[text pro sudé/levé]{text pro
+liché/pravé}, \Xfoot, X = l,c,r), v textu např. \thepage pro číslo
+stránky, \leftmark a \rightmark pro nadpis části (kapitoly, sekce) ze
+stylu headings pro levou a pravou stranu (velkým písmem, změna
+redefinicí \chaptermark a \sectionmark), změna stylu a reset (od 1)
+číslování stránek \pagenumbering{styl}, styl = arabic pro arabské
+číslice, roman pro římské minusky, Roman pro římské verzálky, alph pro
+písmena minusky, Alph pro písmena verzálky, pro číslo poslední stránky
+label LastPage z balíku lastpage, pro číslování stránek v rámci
+kapitol balík chappg
+
+- čítače: pro uložení (celých) čísel, např. číslo
+stránky/(sub)sekce/obrázku/tabulky/rovnice/poznámky/položky
+(pod)seznamu
+page/(sub)section/figure/table/equation/footnote/enumi(i(i)) aj.,
+definice vlastního \newcounter{jméno}[nadřízený čítač], při
+inkrementaci nadřízeného čítače bude definovaný čítač resetován (na
+0), např. nadřízený čítač = section, hodnota čítače \value{jméno}, pro
+sazbu \thejméno (jinak než výchozí styl \arabic{jméno} apod.),
+nastavení \setcounter{jméno}{číslo}, přičtení
+\addtocounter{jmého}{číslo}, inkrementace o 1 a reset podřízených
+\stepcounter{jméno}, \refstepcounter navíc učiní čítač aktuálním pro
+\label (a \ref)
+
+- délkové registry: pro uložení délek (s rozměrem), např. části
+stránky (viz obrázek, nastaveny při interpretaci \documentclass podle
+třídy dokumentu a rozměrů papíru, změněny typicky v preambuli,
+aktuální nastavení \layout z balíku layout nebo rámy pomocí balíku
+showframe, více balík geometry -- parametry papír, paperwidth=délka,
+paperheight, margin/top/bottom/left/right/inner/outer=délka pro okraje
+aj.), odsazení začátku prvního řádku odstavce \parindent, svislá
+mezera mezi odstavci (i položky seznamů) \parskip, mezi položkami
+seznamu \itemsep, rozteč řádků \baselineskip, (faktor) řádkování textu
+\baselinestretch (výchozí 1) a tabulky (tabular, array) \arraystretch
+(výchozí 1), mezera mezi sloupci \tabcolsep, v prostředí multicols
+\columnsep, šířka čáry mezi sloupci \columnseprule, šířka čáry
+orámovaného boxu \fboxrule, vnitřní okraj \fboxsep, šířka čáry
+záhlaví a zápatí \headrulewitdth a \footrulewidth, jednotka délky v
+picture \unitlength aj., definice vlastního \newlength{\jméno},
+hodnota registru \jméno (kde se zadává délka), sazba hodnoty
+\the\jméno, násobená konstantou číslo\jméno, např. .5\textwidth,
+nastavení \setlength{\jméno}{délka}, na šířku/výšku (interně)
+vysázeného textu \settowidth/height/depth{\jméno}{text}, přičtení
+\addtolength{\jméno}{délka}, pružná délka s plus pro maximálně navíc a
+minus pro maximálně míň (může být i fil(l(l)) pro nekonečno), např.
+10pt plus 4pt minus 2pt, pro aritmetiku balík calc
+
+- parametry (algoritmu) sazby: např. pokuta za sirotka \clubpenalty,
+za vdovu \widowpenalty, za rozdělení slova \hyphenpenalty aj.,
+nastavení \jméno=hodnota (10000 = nekonečno) anebo
+\renewcommand{\jméno}{hodnota}

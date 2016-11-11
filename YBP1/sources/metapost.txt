@@ -1,0 +1,299 @@
+Literatura
+----------
+
+John D. Hobby: METAPOST, a user's manual.
+http://www.tug.org/docs/metapost/mpman.pdf
+
+Miroslava Krátká: Tvorba obrázků pro matematické texty pomocí
+METAPOSTu. Diplomová práce, MU Brno, 2001
+http://mirka.janik.cz/dp/
+
+Troy Henderson, Stephan Hennig: A Beginner’s Guide to METAPOST for
+Creating High-Quality Graphics.
+http://www.tug.org/docs/metapost/mpintro.pdf
+
+Andre Heck: Learning METAPOST by Doing.
+http://www.science.uva.nl/~heck/Courses/mptut.pdf
+
+Fabrice Popineau: Practical METAPOST.
+http://www.ntg.nl/maps/28/16.pdf
+
+online
+
+Seriál Metapost a grafika v postscriptu na Root.cz:
+http://www.root.cz/serialy/metapost-a-grafika-v-postscriptu/
+
+ukázky
+------
+
+Metapost : exemples
+http://tex.loria.fr/prod-graph/zoonekynd/metapost/metapost.html
+
+Metapost: A Very Brief Tutorial
+http://www.ursoswald.ch/metapost/tutorial.html
+
+Úvod
+----
+
+METAPOST
+
+= programovací jazyk pro popis (a kreslení) vektorových obrázků, autor
+John D. Hobby, 1989
+
+- derivát jazyka METAFONT Donalda E. Knutha pro tvorbu písem (fontů)
+-- výstup bitová mapa a metrika písma, práce s písmeny
+
+- vstup: textový soubor (s příponou .mp) s programem
+
+- výstup: Encapsulated Postscript (EPS, tzv. zapouzdřený Postscript,
+program v jazyce Postscript), PDF a SVG
+
+- obsažen v distribucích TeXu
+
+Jdeme na to
+-----------
+
+- kostra (v souboru obrazek.mp):
+
+prologues:=3;
+
+beginfig(N);
+příkazy
+endfig;
+
+...
+
+end/bye;
+
+- popis obrázku mezi beginfig(N) a endfig, N je číslo (>= 0)
+
+- zdrojový text (zdroják): příkazy ukončené ;, komentář od % do konce
+řádku
+
+- překlad: mpost obrazek, pro výstup obrazek.N = EPS, mptopdf obrazek,
+pro výstup obrazek-N.pdf, plus obrazek.log (záznam překladu, také na
+konzoli), příp. ještě obrazek.mpx (texty vysázené TeXem jako obrázky v
+METAPOSTu)
+
+- MetaPost Previewer (http://www.tlhiv.org/mppreview/) - WWW formulář
+pro zdroják, výstupy EPS, PDF, SVG, PNG, SWF
+
+Datové typy a proměnné
+----------------------
+
+- numeric pro čísla: celá i necelá, příp. s jednotkou, reprezentována
+jako násobky 1/65536 (konstanta epsilon), < 4096 (dočasné až 32k),
+operace +,-,*,/,** (umocnění), decimal pro převod na řetězec, funkce
+sqrt, abs, round, sind, cosd
+
+- pair pro souřadnice bodů: dvojice čísel (x,y), operace +,-, s číslem
+*(také nic),/, bod A + x*(B-A) na přímce mezi body A,B: x[A,B], např.
+střed 1/2[A,B], xpart, ypart pro souřadnice, dotprod pro skalární
+součin, abs pro (Eukl.) délku mezi body aj.
+
+- path pro cestu = lomená čára bod--bod--bod, uzavřená bod--cycle,
+nebo Beziérova kubická křivka procházející body bod..bod..bod,
+uzavřená bod..cycle, kontrolní body automaticky, ručně sklon tečny do
+bodu {dir číslo}bod a z bodu bod{dir číslo}, číslo sklon ve stupních,
+předdefinované up, down, left, right, dále napětí mezi body, zakřivení
+v bodě a mezi body, kontrolní body ..controls bod and bod.., kružnice
+(s jednotkovým průměrem a středem v (0,0)) fullcircle, část nad osou x
+halfcircle, v prvním kvadrantu quartercircle
+
+- transform pro afinní transformaci (složení posunutí, rotace,
+škálování a zkosení, t(p(x,y)) = (t_x + t_xx * p(x) + t_xy * p(y), t_y
++ t_yx * p(x) + t_yy * p(y)), viz dále), konstanta pro identitu
+identity, xpart atd. pro parametr, aplikace na cesty, obrázky, pera a
+transformace
+
+- (rgb)color (cmykcolor) pro barvu: trojice (čtveřice) čísel (x,y,z) z
+[0,1] pro složky modelu RGB (CMYK), předdefinované black = (0,0,0),
+white = background = (1,1,1), red, green, blue, operace +,-, s číslem
+*, např. 0.8white, redpart apod.
+
+- string pro řetězec v "", & zřetězení, length řetězec, substring pair
+of řetězec - pozice 0 až počet znaků + 1 kolem znaků
+
+- boolean pro true/false, operace and, or, not
+
+- picture pro obrázek: nakreslený currentpicture, prázdný nullpicture
+
+- pen pro pero: předdefinovaná kruhové pencircle a čtvercové pensquare
+
+- pro lib. dat typ relace = a <>, kromě path, picture a pen i <, >,
+<=, >=
+
+- jména dat. typů také jako unární operátory testující typ, known a
+unknown pro testování znalosti hodnoty
+
+- deklarace proměnné: typ jméno, jméno znaky anglické abecedy, číslice
+a _, pole typ jméno[], prvky pole jménoindex, index od 1, např.
+jméno1, bez typu = numeric, proměnné zsuffix deklarované jako
+(xsuffix,ysuffix) typu pair, suffix typicky číslo, globální platnost
+vyjma proměnných s prefixem x, y a z, výpis typu a hodnoty (na
+konzoli/do logu) show jméno
+
+- přiřazení hodnoty proměnná:=hodnota
+
+- řešení (soustav) lineárních rovnic (s =), např. bod z3 v polovině na
+úsečce mezi z1 a z2, z3=1/2[z1,z2], kde (x) na úsečce z3=x[z1,z2],
+pomocné neznámé whatever, např. průsečík přímek
+z5=whatever*[z1,z2]=whatever*[z3,z4], pro numeric, pair, color,
+boolean a transform (!, např. pro T(p(x,y) = (4*p(x) + 3*p(y), -3*p(x)
++ 4*p(y)) rotace a škálování: (0,1) transformed T = (3,4); (1,1)
+transformed T = (7,1); (1,0) transformed T = (4,-3);)
+
+Základní příkazy
+----------------
+
+- souřadnicový systém z Postscriptu (klasický, střed (0,0)), jednotka
+postscriptový bod bp = 1/72 in, další mm, cm, in = 2.54 cm, pt =
+1/72.27 in, výhodné (pro úpravu měřítka obrázku) přiřazení používané
+jednotky proměnné (typicky jména u)
+
+- výchozí pero pro obrázek pencircle s tloušťkou 0.5 bp, v proměnné
+defaultpen, změna pera pickup pero, vytvoření pera podle cesty
+makepen(cesta), obráceně makepath(pero)
+
+- kreslení draw bod/cesta/obrázek, aktuálním perem, barvou withcolor
+barva, cesta vykreslena jako plná lomená čára nebo křivka, přerušovaná
+dashed vzorek, vzorek (typu picture), předdefinované evenly
+(čárkovaný, čárky a mezery 3pt), withdots (tečkovaný, mezera 5pt),
+vlastní čárkovaný dashpattern(on délka off délka ...), zakončení podle
+předdefinované proměnné linecap -- hodnoty rounded pro zakulacené,
+butt pro rovné, squared pro čtvercové, rohy v lomené čáře podle
+předdefinované proměnné linejoin -- hodnoty rounded, beveled, mitered,
+zakončení šipkou drawarrow místo draw, šipka na konci, na začátku
+drawarrow reverse, na obou koncích drawdblarrow, velikost šipky a úhel
+podle předdefinovaných proměnných ahlength a ahangle, "odkreslení"
+undraw
+
+- oříznutí obrázku na cestu clip obrázek to cesta
+
+- afinní transformace: posunutí o vektor objekt shifted pair, objekt
+cesta, obrázek, pero, rotace o úhel od osy x ve stupních kolem bodu
+(0,0) proti směru hodinových ručiček objekt rotated úhel, kolem bodu
+rotatedaround (bod,úhel), škálování objekt scaled koeficient, jen v
+ose x/y xscaled/yscaled, zkosení objekt slanted koeficient, osová
+souměrnost podle přímky procházející body A,B objekt reflectedabout
+(A,B), aplikace objekt transformed transformace, aplikace inverzní
+transformace objekt transformed inverse transformace, možné další
+transformace transformovaného objektu
+
+- parametrizace cest (čar, křivek) (x(t),y(t)), čas t=0..n-1, n počet
+zadaných bodů cesty, bod na cestě point čas of cesta, čas cesty length
+cesta, podcesta subpath (čas,čas) of cesta, tečný vektor (typu pair)
+direction čas of cesta, čas/bod odpovídající tečnému vektoru
+directiontime/directionpoint vektor of cesta, bod průsečíku cest cesta
+intersectionpoint cesta (chyba při neprotínání se), dvojice časů
+průsečíku cesta intersectiontimes cesta ((-1,-1) při neprotínání se),
+při více průsečících ten s nejmenším časem na první křivce
+(zjednodušeně), oříznutí první cesty před/za průsečíkem s druhou
+cestou b cesta cutbefore/cutafter b, uzavřená cesta jako hranice
+oblasti ohraničené křivkami p1,...,pk (křivka složená z částí křivek
+mezi průsečíky p_{i-1} a p_i) buildcycle(p1,..., pk)
+
+- vyplnění uzavřené cesty fill cesta, černou barvou, jinou barvou
+withcolor barva, "odbarvení" unfill (= fill cesta withcolor
+background), vyplnění a vykreslení filldraw (unfilldraw)
+
+- kreslení textu/obrázku label(řetězec/obrázek, bod) nebo
+label.přípona(řetězec/obrázek, bod), přípona určuje polohu vložení
+vzhledem k bodu: top, urt, rt, lrt, bot, llft, lft, ulft, vzdálenost
+od bodu v předdefinované proměnné labeloffset (výchozí 3bp), bod jako
+tečka dotlabel, ne kreslení, jen vytvoření textu/obrázku jako obrázku
+(typ picture) thelabel, výchozí (postscriptové) písmo textu v
+předdefinované proměnné defaultfont, např. cmr10 (výchozí), csr10,
+neobsahují mezeru, rphvr (Helvetiva), rptmr (Times), neobsahují české
+znaky, phvr8z, ptmr8z i s českými znaky, velikost písma v
+předdefinované proměnné defaultscale (výchozí 1, typicky 10pt)
+
+- text vysázený TeXem jako obrázek: btex zdroják TeXu etex, např. btex
+$\sqrt x$ etex, při překladu překlad TeXem (pomocné soubory mpx*.tex
+se zdojáky TeXu a obrazek.mpx s vysázenými texty jako obrázky v
+METAPOSTu), vložení zdrojáku TeXu verbatimtex zdroják TeXu etex, pro
+LaTeX nastavení překladače (latex, pdflatex, xelatex) v systémové
+proměnné TEX před překladem (?), zdroják za verbatimtex pak zdroják
+LaTeXu (včetně preambule) před zdrojáky za následujícími btex,
+např. \documentclass{article} \begin{document} \large
+
+Podmínky a cykly
+----------------
+
+- podmínka: if podmínka: kód else: kód fi, if v else zkráceně elseif,
+podmínka je výraz vyhodnocený na typ boolean, kód nemusí být celé
+příkazy a podmínka může být v příkazu, např. draw fullcircle scaled if
+r < 0: r else: 2*r fi shifted s
+
+- cyklus: for jméno = výraz, ...: kód endfor, výraz nemusí mít
+přiřazenu hodnotu (viz řešení lin. rovnic), for jméno = výraz step
+krok until výraz: kód endfor, výrazy a krok musí mít přiřazena čísla
+(typ numeric), step 1 until zjednodušené na upto, step -1 until na
+downto, krok celé číslo nebo násobek 1/65536, jinak cyklus nemusí
+skončit!, kód nemusí být celé příkazy a cyklus může být v příkazu,
+např. draw for a=(0,0),(1,0),(0,1): a -- endfor cycle, jméno je
+parametr typu expr, ale není to proměnná, jméno jako parametr typu
+suffix u cyklu forsuffixes, nekonečný cyklus forever, ukončení
+exitif/exitunless podmínka -- simulace cyklu while
+
+Makra
+-----
+
+- předdefinovaná, vedle tzv. primitivních příkazů, např. image(kód)
+"vracející" kódem nakreslený obrázek (typ picture, nevykreslený)
+
+- definice vlastních def jméno (typ parametr, ...) (typ parametr, ...)
+= kód enddef, při použití se jméno(hodnota, ...)(hodnota, ...) nebo
+jméno(hodnota, ..., hodnota, ...) nahradí kódem s dosazenými hodnotami
+za parametry, parametry typu expr výrazy vyhodnocené na objekt
+nějakého datového typu, např. def kruznice(expr c, r) = draw
+fullcircle scaled 2*r shifted c; enddef a kruznice(3u,(1u,2u)),
+parametry typu suffix jméno proměnné, např. def incr(suffix $) =
+$:=$+1; enddef, převod parametru typu suffix na řetězec (např. pro
+label) str parametr, typu text kód (!), např. def oramovane(text
+t)(expr c) = draw t; draw bbox t withcolor c; enddef a
+oramovane(fullcircle scaled 5u)(red), když je posledním příkazem před
+enddef proměnná, její hodnota je makrem "vrácena" a je možné použití
+proměnná = jméno(...)
+
+[
+- vardef jméno[]suffix místo def jméno (zároveň) definuje parametry
+typu suffix #@ s hodnotou jméno a @ s hodnotou suffix, použití
+jménoNsuffix(...), N je číslo
+
+
+- skupina: příkazy mezi begingroup a endgroup, automaticky kolem kódu
+ve vardef místo def, lokální proměnná save proměnná = "zlokálnění"
+všech proměnných s prefixem proměnná na typ numeric, obnovení za
+skupinou
+]
+
+Další
+-----
+
+- ohraničující obdélník (jako cesta) obrázku/cesty/pera bbox objekt,
+velikost vnitřního okraje obdélníku v předdefinované proměnné
+bboxmargin (výchozí 2bp), body rohů objektu (ll|lr|ur|ul)corner objekt
+
+- předdefinovaná proměnná prologues > 0 (výchozí 0): výstup mpost je
+EPS včetně instrukcí pro použití písma pro texty (ideálně hodnota 3) a
+oříznutí obrázku na nejmenší obdélník s kresbou, jinak PS s
+nezobrazujícími se texty (pro < 0 bez oříznutí?) -- instrukce doplní
+ovladač dvips při překladu TeXového dokumentu s vloženým obrázkem,
+použití při náročnějších TeXem sázených textech v obrázku, při
+překladu mptopdf nemá význam
+
+- výstup do SVG: předdefinovaná proměnná outputformat:="svg"
+
+mfpic
+-----
+
+= balík maker (La)TeXu pro kreslení vektorových obrázků (podobně jako
+prostředí picture nebo balík TikZ), makra implementovaná v METAPOSTu
+(a METAFONTu), \usepackage[metapost]{mfpic}, prostředí mfpic, makra
+\mfpic a \endmfpic, při překladu dokumentu vytvořeny soubory .mp
+
+GUI aplikace
+------------
+
+Metagraf (http://w3.mecanica.upm.es/metapost/metagraf.php) - Java

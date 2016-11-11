@@ -1,0 +1,382 @@
+ Státní závěrečná zkouška (SZZ)
+------------------------------
+
+1. ústní zkouška
+
+- na webu katedry zveřejněny okruhy otázek (Požadavky)
+
+- komise: předseda a (obvykle 4) další členové
+
+- průběh: předseda určí zkoušejícího pro každý okruh, zkoušející
+zadají písemně min. 2 varianty otázek, student si po zavolání vybere
+variantu a má 30 minut na písemnou přípravu, pak předstoupí před
+komisi a odpovídá na otázky v libovolném pořadí, na zodpovězení každé
+otázky má zhruba 7 minut (to nejdůležitější!), po odzkoušení všech
+studentů (za blok, např. dopoledne) se komise (tajně) poradí o
+známkách, z každého okruhu jedna, a ty jsou (hromadně) studentům
+oznámeny
+
+- veřejná!
+
+2. klauzurní zkouška - Bc., dříve
+
+- student prokazuje schopnost samostatně vyřešit úkol implementačního
+charakteru dle zadání ve stanoveném čase
+
+- komise: předseda a další člen
+
+- průběh: předseda seznámí studenty se zadáním úkolů a zodpoví
+případné dotazy, student má 15 minut na výběr úkolu a prostředků k
+jeho řešení, po schválení prostředků předsedou má student 8 hodin na
+vypracování řešení, pak odevzdá zdrojové kódy, spustitelný program a
+stručnou dokumentaci, předseda oznámí, kdy a jak se studenti dozví
+výsledky po vyhodnocení
+
+3. obhajoba závěrečná práce (ZP): bakalářské (BP) - Bc., diplomové
+(DP) - navazující (Mgr.) studium
+
+- práce na ZP (Pravidla na webu katedry): ze zveřejněných témat (do
+28.2. BP, 30.9. DP) pracovníků katedry a firem (skrze pracovníky
+katedry) na webu katedry nebo po dohodně s pracovníkem na studentem
+navrženém vlastním tématu si student vybere (do 31.3. BP, 31.10. DP),
+pokud ne, přiřadí mu téma vedoucí katedry, zadavatel po konzultaci se
+studentem vytvoří (závazné!) zadání (do 30.4. BP, 30.11. DP), které
+student vloží do Portálu UP a vytištěné dodá zadavateli, který se
+stává vedoucím ZP, student dostane výtisk zadání ze STAGu (od
+sekretářky), student vypracuje práci (pro text práce musí být použit
+schválený styl v LaTeXu, na webu katedry, výjimka vedoucí katedry),
+odevzdá práci 15 dní před obhajobou (2 výtisky textu jednostranně na
+A4, 1 z nich s pevnou vazbou, vložené dat. médium s textem, SW a
+všemi ostatnímmi výsledky práce), elektronickou verzi textu vloží do
+Portálu UP a přihlásí se ve STAGu na datum obhajoby, vedoucí katedry
+určí oponenta s přihlédnutím k návrhu vedoucího ZP (15 dní před
+termínem obhajoby), vedoucí ZP a oponent vypracují a nejpozději 5
+pracovních dnů před obhajobou dodají posudky (na sekretariát katedry a
+ten studentovi a do Portálu UP)
+
+- komise: předseda a (obvykle 3) další členové + zapisovatel
+ 
+- průběh: student odevzdá zapisovateli u obhajoby 24h před obhajobou
+všechno k obhajobě (prezentace, SW) a jiné technické požadavky,
+student předstoupí před komisi a během 10/15 minut (BP/DP) prezentuje
+hlavní výsledky svojí ZP (to nejdůležitější!), vedoucí ZP a oponent
+(nebo někdo/předseda za ně) seznámí komisi s posudky, student se k nim
+vyjádří (obhajuje práci), následuje diskuze, po prezentaci každého
+studenta se komise (tajně) poradí o známce a ta je studentovi oznámena
+
+-> titul: Bc., Mgr.
+
+- více další dokumenty na webu katedry: Studijní a zkušební řád UP a
+Opatření děkana k němu
+
+Text ZP - styl
+--------------
+
+- schválený styl v LaTeXu na webu katedry (archiv kidiplom.zip,
+třída kidiplom.cls), elektronická verze PDF
+
+- zadání práce - k obhajobě dodá sekretářka katedry, ne student (např.
+ve výtisku textu práce)
+
+- popis viz dokumentace stylu (soubor README.txt, zdroják ukázkového
+dokumentu kidiplom.tex)
+
+- poděkování: nepovinné, ale slušnost vedoucímu ZP (zeptat se na
+uvedení s tituly, správnými), jinak komukoliv (rodině, partnerovi
+atd.), ale hlavně stručně např. "Děkuji rodině za podporu.", ne "Z
+celého svého srdce bych strašně moc rád poděkoval všem mým kamarádům a
+známým, hlavně [dlouhý seznam jmen] a taky [další ještě delší seznam
+jmen]."
+
+- seznamy obrázků, tabulek, vět a zdrojových kódů: povinné, pokud je
+aspoň jeden obrázek apod., prázdné ne, krátké ne na samostatné strany
+(výchozí volba stylu joinlists)
+
+- obrázky a tabulky: umístěné na stránce (pokud možno) nahoře, do
+samostatného odstavce (plovoucí prostředí), neobtékané, s výstižným
+popiskem (neúplná věta bez .) pod obrázkem a nad tabulkou, čitelné i
+bez vysvětlujícího textu (ne "Graf funkce"), pro každý odkaz z textu
+(obr. 10, tab. 10), JPG jen pro fotografie (jinak šum), pro snímky GUI
+aplikace nebo obrazovky PNG/GIF, pro diagramy, grafy, schémata apod.
+vektorový (SVG, PDF, písmo stejných vlastností jako pro text)!
+
+- závěry: povinný český (jazyk práce) i anglický
+
+- bibliografie (použitá literatura): položky úplné (autor, název,
+popř. vydání, časopis/sborník/..., vydavatel/zdroj, el. adresa
+(vysázená! - volba stylu printversion), datum, strany, ISBN), podle
+normy (mnoho, česká ČSN ISO 690 -> BibLaTeX), přesné (primární,
+nepřevzaté), všechny odkazované z textu, v seznamu označené (výchozí)
+1. číslem [8] a seřazené podle (výchozí) příjmení autora/ů a roku nebo
+podle pořadí výskytu odkazů z textu, 2. zkratkou příjmení autora/ů,
+roku a písmena (v případě stejného autora a roku) [Aut08a], [AuAu08a]
+nebo příjmením autora/ů, roku a písmena (Autor 2008a), (Autor, Autor
+2008a) (harvardské) a seřazené podle příjmení autora/ů a roku
+
+- odkazy do bibliografie: jednotný styl, stejný jako v bibliografii --
+[8] (3 a více čísel za sebou s -) - minimální, ale nic neříkající,
+[Aut08a], (Autor 2008a) delší, ale identifikace autora a roku,
+všechny platné, nekritické (ne např. "algoritmus v [2] je velice
+pomalý a v praxi nepoužitelný"), přiměřené množství
+
+- příloha: popis obsahu přiloženého dat. média (CD/DVD, flash disk) s
+předepsanou strukturou adresářů a soubory, viz dokumentace stylu
+
+ČASTÉ CHYBY (typografie, jazyk)
+
+- přetečení řádku za pravý okraj: dlouhá nedělitelná slova,
+matematika, zdrojové kódy -> přeformulování, ruční zalomení
+
+- sirotci a vdovy na stránce -> ruční zalomení
+
+- příliš písma více vlastností ("programátorské výčty"): normální,
+tučné, kurzíva -> max 2 v odstavci
+
+- nesprávně vysázená (zapsaná) matematika: indexy, závorky
+
+- na konci řádku neslabičné předložky (k, s, v, z) - Pravidla českého
+pravopisu, jednopísmenné předložky a spojky (a, i, o, u) - typografie,
+jednoslabičné předložky a spojky (do, ke, ku, na, od, po, ve atd.) -
+estetika -> pevná mezera ~
+
+- zlomené na více řádků ustálená spojení a zkratky (a. s., s r. o.,
+mn. č., př. n. l. apod.), zkratky ve spojení s číslem (str. 5, č. 2),
+zkratky typu tj., tzv., tzn. s bezprostředně následujícím výrazem,
+čísla a jednotky, řády čísla, spojení zkratky a slova (jazyk C),
+řadové číslovky psané číslicemi před jmény (17. listopad), kalendářní
+data, zkratky jména s příjmením, zkratky akademických titulů a jmen
+aj. -> pevné mezery ~, úzké \, (čísla)
+
+- nesprávné uvozovky -> správně české 99 dole před a 66 nahoře za,
+anglické 66 nahoře před a 99 nahoře za, \uv z balíku babel
+
+- pomlčka vs. spojovník vs. minus -> spojovník ke spojování (částí)
+slov, bez mezer, např. "je-li", "červeno-modrý", pomlčka (en-dash, v
+českém odborném textu dnes ne dlouhá em-dash) pro oddělení částí vět,
+s mezerami, nebo rozsahů, bez mezer, např. "10-12", minus v matematice
+
+- odsazení prvního řádku odstavce (vyjma prvního odstavce sekce) a
+mezera (jednoho řádku) mezi odstavci: u českého textu první ano, druhé
+ne, u anglického naopak
+
+- změny v nastavení LaTeXu a stylu: generované úvodní strany
+(titulní, bibl. údaje, anotace a klíč. slova, prohlášení, obsah a
+seznamy), záhlaví a zápatí stránek, číslování stránek a jiné čítače
+(sekcí, obrázků a spol.), délky částí stránky, řádkování atd. ->
+neměnit!
+
+Text ZP - obsah
+---------------
+
+BP1: úryvky z posudků "Textová část práce je velmi dobře napsána. Její
+logické členění je promyšlené a popis algoritmů a dalších částí práce
+je velmi přehledný. V textu nejsou gramatické nedostatky", "Práce je
+na vysoké úrovni po formální, jazykové i obsahové stránce.", práce
+obhájena s známkou A
+
+BP2: úryvek z posudku: "To všechno dělá text naprosto chaotickým,
+nečitelným a nepoužitelným. Diplomant sice projevil schopnost
+nastudovat problematiku a vytvořit odpovídající software – a to zvládl
+výborně – zcela ale selhal v představení problematiky a softwaru
+čtenáři. A to na takové úrovni, že", student po seznámení se s
+posudkem odstoupil od obhajoby
+
+- odborný styl: přesnost, srozumitelnost, stručnost, logika,
+jednotnost, objektivita - žádná beletrie!
+
+- struktura (TA)IMRaD: (Title, Annotation/Abstract,) Introduction
+(problém), Methods (řešení), Results (výsledky) and Discussion
+(závěry)
+
+- název: daný zadáním
+
+- problém: úvod s (výstižným) popisem problému, existující (pokusy o)
+řešení (pokud jsou), nástin řešení
+
+- řešení: známé postupy jen vyjmenovat, popř. minimálně popsat jen pro
+potřeby vlastního řešení, vlastní řešení popsat podrobně, od
+jednodušších věcí ke složitějším
+
+- výsledky (hlavní část): stejné pořadí jako v části řešení,
+konstatování (i u porovnání s existujícími výsledky), ne interpretace
+(ta je až v části závěry)
+
+- závěry: shrnutí práce, interpretace hlavních výsledků, v širším
+kontextu (vyhodnocení porovnání s existujícími výsledky), užitečnost a
+významnost práce, intelektuálně nejtěžší část (často chybějící nebo
+nedostatečná)
+
+- anotace/abstrakt: stručná, ale maximálně výstižná charakteristika
+práce, obsahující celý IMRaD, ne víc než 10 řádků, žádné dělení do
+odstavců, žádné citace, prvních 6 slov by už mělo něco podstatného
+říkat (musí zaujmout), ne "Cílem této bakalářské práce bylo vyřešit
+problém ..."! -> rovnou o čem práce je, jaký problém řeší, jak, co je
+obsahem práce apod. - podobně i část problém výše
+
+... náhled textu čtenářem (o čem práce je?): přečtení anotace,
+prvních několika odstavců úvodu, názvů kapitol (přesné, srozumitelná
+struktura), obrázků a tabulek, závěry, první věty (dvě) z odstavců
+kapitol (to nejdůležitější z odstavce - test zvýrazňovačem = značit
+věty, bez kterých by nemohl být: na začátku OK, uprostřed -> na
+začátek, na konci -> přepsat, nikde -> vypustit)
+
+- ukázky abstraktů/anotací:
+
+Gramatiky LALR(1) jsou deterministické bezkontextové gramatiky, pro
+které lze sestrojit efektivní syntaktický analyzátor s lineární
+složitostí závislé na délce vstupního řetězce. V úvodu jsou shrnuty
+metody syntaktické analýzy pro deterministické bezkontextové jazyky,
+zejména LR metody. Dále se text podrobněji zabývá LALR(1) metodou pro
+její dobrý poměr mezi sílou a efektivitou. V textu je popsána
+konstrukce LALR(1) syntaktického analyzátoru, tak jak se používá v
+překladačích. Výsledkem je GUI aplikace realizující konstrukci
+syntaktického analyzátoru pro zadanou bezkontextovou gramatiku a
+simulující jeho činnost.
+
+Aplikace CE-PetriNetz umožňuje návrh, analýzu a provádění simulací C/E
+Petriho sítí. Dále nabízí možnost ukládat a načítat vytvořené sítě ve
+formátu PNML, exportovat obrázky sítě do různých rastrových a
+vektorových formátů a do kódu jazyku MetaPost. Celá aplikace byla
+vytvořena v jazyce C# jako součást bakalářské práce.
+
+- jednotné nebo množné číslo 1. osoby?: samostatná práce jednoho
+autora, množné číslo jen monarchové a těhotné ženy ("Aplikaci jsme
+naprogramovaly"), ale na druhou stranu ztotožnění se čtenářem (tzv.
+skromný plurál), "Nyní se podívejme", "Předpokládejme" - jen pro
+vedení čtenáře při čtení textu (spolu s ním), přítomný i minulý čas,
+ne minulé akce při řešení práce provedené pouze autorem!
+
+JAZYKOVÉ CHYBY
+
+- překlepy a pravopisné chyby - zvláště v anotaci (náhledu) ->
+automatické kontroly a opravy, přečtení sami a někým jiným!
+
+- chybné dělení slov na konci řádku
+
+- chyby ve slovech a záměna slov: standartní -> standardní, vyjímečný
+-> výjimečný, potencionální -> potenciální, tip vs. typ, mě (mne) vs.
+mně (mi), důvod (B protože (asi)/(nejspíš) kvůli A) vs. příčina
+(protože A tak B) vs. účel (A aby B) atd.
+
+- příslovečné spřežky vs. předložková vazba: dohromady, dokonce,
+jakoby, nanejvýš, napoprvé, navíc vs. do konce, jako by, na pohled,
+obojí bezesporu, bezpočtu, donedávna, mimoto, zpočátku aj.
+
+- nejednoznačné věty kvůli možné záměně podmětu s předmětem: např.
+"experimenty jednoznačně ukázaly, že můj algoritmus porazil jejich
+algorimus"...
+
+- otřesná angličtina v anglickém závěru (Google Translator apod.) ->
+zdatnější angličtinář, lektor
+
+ŠPATNĚ (dr. Konečný: Galerie zla)
+
+- nespisovný jazyk: můžou, bysme, tamten, odtamtud aj.
+
+- odborné slangové výrazy - pokud není možné se vyhnout, pak v "" (a
+při 1. použití vysvětlit): zdroják, binárka, webovka, apka,
+browsování, skrolování, zůmování apod.
+
+- nejednotnost, synonyma - patří do beletrie, různá slova a značení
+<-> různé věci -> jednotná terminologie a značení v celém textu!:
+program a aplikace a software a editor, uzel a vrchol a bod (grafu)
+apod.
+
+úryvek z posudku: "například normálový vektor je značen někdy N, někdy
+Norm, někdy \vec{n} a jindy n. Písmeno n je ale také současně
+používáno pro index lomu a počet paprsků. Napočítal jsem tři různá
+značení souřadnic bodů, reálné koeficienty v rovnicích jsou někdy
+malým, někdy velkým písmenem; běžně je stejný symbol používán v
+několika různých významech. Snad žádný pojem není v textu značen
+jednotně!"
+
+- špatné značení: množina vrcholů grafu X vs. množina X vrcholů grafu
+
+- "vycpávkové" fráze - jen zaplňují místo na papíře: Jak již bylo
+dříve řečeno/ukázáno, A nyní (si) ukážeme, Lze tedy konstatovat, že,
+Je tedy zřejmé, že, Existují práce, které apod.
+
+- zbytečně dlouhé složité věty - krátké jednoduché se lépe čtou, delší
+než 3 řádky zkrátit nebo rozdělit: Víme-li, co se skrývá pod pojmem
+přímka, pak taktéž víme, co budeme myslet pod výrazem paprsek. ->
+Paprskem rozumíme přímku.
+
+- zbytečné používání cizích (delších) výrazů (vyjma odborných termínů)
+-> známější (kratší) české (nesnažte se být příliš vědečtí!): existuje
+-> je, experiment -> pokus, permanentně -> stále, trvale, benefit ->
+výhoda, ...
+
+- zbytečné pomocné vazby: realizovali výpočet -> vypočetli, prováděli
+testování -> testovali, dochází ke zlepšení -> zlepšuje se, hraje
+významnou roli -> je významný
+
+- mnohomluvné výrazy: nemusí být nutně, prakticky nedochází k,
+naprosto analogický, hlavní/nejhlavnější priorita, notoricky známý,
+potenciální možnost, můj osobní názor, spolupodílet se
+
+... Gunningův index mlžení = číselné vyjádření srozumitelnosti textu:
+0.4 x (počet slov / počet vět + 100 x počet složitých slov / počet
+slov), složité slovo = 3 a více slabik (bez koncovek), vyjma jmen a
+pojmů, pro kus textu o asi 100 slovech s celými větami -> odborný text
+2-4, beletrie 6, bulvár 8-10, seriózní noviny 12-14, právnické texty
+15-16, pasáže smluv drobným písmem 20 -> text ZP <= 5!
+
+- nepřesné (až nesmyslné) údaje: v minulosti -> přesně kdy,
+přibližně/téměř úplně stejný
+
+- zveličování a zlehčování: paní Nováková, každý (uživatel) ví, (USB)
+má každý, (X GB RAM) by mělo každému stačit apod.
+
+- nejednotnost v míře detailů: v jedné části na úrovni základní školy,
+v jiné série formulí bez komentáře
+
+- časté opakování popisů složených z více slov -> zkratka:
+nedeterministický konečný automat s epsilon přechody -> např. NKA_e
+
+- nadužívání závorek - ne vnořené
+
+...
+
+PLAGIÁTORSTVÍ ~ HODNĚ ŠPATNĚ (dr. Konečný: Největší zlo)
+
+http://knihovny.cvut.cz/studium/jak-psat-vskp/doporuceni/plagiatorstvi/
+
+Plagiátorstvím se rozumí opisování, přebírání a publikování cizích
+myšlenek či výsledků výzkumu a jejich vydávání za své bez uvedení
+původního zdroje. Jedná se jak o přestupek proti etickým principům
+vědecké a publikační činnosti, tak případně o porušení autorských práv
+původního autora.
+
+Plagiátorství může vést až k falzifikaci, tedy k padělání původních
+údajů a následnému publikování zkreslených nebo vymyšlených informací.
+
+Proč NE plagiátorství?
+
+- plagiátor porušuje etické standardy, vnitřní předpisy instituce a
+právní předpisy ČR
+
+- plagiátorství poukazuje na nedostatečnou schopnost autora pracovat s
+odborným textem, nedostatečnou znalost zpracovávané tematiky,
+publikované literatury či autorů zabývajících se touto tematikou,
+nedostatečné interpretační schopnosti, popřípadě autorův nezájem o
+téma či jeho lenost
+
+- editor i čtenář mají právo vědět, kde byla obdobná práce publikována
+a v jakém kontextu byl převzatý text uveden
+ 
+http://theses.cz/
+
+- národní registr ZP a systém na odhalování plagiátů, provozovaný MU
+
+- vyhledávání v metadatech (záznamech o pracích) a plných textech
+prací, detekce plagiátů
+
+- vyhledává se i v odevzdej.cz a dalších zdrojích (Wikipedie),
+propojeno se STAGem!
+
+- v plánu vyhledávání vůči celému webu (Google?)
+
+Prezentace
+----------
+
+Seminář k bakalářské práci (KMI/SBP, KMI/SEBP)

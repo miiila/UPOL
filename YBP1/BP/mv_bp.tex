@@ -1,0 +1,304 @@
+%%%  Ukázkový text a dokumentace stylu pro text závěrečné (bakalářské a
+%%%  diplomové) práce na KI PřF UP v Olomouci
+%%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
+%%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
+
+
+%%  Pro získání PDF souboru dokumentu je třeba tento zdrojový text v
+%%  LaTeXu přeložit (dvakrát) programem pdfLaTeX.
+
+%%  V případě použití programu BibLaTeX pro tvorbu seznamu literatury
+%%  je poté ještě třeba spustit program Biber s parametrem jméno
+%%  souboru zdrojového textu bez přípony a následně opět (dvakrát)
+%%  přeložit zdrojový text programem pdfLaTeX.
+
+%%  Postup získání Postscriptového souboru je popsán v dokumentaci.
+
+
+%%  Třída dokumentu implementující styl pro závěrečnou práci. Vybrané
+%%  nepovinné parametry (ostatní v dokumentaci):
+
+%%  'master' pro sazbu diplomové práce, jinak se sází bakalářská práce
+
+%%  'field=kód' pro Váš studijní obor, kódy pro diplomovou práci 'uvt'
+%%  pro Učitelství výpočetní techniky pro střední školy a 'binf' pro
+%%  Bioinformatiku, jinak je výchozí Informatika, a pro bakalářskou
+%%  práci 'ainfk' pro Aplikovanou informatiku v kombinované formě,
+%%  'inf' pro Informatiku, 'infv' pro Informatiku pro vzdělávání a
+%%  'binf' pro Bioinfomatiku, jinak je výchozí Aplikovaná informatika
+%%  v prezenční formě
+
+%%  'printversion' pro sazbu verze pro tisk (nebarevné logo a odkazy,
+%%  odkazy s uvedením adresy za odkazem, ne odkazy do rejstříku),
+%%  jinak verze pro prohlížeč
+
+%%  'biblatex' pro zapnutí podpory pro sazbu bibliografie pomocí
+%%  BibLaTeXu, jinak je výchozí sazba v prostředí thebibliography
+
+%%  'language=jazyk' pro jazyk práce, jazyky english pro anglický,
+%%  slovak pro slovenský, jinak je výchozí czech pro český
+
+%%  'font=sans' pro bezpatkový font (Iwona Light), jinak výchozí
+%%  patkový (Latin Modern)
+
+\documentclass[
+%  master,
+  field=ainfk,
+%  printversion,
+  biblatex,
+%  language=english,
+%  font=sans,
+  glossaries,
+  index
+]{kidiplom}
+
+%% Informace pro úvodní strany. V jazyku práce (pokud není v komentáři
+%% uvedeno česky) a anglicky. Uveďte všechny, u kterých není v
+%% komentáři uvedeno, že jsou volitelné. Při neuvedení se použijí
+%% výchozí texty. Text pro jiný než nastavený jazyk práce (nepovinným
+%% parametrem language makra \documentclass, výchozí český) se zadává
+%% použitím makra s uvedením jazyka jako nepovinného parametru.
+
+\title{Aplikace na tvorbu a správu metadat pro CANopen zařízení}
+\title[english]{Metadata management for CANopen devices}
+
+%% Volitelný podnázev práce, česky a anglicky. Měl by se vysázet na
+%% jeden řádek. Výchozí je prázdný.
+%\subtitle{Ukázkový text a dokumentace stylu v \LaTeX{}u}
+%\subtitle[english]{Sample text and documentation of the \LaTeX{} style}
+
+%% Jméno autora práce. Makro nemá nepovinný parametr pro uvedení
+%% jazyka.
+\author{Miloslav Votradovec}
+
+%% Jméno vedoucího práce (včetně titulů). Makro nemá nepovinný
+%% parametr pro uvedení jazyka.
+\supervisor{Mgr. Petr Krajča, Ph.D.}
+%% Nepovinné - Jméno konzultanta (včetně titulů). Makro nemá nepovinný
+%% parametr pro uvedení jazyka.
+\consultant{Mgr. Šimon Řeřucha, Ph.D.}
+
+%% Volitelný rok odevzdání práce. Výchozí je aktuální (kalendářní)
+%% rok. Makro nemá nepovinný parametr pro uvedení jazyka.
+%\yearofsubmit{\the\year}
+
+%% Anotace práce, včetně anglické (obvykle překlad z jazyka
+%% práce). Jeden odstavec!
+\annotation{Ukázkový text závěrečné práce na Katedře informatiky
+  Přírodovědecké fakulty Univerzity Palackého v Olomouci, který je
+  zároveň dokumentací stylu pro text práce v \LaTeX{}u. Zdrojový text
+  v \LaTeX{}u je doporučeno použít jako šablonu pro text skutečné
+  závěrečné práce studenta.}
+
+\annotation[english]{Sample text of thesis at the \kitextdepten,
+  \kitextfacultyen, \kitextuniven{} and, at the same time,
+  documentation of the \LaTeX{} style for the text. The source text in
+  \LaTeX{} is recommended to be used as a template for real student's
+  thesis text.}
+
+%% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
+\keywords{styl textu; závěrečná práce; dokumentace; ukázkový text}
+\keywords[english]{text style; thesis; documentation; sample text}
+
+%% Volitelná specifikace příloh textu práce, i anglicky. Výchozí je '1
+%% CD/DVD'.
+%\supplements{jedno kulaté placaté CD/DVD s malou kulatou dírou uprostřed}
+%\supplements[english]{one round flat CD/DVD with a small round hole in the middle}
+
+%% Volitelné poděkování. Stručné! Výchozí je prázdné. Makro nemá
+%% nepovinný parametr pro uvedení jazyka.
+\thanks{Děkuji, děkuji, děkuji.}
+
+%% Cesta k souboru s bibliografií pro její sazbu pomocí BibLaTeXu
+%% (zvolenou nepovinným parametrem biblatex makra
+%% \documentclass). Použijte pouze při této sazbě, ne při (výchozí)
+%% sazbě v prostředí thebibliography.
+\bibliography{bibliografie.bib}
+
+%% Další dodatečné styly (balíky) potřebné pro sazbu vlastního textu
+%% práce.
+\usepackage{lipsum}
+
+\begin{document}
+%% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
+%% anotací a klíčovými slovy, s poděkováním a prohlášením, s obsahem a
+%% se seznamy obrázků, tabulek, vět a zdrojových kódů (pokud jejich
+%% sazba není vypnutá).
+\maketitle
+
+
+%% Vlastní text závěrečné práce. Pro povinné závěry, před přílohami,
+%% použijte prostředí kiconclusions. Povinná je i příloha s obsahem
+%% přiloženého CD/DVD.
+
+%% -------------------------------------------------------------------
+
+\newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
+
+\noindent\textcolor{red}{\LARGE Upozornění: Následující text
+  dokumentace stylu, vyjma přílohy~\ref{sec:ObsahCD}, je rozpracovaná
+  a (značně) neúplná verze!!!}
+
+
+\section{Úvod}
+\section{CAN sběrnice}
+\subsection{Historie}
+\subsection{Kódování dat}
+dominantní - 0, recesivní 1
+pokud zařízení odešle 1 a dostane 0, přestává vysílat
+zařízení s nižším ID má přednost - 11bit ID je vysíláno na začátku zprávy
+ID - 11bit (standard, base) nebo 29bit(extended;11bit base, 18bit rozšíření)
+rozlišení podle IDEbitu (14?), dominant pro base, recessive pro extended
+\subsection{Struktura rámce}
+4 typy rámců
+\begin{itemize}
+	\item Data
+	\item Remote
+	\item Error
+	\item Overload
+\end{itemize}
+\subsubsection{Data frame}
+%%obrázek rámce (https://en.wikipedia.org/wiki/File:CAN-Bus-frame_in_base_format_without_stuffbits.svg)
+rozepsat podle obrázku
+\subsubsection{Remote frame}
+používá se k vyžádání dat
+rozdíl vůči Data frame:
+\begin{itemize}
+	\item RTR bit (13., Remote transmission request) je 1 (recessive)
+	\item DLC označuje velikost vyžádaných dat
+	\item neobsahuje Data field
+\end{itemize}
+Pokud se odešle zároveň Data a Remote se stejným ID, vyhraje Data (kvůli dominantnímu RTR)
+
+\subsubsection{Error frame}
+The first field is given by the superposition of ERROR FLAGS (6–12 dominant/recessive bits) contributed from different stations.
+The following second field is the ERROR DELIMITER (8 recessive bits).
+
+\subsubsection{Overload frame}
+
+\subsection{Bit Stuffing}
+Synchronizace - opačný bit je vložen po pěti stejných bitech. Neplatí pro CRC delimiter, ACK bit a konec rámce. 6 stejných bitů je považováno za chybu
+příjemce odstraňuje
+
+\section{Protokol CANopen}
+
+\subsection{Model zařízení}
+
+vztah k ISO/OSI modelu
+%%obrázek Figure 3: Communication reference model z 301v04020006_cor3.pdf
+
+Aplikační vrstvě je věnována samostatná podsekce.
+
+\subsubsection{Komunikační vrstva}
+
+Mapování 11bit CAN ID zařízení na 4bit Function ID a 7bit ID zařízení; kritičtější funkce mají nižší ID a tedy vyšší prioritu
+
+Stavový automat, který určuje aktuální stav daného zařízení
+
+\subsubsection{Modely komunikace}
+
+\begin{itemize}
+    \item master/slave
+    \item client/server
+    \item producer/consumer
+\end{itemize}
+
+\subsubsection{Slovník objektu}
+\begin{itemize}
+    \item Index, the 16-bit address of the object in the dictionary
+    \item Object name, a symbolic type of the object in the entry, such as an array, record, or simple variable
+    \item Name, a string describing the entry
+    \item Type, gives the datatype of the variable (or the datatype of all variables of an array)
+    \item Attribute, which gives information on the access rights for this entry, this can be read/write, read-only or write-only
+    \item The Mandatory/Optional field (M/O) defines whether a device conforming to the device specification has to implement this object or not 
+\end{itemize}
+
+\subsection{Aplikační vrstva}
+
+\subsubsection{NMT}
+Mění stavy automatu a tedy stavy celého zařízení
+
+\begin{itemize}
+    \item 0x01  Go to 'operational'
+    \item 0x02  Go to 'stopped'
+    \item 0x80  Go to 'pre-operational'
+    \item 0x81  Go to 'reset node'
+    \item 0x82  Go to 'reset communication'
+\end{itemize}
+
+\subsubsection{Heartbeat}
+Monitoruje zařízení v sítí
+
+\subsubsection{SDO}
+Používá se ke čtení a nastavování hodnot v Object dictionary. Přistupuje klient k serveru (komunikaci tedy zahajuje klient). Segmentation + desegmentation. COB ID Např. Configuration settings, possibly node ID, baud rate, offset, gain, etc.
+
+\subsubsection{PDO}
+Real time data v různých uzlech. 8bytů dat. PDO může obsahovat více vstupů z Object Dictionary. TPDO (transmit), RPDO (receive), většinou data ze senzorů jako Values of type rotational speed, voltage, frequency, electric current apod.
+
+\subsubsection{SYNC}
+Synchronizační signál
+
+\subsubsection{TIME}
+Usually the Time-Stamp object represents an absolute time in milliseconds after midnight and the number of days since January 1, 1984. This is a bit sequence of length 48 (6 bytes).
+
+\subsubsection{EMCY}
+Emergency object - pokud nastane Fatal error
+
+\subsection{Electronic Data Sheet}
+EDS - formát souboru, který popisuje komunikaci a záznamy v Object Dictionary v daném zařízení. Umožňuje přístup k ovládání a nastavovení daného zařízení. Jsou vyžadovány pro každé zařízení, které má spadat pod CANOPEN standard.
+
+\section{Specifikace programu}
+
+\section{Analýza a návrh programu}
+
+\section{Implementace}
+
+%% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
+%% nastavený jazyk práce (nepovinným parametrem language makra
+%% \documentclass, výchozí český) se zadává použitím makra s uvedením
+%% jazyka jako nepovinného parametru.
+\begin{kiconclusions}
+Závěr práce v \uv{českém} jazyce.
+\end{kiconclusions}
+
+\begin{kiconclusions}[english]
+Thesis conclusions in \uv{English}.
+\end{kiconclusions}
+
+%% Přílohy obsahu textu práce, za makrem \appendix.
+\appendix
+
+\section{První příloha}
+Text první přílohy
+
+\section{Druhá příloha}
+Text druhé přílohy
+
+%% -------------------------------------------------------------------
+
+%% Sazba volitelného seznamu zkratek, za přílohami.
+\printglossary
+
+%% Sazba povinné bibliografie, za přílohami (případně i za seznamem
+%% zkratek). Při použití BibLaTeXu použijte makro
+%% \printbibliography. jinak prostředí thebibliography. Ne obojí!
+
+%% Sazba i v textu necitovaných zdrojů, při použití
+%% BibLaTeXu. Volitelné.
+\nocite{*}
+%% Vlastní sazba bibliografie při použití BibLaTeXu.
+%%\printbibliography
+
+%% Bibliografie, včetně sazby, při nepoužití BibLaTeXu.
+% \begin{thebibliography}{9}
+%\bibitem{kniha2} \uppercase{Hawke}, Paul. NanoHttpd: Light-weight HTTP server designed for embedding in other applications. GitHub [online]. 2014-05-12. [cit. 2014-12-06]. Dostupné z: \url{https://github.com/NanoHttpd/nanohttpd}
+%
+%\bibitem{jeske13} \uppercase{Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
+%
+%\bibitem{uzis2012} \uppercase{ÚSTAV ZDRAVOTNICKÝCH INFORMACÍ A STATISTIKY ČR}. Lékaři, zubní lékaři a farmaceuti 2012 [online]. Praha 2, Palackého náměstí 4: Ústav zdravotnických informací a statistiky ČR, 2012 [cit. 2014-12-06]. ISBN 978-80-7472-089-5. Dostupné z: \url{http://www.uzis.cz/publikace/lekari-zubni-lekari-farmaceuti-2012}
+% \end{thebibliography}
+
+%% Sazba volitelného rejstříku, za bibliografií.
+\printindex
+
+\end{document}
