@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Evade implements Observer {
+public class Evade_CLI implements Observer {
 
     public static void main(String[] args)
     {
@@ -13,12 +13,12 @@ public class Evade implements Observer {
         System.out.println("* Welcome to EVADE *");
         System.out.println("********************");
 
-        Evade evade = new Evade();
+        Evade_CLI evadeCLI = new Evade_CLI();
 
         GameManager gameManager = new GameManager();
-        gameManager.addObserver(evade);
+        gameManager.addObserver(evadeCLI);
 
-        gameManager.setPlayers(Evade.setupPlayers(2, gameManager));
+        gameManager.setPlayers(Evade_CLI.setupPlayers(2, gameManager));
 
         Board board = new Board();
         board.setupNewBoard();
@@ -96,11 +96,11 @@ public class Evade implements Observer {
 
             if (input.charAt(0) == 'C') {
                 player = new Computer(gameManager);
-                Evade.askForLevel(player);
+                Evade_CLI.askForLevel(player);
             }
             else if (input.charAt(0) == 'H') {
                 player = new Human(gameManager);
-                Evade.askForName(player);
+                Evade_CLI.askForName(player);
             }
             else {
                 System.out.println("Bad input, please write only 'C' or 'H'.");

@@ -32,10 +32,10 @@ public class Evade_GUI implements Observer{
     private ArrayList<JRadioButton> playerOneDifficulty = new ArrayList<JRadioButton>();
     private ArrayList<JRadioButton> playerTwoDifficulty = new ArrayList<JRadioButton>();
 
-    private GameManager gameManager;
-    private Board board;
+    private GameManager gameManager = new GameManager();
+    private Board board = new Board();
 
-    public Evade_GUI(GameManager gameManager, Board board) {
+    public Evade_GUI() {
 
         this.gameManager = gameManager;
         this.board = board;
@@ -137,6 +137,8 @@ public class Evade_GUI implements Observer{
 
 
                 gameManager.setPlayers(players);
+                board.setupNewBoard();
+                // @TODO: Do it properly in new Thread
                 gameManager.startGame(board);
             }
         });
@@ -156,24 +158,19 @@ public class Evade_GUI implements Observer{
         }
     }
 
-    public void main() {
+    public static void main(String[] args) {
+        Evade_GUI evade_gui = new Evade_GUI();
 
         JFrame frame = new JFrame();
-        JPanel mainContainer = this.mainContainer;
-        mainContainer.add(this.welcome);
-        mainContainer.add(this.setupGame);
+        JPanel mainContainer = evade_gui.mainContainer;
+        mainContainer.add(evade_gui.welcome);
+        mainContainer.add(evade_gui.setupGame);
 
         frame.setContentPane(mainContainer);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                frame.setVisible(true);
-            }
-        });
+        frame.setVisible(true);
 
     }
 
