@@ -141,6 +141,12 @@
 
 
 \section{Úvod}
+\subsection{Cíle práce}
+\begin{enumerate}
+    \item editor COB/EDS/DCF 
+    \item prirucka pro ovady z UPT 
+    \item generator kodu 
+\end{enumerate}
 \section{CAN sběrnice}
 \subsection{Historie}
 \subsection{Kódování dat}
@@ -182,6 +188,8 @@ příjemce odstraňuje
 
 \section{Protokol CANopen}
 
+\subsection{Datové typy}
+
 \subsection{Model zařízení}
 
 vztah k ISO/OSI modelu
@@ -215,6 +223,9 @@ Stavový automat, který určuje aktuální stav daného zařízení
 
 \subsection{Aplikační vrstva}
 
+\subsubsection{Mapa adresního prostoru}
+%% www.microcontrol.net/download/appnotes/td-03011e.pdf, pp3
+
 \subsubsection{NMT}
 Mění stavy automatu a tedy stavy celého zařízení
 
@@ -226,8 +237,8 @@ Mění stavy automatu a tedy stavy celého zařízení
     \item 0x82  Go to 'reset communication'
 \end{itemize}
 
-\subsubsection{Heartbeat}
-Monitoruje zařízení v sítí
+Součástí je Heartbeat - monitoruje zařízení v sítí
+dve metody HB, periodic signaling + request/response (v CANopen terminologii se to asi jmenuje jinak) - ruzne kody pro hlaseni stavu a prikazy pro zmenu stavu
 
 \subsubsection{SDO}
 Používá se ke čtení a nastavování hodnot v Object dictionary. Přistupuje klient k serveru (komunikaci tedy zahajuje klient). Segmentation + desegmentation. COB ID Např. Configuration settings, possibly node ID, baud rate, offset, gain, etc.
@@ -246,6 +257,42 @@ Emergency object - pokud nastane Fatal error
 
 \subsection{Electronic Data Sheet}
 EDS - formát souboru, který popisuje komunikaci a záznamy v Object Dictionary v daném zařízení. Umožňuje přístup k ovládání a nastavovení daného zařízení. Jsou vyžadovány pro každé zařízení, které má spadat pod CANOPEN standard.
+
+\section{Manufacturer-specific proprietary extensions}
+
+\subsection{canopen}
+
+\begin{itemize}
+    \item id schema
+    \item pdo bez PDO mappingu, misto toho mame COB
+    \item sdo bez "dlouhych transferu"
+    \item nmt ve verzi H
+    \item pouze podmnozina datovych typu
+    \item EDS pro definici object dict
+\end{itemize}
+
+\subsection{SW tooly}
+
+\begin{itemize}
+    \item netcans - server, packet reflector: canopen <-> tcp/ip, umi logovat provoz 
+    \item canusb32.dll - parsuje metadata site, C-based API mezi SW tooly a netcans
+    \item canman - manazer, komunikuje s netcans skrz canusb32.dll, zobrazuje PDO, umoznuje SDO operace
+    \item uCan - fyzicky prevodnik fyz.can <-> netcans
+    \item etherCan - dtto, po eth
+    \item kanal - parsuje log z netcans, parsuje metadata site, exportuje zaznamy hodnot 
+    \item canproxy - bridge mezi dvema fyzickymi CAN segmenty, na urovni zarizeni, jednosmerne
+    \item virtualni instrumenty - chovaji se jako CAN zarizeni, ale nejsou pripojeny na fyzicky can, pouze na netcans
+\end{itemize}
+
+\subsection{metody}
+
+\begin{itemize}
+    \item k EDS mame DCF, obraz hodnot konkretniho zarizeni 
+    \item pouzivame standardizovane "sady" zaznamu v obj dict
+    \item COB soubory, supluje/nahrazuje PDO mapping v CanOPen
+    \item CAN soubory, definice zarizeni na jednom segmentu, vyuziva jej canusb32.dll a skrz ni i canman, canproxy.... 
+    \item cislovani promennych
+\end{itemize}
 
 \section{Specifikace programu}
 
