@@ -267,15 +267,20 @@ EDS - formát souboru, který popisuje komunikaci a záznamy v Object Dictionary
     \item pdo bez PDO mappingu, misto toho mame COB
     \item sdo bez "dlouhych transferu"
     \item nmt ve verzi H
-    \item pouze podmnozina datovych typu
     \item EDS pro definici object dict
 \end{itemize}
+
+\subsubsection{pouze podmnozina datovych typu}
+
+umí všechny datové tipy, zobrazuje:
+
+ - boolean, real32, (int||unsigned)(8||16||32), visible_string 
 
 \subsection{SW tooly}
 
 \begin{itemize}
     \item netcans - server, packet reflector: canopen <-> tcp/ip, umi logovat provoz 
-    \item canusb32.dll - parsuje metadata site, C-based API mezi SW tooly a netcans
+    \item canusb32.dll - parsuje metadata site, C-based API mezi SW tooly a netcans; implementuje bandwith throttling, omezení maximálního počtu packetů za čas
     \item canman - manazer, komunikuje s netcans skrz canusb32.dll, zobrazuje PDO, umoznuje SDO operace
     \item uCan - fyzicky prevodnik fyz.can <-> netcans
     \item etherCan - dtto, po eth
@@ -298,7 +303,103 @@ EDS - formát souboru, který popisuje komunikaci a záznamy v Object Dictionary
 
 \section{Analýza a návrh programu}
 
+\subsection{Coding standards}
+Jak se to dělá na UPT
+
+\subsubsection{TAppGlobal *cnf}
+
+globalní třída s konfigurací - TAppGlobal *cnf, globální proměnná, používá .ini, jak konfig. tak procesní data
+defaultSettings - úvodní stav
+
+loadIniFile - ukladá konfigurační stav
+saveIniFile - nahrává konfigurační stav
+
+syslog
+
+obsahuje referenci na třídu pro obsluhu CAN data (MyCanMaster)
+
+může obsahovat další workery
+
+\subsubsection{TMainForm form}
+hlavní okno aplikace
+funkce init - z konstruktoru nebo z onShown() eventu
+inicializuje TAppGlobal
+
+pouští další vlákna
+
+\subsubsection*{Naming conventions}
+- jako příloha
+
+CamelCase
+builder používá UpperCase
+tlačítka - b
+timer - tmr
+posouvání hodnot - ud
+input box - e/ed
+editable lables - l/lb
+tabulky (string grid) - sg/tb
+dialogy - dlg
+actions - ac
+scrolling
+
+
+\subsubsection*{other}
+roadmap.txt
+
+\subsubsection{Požadavky}
+
+na uživatelské rozhraní:
+
+- verze v title baru
+- rozlišení - 1024*768
+- handler on resize
+- statická kompilace distribuce bez instalace , neodkazuje na systémová dll
+- klávesové zkratky - Ctrl + O, Ctrl + S, Ctrl + W, Ctrl + Q, F1
+- jazyk - ENG
+- hlavní nabídka/akce; datové objekty (seznam zařízení, obsah zařízení, COB/EDS, editace dílčích bloků), operace s právě zobrazeným EDS/COB
+
+Granularita ovládání je z celého zařízení (device), obsah jednotlivých zařízení (EDS/COB, jednotlivé proměnné apod.) až po obsah konkrétních EDS/COB
+
+
+akce:
+
+zavření souboru 
+
+uložit, if chyby - zahlásí chyby a cancel/save with errors/not save
+
+při otvírání souboru/adresáře:
+- zavření aktuálního souboru
+ 
+funkční:
+
+ - umět sloučit dev a dev_node, resp. editovat jen dev a generovat node (balloon hint); existuje spy verze, vše je RX
+
 \section{Implementace}
+COB
+pro hodnoty - klíč (value01), datový typ, název, offset, formátovací řetězec
+
+parametry kanálu:
+ 
+ - MOS_ID=384 - prefix (); mapa adresniho prostoru
+ - ENABLED=rx/tx (z pohledu druhe strany, rx = zarizeni vysila, i.e. PDO_TX)
+ - LENGTH=8 (delká obsahu packetu v bytech)
+ - FREQ=100 (jak často zařízení vysílá/přijímá)
+ - ENDIAN=12345678; z důvodu implementace CANOpen zařízení na bázi hardwaru s omezenými prostředky, se může stát, že zařízení jednotlivé byty posílá přeházeně; umožňuje přeskládat byty
+ - GROUP=1000; pomocná klasifikace třídy provozu; barevně - PDO zeleně (TX vs RX, světle vs tmavě), SDO červeně, NMT modře
+
+ device vs device_node - rozdil je v `enabled`, kanka can zarizeni
+
+\subsection{Použité nástroje}
+
+\begin{itemize}
+  \item C Builder
+\end{itemize}
+
+\subsection {Knihovny}
+
+\begin{itemize}
+  \item inifile2 - čte a zapisuje .ini soubory
+\end{itemize}
 
 %% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
 %% nastavený jazyk práce (nepovinným parametrem language makra
