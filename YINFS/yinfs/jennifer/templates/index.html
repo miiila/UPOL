@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'jenn.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+    <aside class="side">
+        <img class='side--picture' src="{% static 'home_cover.jpg' %}">
+        <div class='sideDescription'>
+            <p class="sideDescription__text sideDescription__text--headline">Jennifer Doe</p>
+            <p class="sideDescription__text">Graduate School of Business</p>
+            <p class="sideDescription__text">Knight Management Center</p>
+            <p class="sideDescription__text">Stanford University</p>
+        </div>
+    </aside>
+    <header role="nav" class="header">
+        <nav class="nav">
+            {% for menuItem in menuItems %}
+                <menu-item @click.native="currentRoute='{{ menuItem.getLink }}'" :class="{ 'nav--item--selected': currentRoute == '{{ menuItem.getLink }}' }" item="{{ menuItem }}" link="{{ menuItem.getLink }}"></menu-item>
+            {% endfor %}
+        </nav>
+    </header>
+    <main class="main">
+        {% for menuItem in menuItems %}
+            <page-content v-show="currentRoute == '{{ menuItem.getLink }}'">{{ menuItem.content }}</page-content>
+        {% endfor %}
+    </main>
+    <footer class="footer">
+        <a href="#" class="footer--item"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="footer--item"><i class="fa fa-facebook"></i></a>
+        <a href="#" class="footer--item"><i class="fa fa-linkedin"></i></a>
+        <a href="#" class="footer--item"><i class="fa fa-envelope"></i></a>
+    </footer>
+</div>
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="{% static 'jenn.js' %}"></script>
+</body>
+</html>
