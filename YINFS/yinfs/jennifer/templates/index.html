@@ -30,6 +30,11 @@
         {% for menuItem in menuItems %}
             <page-content v-show="currentRoute == '{{ menuItem.getLink }}'">{{ menuItem.content }}</page-content>
         {% endfor %}
+        <publications v-show="currentRoute == '#publications'">
+            {% for publication in publications %}
+                <publication name="{{ publication }}" type="{{ publication.type }}" abstract="{{ publication.abstract }}" authors="{{ publication.authors }}"></publication>
+            {% endfor %}
+        </publications>
     </main>
     <footer class="footer">
         <a href="#" class="footer--item"><i class="fa fa-twitter"></i></a>
