@@ -29,12 +29,11 @@
     <main class="main">
         {% for menuItem in menuItems %}
             <page-content v-show="currentRoute == '{{ menuItem.getLink }}'">{{ menuItem.content }}</page-content>
+            {% if menuItem.name == 'Publications' %}
+                <filtered-list v-show="currentRoute == '#publications'" v-bind:items="publications" v-bind:filteroptions="publicationTypes" filterkey="type"></filtered-list>
+            {% endif %}
         {% endfor %}
-        <publications v-show="currentRoute == '#publications'">
-            {% for publication in publications %}
-                <publication name="{{ publication }}" type="{{ publication.type }}" abstract="{{ publication.abstract }}" authors="{{ publication.authors }}"></publication>
-            {% endfor %}
-        </publications>
+
     </main>
     <footer class="footer">
         <a href="#" class="footer--item"><i class="fa fa-twitter"></i></a>
@@ -45,5 +44,23 @@
 </div>
 <script type="text/javascript" src="https://unpkg.com/vue"></script>
 <script type="text/javascript" src="{% static 'jenn.js' %}"></script>
+<script type="text/javascript">
+    {% for publication in publications %}
+        var publication = {
+            name: "{{ publication }}",
+            type: "{{ publication.type }}",
+            abstract: "{{ publication.abstract }}",
+            authors: "{{ publication.authors }}"
+        };
+
+        app.publications.push(publication);
+    {% endfor %}
+
+    {% for type in types %}
+        app.publicationTypes.push('{{ type }}');
+    {% endfor %}
+
+
+</script>
 </body>
 </html>
