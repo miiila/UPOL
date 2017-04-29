@@ -52,7 +52,8 @@ const app = new Vue({
     data: {
         currentRoute: window.location.hash || '#about-me',
         publications: [],
-        publicationTypes: [allTypes]
+        publicationTypes: [allTypes],
+        educations: []
     }
 });
 

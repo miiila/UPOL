@@ -44,7 +44,7 @@
         <a href="#" class="footer--item"><i class="fa fa-envelope"></i></a>
     </footer>
 </div>
-<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="{% static 'vue.js' %}"></script>
 <script type="text/javascript" src="{% static 'jenn.js' %}"></script>
 <script type="text/javascript">
     {% for publication in publications %}
@@ -60,6 +60,10 @@
 
     {% for type in types %}
         app.publicationTypes.push('{{ type }}');
+    {% endfor %}
+
+    {% for education in educations %}
+        app.educations.push('{{ education}}');
     {% endfor %}
 
 

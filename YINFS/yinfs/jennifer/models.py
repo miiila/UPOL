@@ -1,6 +1,7 @@
 from django.db import models
 from slugify import slugify
 from ckeditor.fields import RichTextField
+from datetime import date
 
 
 class JennModel(models.Model):
@@ -37,3 +38,36 @@ class Section(JennModel):
 
     def getLink(self):
         return "#"+slugify(self.name)
+
+
+class Education(JennModel):
+    title = models.CharField(max_length=5)
+    graduationYear = models.CharField(max_length=4)
+    name = models.CharField(max_length=50)
+    university = models.CharField(max_length=100)
+
+
+class Position(JennModel):
+    yearStart = models.CharField(max_length=4)
+    yearEnd = models.CharField(max_length=4, blank=True)
+    name = models.CharField(max_length=50)
+    university = models.CharField(max_length=50)
+    faculty = models.CharField(max_length=50)
+
+
+class Award(JennModel):
+    yearStart = models.CharField(max_length=4)
+    title = models.CharField(max_length=15, blank=True)
+    yearEnd = models.CharField(max_length=4, blank=True)
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+
+
+class Teaching(JennModel):
+    yearStart = models.CharField(max_length=4)
+    yearEnd = models.CharField(max_length=4, blank=True)
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+
+    def isActive(self):
+        return self.yearEnd < date.today().year
