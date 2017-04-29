@@ -29,7 +29,7 @@
     <main class="main">
         {% for menuItem in menuItems %}
             <page-content v-show="currentRoute == '{{ menuItem.getLink }}'">
-                {{ menuItem.content }}
+                {{ menuItem.content | safe}}
                 {% if menuItem.name == 'Publications' %}
                     <filtered-list v-show="currentRoute == '#publications'" v-bind:items="publications" v-bind:filteroptions="publicationTypes" filterkey="type" title="Publications"></filtered-list>
                 {% endif %}

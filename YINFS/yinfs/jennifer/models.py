@@ -1,5 +1,6 @@
 from django.db import models
 from slugify import slugify
+from ckeditor.fields import RichTextField
 
 
 class JennModel(models.Model):
@@ -32,7 +33,7 @@ class Publication(JennModel):
 class Section(JennModel):
     name = models.CharField(max_length=30)
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = RichTextField()
 
     def getLink(self):
         return "#"+slugify(self.name)
