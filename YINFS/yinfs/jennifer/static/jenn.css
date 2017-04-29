@@ -9,12 +9,12 @@ body {
 }
 
 .header {
-    margin-left: 580px;
+    margin-left: 30%;
     margin-top: 40px;
 }
 
 .main {
-    margin-left: 580px;
+    margin-left: 30%;
     padding-bottom: 30px;
 }
 
@@ -26,7 +26,7 @@ body {
     justify-content: center;
     position: fixed;
     bottom: 0;
-    line-height: 69px;
+    height: 6%;
     width: 100%;
     vertical-align: middle;
 }
@@ -54,7 +54,13 @@ body {
     position: fixed;
     float: left;
     margin-top: -40px;
-    height: 871px;
+    width: 30%;
+    height: 94%;
+}
+
+.side--picture {
+    width: 100%;
+    height: 100%;
 }
 
 .sideDescription {
