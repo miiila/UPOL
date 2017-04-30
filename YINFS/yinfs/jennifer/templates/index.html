@@ -31,7 +31,13 @@
             <page-content v-show="currentRoute == '{{ menuItem.getLink }}'">
                 {{ menuItem.content | safe}}
                 {% if menuItem.name == 'Publications' %}
-                    <filtered-list v-show="currentRoute == '#publications'" v-bind:items="publications" v-bind:filteroptions="publicationTypes" filterkey="type" title="Publications"></filtered-list>
+                    <filtered-list v-show="currentRoute == '#publications'" :items="publications" :filteroptions="publicationTypes" filterkey="type" title="Publications"></filtered-list>
+                {% elif menuItem.name == 'Teaching'  %}
+                    <teaching :courses="teachingClasses"></teaching>
+                {% elif menuItem.name == 'About Me' %}
+                    <positions :items="positions"></positions>
+                    <education :items="education"></education>
+                    <awards :items="awards"></awards>
                 {% endif %}
             </page-content>
         {% endfor %}
@@ -47,8 +53,10 @@
 <script type="text/javascript" src="{% static 'vue.js' %}"></script>
 <script type="text/javascript" src="{% static 'jenn.js' %}"></script>
 <script type="text/javascript">
+    let publication, teachingClass;
+
     {% for publication in publications %}
-        var publication = {
+        publication = {
             name: "{{ publication }}",
             type: "{{ publication.type }}",
             abstract: "{{ publication.abstract }}",
@@ -62,10 +70,48 @@
         app.publicationTypes.push('{{ type }}');
     {% endfor %}
 
-    {% for education in educations %}
-        app.educations.push('{{ education}}');
+    {% for award in awards %}
+        award = {
+            yearStart: "{{ award.yearStart }}",
+            title: "{{ award.title }}",
+            yearEnd: "{{ award.yearEnd }}",
+            name: "{{ award.name }}",
+            description: "{{ award.description }}",
+        };
+        app.awards.push(award);
     {% endfor %}
 
+    {% for teaching in teachings %}
+        teachingClass = {
+            yearStart: "{{ teaching.yearStart }}",
+            yearEnd: "{{ teaching.yearEnd }}",
+            name: "{{ teaching.name }}",
+            description: "{{ teaching.description }}",
+            active: "{{ teaching.isActive }}" === "True"
+        };
+        app.teachingClasses.push(teachingClass);
+    {% endfor %}
+
+    {% for education in educations %}
+        education = {
+            title: "{{ education.title }}",
+            graduationYear: "{{ education.graduationYear }}",
+            name: "{{ education.name }}",
+            university: "{{ education.university }}"
+        };
+        app.education.push(education);
+    {% endfor %}
+
+  {% for position in positions %}
+        position = {
+            yearStart: "{{ position.yearStart }}",
+            yearEnd: "{{ position.yearEnd }}",
+            name: "{{ position.name }}",
+            university: "{{ position.university }}",
+            faculty: "{{ position.faculty }}",
+        };
+        app.positions.push(position);
+    {% endfor %}
 
 </script>
 </body>
