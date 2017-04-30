@@ -42,32 +42,33 @@ class Section(JennModel):
 
 class Education(JennModel):
     title = models.CharField(max_length=5)
-    graduationYear = models.CharField(max_length=4)
+    graduationYear = models.SmallIntegerField()
     name = models.CharField(max_length=50)
     university = models.CharField(max_length=100)
 
 
 class Position(JennModel):
-    yearStart = models.CharField(max_length=4)
-    yearEnd = models.CharField(max_length=4, blank=True)
+    yearStart = models.SmallIntegerField()
+    yearEnd = models.SmallIntegerField( blank=True)
     name = models.CharField(max_length=50)
     university = models.CharField(max_length=50)
     faculty = models.CharField(max_length=50)
 
 
 class Award(JennModel):
-    yearStart = models.CharField(max_length=4)
+    yearStart = models.SmallIntegerField()
     title = models.CharField(max_length=15, blank=True)
-    yearEnd = models.CharField(max_length=4, blank=True)
+    yearEnd = models.SmallIntegerField(blank=True)
     name = models.CharField(max_length=50)
     description = models.TextField()
 
 
 class Teaching(JennModel):
-    yearStart = models.CharField(max_length=4)
-    yearEnd = models.CharField(max_length=4, blank=True)
+    yearStart = models.SmallIntegerField()
+    yearEnd = models.SmallIntegerField(blank=True)
     name = models.CharField(max_length=50)
     description = models.TextField()
 
     def isActive(self):
-        return self.yearEnd < date.today().year
+        end = self.yearEnd or date.today().year
+        return not(int(date.today().year) > end)
