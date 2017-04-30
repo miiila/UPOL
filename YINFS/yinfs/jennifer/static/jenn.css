@@ -124,3 +124,45 @@ body {
 .filter__content {
     margin-top: 20px;
 }
+
+.timeline {
+    margin-top: 2em;
+}
+
+.timeline__title {
+    font-size: x-large;
+}
+
+.timeline__period {
+    font-weight: bold;
+    font-size: large;
+    vertical-align: middle;
+    border-right: solid 2px black;
+    padding-right: 10px;
+    text-align: right;
+    min-width: 130px;
+}
+
+.timeline__period--passsive {
+    font-weight: normal;
+}
+
+.timeline__details {
+    cursor: pointer;
+}
+
+.timeline__details--hidden:after {
+    content: ' ▾';
+}
+
+.timeline__details--shown:after {
+    content: ' ▴';
+}
+
+.positions__name {
+    padding-left: 10px;
+}
+
+.positions__location, .teaching__details {
+    color: rgba(0,0,0,0.4);
+}
