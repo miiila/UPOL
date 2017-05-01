@@ -123,6 +123,33 @@ body {
 
 .filter__content {
     margin-top: 20px;
+    width: 70%;
+}
+
+.filter__item {
+    visibility: hidden;
+    padding: 0 10px;
+}
+
+.filter__item--selected {
+    cursor: pointer;
+    visibility: visible;
+}
+
+.filter__item--selected:after {
+    content: '▾';
+    margin-left: 1em;
+    color: #9bd3ac;
+}
+
+.filter__item--shown {
+    cursor: pointer;
+    visibility: visible;
+}
+
+.filter__item--shown:hover {
+    background-color: #9bd3ac;
+    color: white;
 }
 
 .timeline {

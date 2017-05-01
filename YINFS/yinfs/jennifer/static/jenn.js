@@ -38,15 +38,23 @@ Vue.component('filter-item', {
 
 Vue.component('filter-inputs', {
     props: ['items'] ,
-    data() {return {selected: allTypes}},
+    data() {return {
+        selected: allTypes,
+        opened: false
+    }},
     methods: {
-        change() {this.$emit('update', this.selected)}
+        update(item) {
+            this.selected=item;
+            this.opened=false;
+            this.$emit('update', this.selected)
+        }
     },
-    template: `<select class="filter__select" v-model="selected" @change="change()">
+    template: `<div class="filter__select">
+                    <div class="filter__item filter__item--selected" @click="opened=!opened">{{ this.selected }}</div>
                     <template v-for="item in items">
-                            <option :value="item">{{item}}</option>
+                            <div :class="{'filter__item--shown': opened, 'filter__item': true}" @click="update(item)">{{item}}</div>
                     </template>
-               </select>`
+               </div>`
 });
 
 Vue.component('teaching', {
@@ -62,8 +70,7 @@ Vue.component('teaching', {
                 <span class="timeline__title">Current teaching</span>
                 <hr>
                 <table>
-                    <teaching-details v-for="item in activeCourses" :item="item"> 
-                    </teaching-details>
+                    <timeline-name-with-details v-for="item in activeCourses" :item="item"></timeline-name-with-details>
                 </table>
             </div>
             <div class="timeline">
