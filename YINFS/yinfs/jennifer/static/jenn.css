@@ -1,7 +1,7 @@
 body {
     margin: auto;
     font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-size: large;
 }
 
 .app {
@@ -10,12 +10,12 @@ body {
 
 .header {
     margin-left: 30%;
-    margin-top: 40px;
+    margin-top: 3rem;
 }
 
 .main {
     margin-left: 30%;
-    padding-bottom: 30px;
+    padding-bottom: 3rem;
 }
 
 .footer {
@@ -32,12 +32,12 @@ body {
 }
 
 .footer--item {
-    margin: auto 50px;
+    margin: auto 3em;
     color: #f7f7f7;
 }
 
 .fa {
-    font-size: 25px !important;
+    font-size: larger !important;
 }
 
 .footer--item:hover {
@@ -45,7 +45,7 @@ body {
 }
 
 .section--text {
-    margin: 50px 120px;
+    margin: 3rem 5rem;
     line-height: 1.5;
     text-align: justify;
 }
@@ -53,7 +53,7 @@ body {
 .side {
     position: fixed;
     float: left;
-    margin-top: -40px;
+    margin-top: -3rem;
     width: 30%;
     height: 94%;
 }
@@ -73,11 +73,11 @@ body {
 
 .sideDescription__text {
     text-align: right;
-    margin-right: 20px;
+    margin-right: 1rem;
 }
 
 .sideDescription__text--headline {
-    font-size: 20px;
+    font-size: large;
     font-weight: bold;
 }
 
@@ -85,17 +85,17 @@ body {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    line-height: 50px;
+    line-height: 3rem;
 }
 
 .nav--item {
     cursor: pointer;
     background: #2a2a2a;
     color: #f7f7f7;
-    padding: 10px;
+    padding: 0.5rem;
     flex: 1;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     text-decoration: none;
 }
 
@@ -109,51 +109,50 @@ body {
 }
 
 .filter {
-    margin-top: 50px;
+    margin-top: 2rem;
 }
 
 .filter__title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: x-large;
 }
 
 .filter__select {
     float: right;
+    width: 20%;
+    background-color: #fff;
 }
 
 .filter__content {
-    margin-top: 20px;
-    width: 70%;
+    margin-top: 1.5rem;
 }
 
 .filter__item {
-    visibility: hidden;
-    padding: 0 10px;
+    display: none;
+    padding: 0 1rem;
 }
 
 .filter__item--selected {
     cursor: pointer;
-    visibility: visible;
+    display: block;
+    border: solid 1px #2a2a2a;
 }
 
-.filter__item--selected:after {
-    content: '▾';
-    margin-left: 1em;
-    color: #9bd3ac;
+.filter__caret {
+    color: #2a2a2a;
+    float: right;
 }
 
 .filter__item--shown {
     cursor: pointer;
-    visibility: visible;
+    display: block;
 }
 
 .filter__item--shown:hover {
-    background-color: #9bd3ac;
-    color: white;
+    color: #9bd3ac;
 }
 
 .timeline {
-    margin-top: 2em;
+    margin-top: 2rem;
 }
 
 .timeline__title {
@@ -165,9 +164,9 @@ body {
     font-size: large;
     vertical-align: middle;
     border-right: solid 2px black;
-    padding-right: 10px;
+    padding-right: 0.7rem;
     text-align: right;
-    min-width: 130px;
+    min-width: 9rem;
 }
 
 .timeline__period--passsive {
