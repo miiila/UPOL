@@ -178,17 +178,43 @@ body {
 }
 
 .timeline__details--hidden:after {
-    content: ' ▾';
+    content: '▾';
+    margin-left: 0.5rem;
 }
 
 .timeline__details--shown:after {
-    content: ' ▴';
+    content: '▴';
+    margin-left: 0.5rem;
 }
 
 .positions__name {
-    padding-left: 10px;
+    padding-left: 0.7rem;
 }
 
 .positions__location, .teaching__details {
     color: rgba(0,0,0,0.4);
+}
+
+.publication {
+    list-style: none;
+    padding: 0.7rem 0;
+    border-bottom: solid 1px rgba(0,0,0,0.4);
+}
+
+.publication__name {
+    text-align: justify;
+    text-justify: distribute;
+}
+
+.publication__authors {
+    color: rgba(0,0,0,0.4);
+}
+
+.publication__type {
+    color: rgba(0,0,0,0.4);
+    float: right;
+}
+
+.publication__abstract {
+    margin-top: 0.5rem;
 }
