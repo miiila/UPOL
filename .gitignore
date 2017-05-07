@@ -4,4 +4,3 @@
 *.xfasl
 .idea
 *.pyc
-*.sqlite*
